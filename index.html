@@ -3,1163 +3,767 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Alphabet Warriors!</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --pink: #ff6eb4;
-      --yellow: #ffd93d;
-      --purple: #a855f7;
-      --green: #22c55e;
-      --blue: #3b82f6;
-      --orange: #f97316;
-      --red: #ef4444;
-      --teal: #14b8a6;
-      --bg: #fff8fe;
+
+    /* ── RESET ── */
+    *, *::before, *::after {
+      box-sizing: border-box; margin: 0; padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-    html, body {
-      height: 100%;
-      overflow: hidden;
+    html {
+      position: fixed; width: 100%; height: 100%; overflow: hidden;
     }
-
     body {
+      width: 100%; height: 100%; overflow: hidden;
       font-family: 'Nunito', sans-serif;
-      background: var(--bg);
+      background: #fff8fe;
       background-image:
-        radial-gradient(circle at 15% 15%, rgba(255,110,180,0.18) 0%, transparent 45%),
-        radial-gradient(circle at 85% 85%, rgba(168,85,247,0.18) 0%, transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(255,217,61,0.1) 0%, transparent 60%);
+        radial-gradient(circle at 15% 15%, rgba(255,110,180,.18) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(168,85,247,.18) 0%, transparent 45%);
+      touch-action: none;
     }
 
-    /* ===== SCREENS ===== */
+    /* ── SCREENS ── */
     .screen {
-      display: none;
-      position: fixed;
-      inset: 0;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 16px;
+      display: none; position: fixed; inset: 0;
+      width: 100%; height: 100%;
+      flex-direction: column; align-items: center; justify-content: center;
+      padding: env(safe-area-inset-top, 16px) env(safe-area-inset-right, 16px)
+               env(safe-area-inset-bottom, 16px) env(safe-area-inset-left, 16px);
     }
     .screen.active { display: flex; }
 
-    /* ===== FLOATING DECO ===== */
-    .deco-layer {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-    .deco {
-      position: absolute;
-      font-size: clamp(32px, 6vw, 64px);
-      animation: deco-float 4s ease-in-out infinite;
-      opacity: 0.6;
-    }
-    .deco:nth-child(1) { top: 3%; left: 3%; animation-delay: 0s; }
-    .deco:nth-child(2) { top: 5%; right: 5%; animation-delay: 0.7s; }
-    .deco:nth-child(3) { bottom: 8%; left: 5%; animation-delay: 1.4s; }
-    .deco:nth-child(4) { bottom: 5%; right: 4%; animation-delay: 2.1s; }
-    .deco:nth-child(5) { top: 42%; left: 1%; animation-delay: 1.0s; font-size: clamp(24px, 4vw, 44px); }
-    .deco:nth-child(6) { top: 38%; right: 1%; animation-delay: 1.7s; font-size: clamp(24px, 4vw, 44px); }
 
-    @keyframes deco-float {
-      0%, 100% { transform: translateY(0) rotate(-5deg) scale(1); }
-      50% { transform: translateY(-14px) rotate(8deg) scale(1.12); }
-    }
-
-    /* ===== HOME SCREEN ===== */
-    #home-screen { z-index: 1; }
-
+    /* ══════════════════════════════════════════
+       HOME SCREEN
+    ══════════════════════════════════════════ */
     .home-card {
-      background: white;
-      border-radius: clamp(24px, 5vw, 44px);
-      padding: clamp(28px, 5vh, 52px) clamp(24px, 6vw, 64px);
-      box-shadow: 0 20px 60px rgba(255,110,180,0.25), 0 0 0 6px rgba(255,110,180,0.08);
+      background: #fff;
+      border-radius: 36px;
+      padding: clamp(28px, 5vh, 52px) clamp(28px, 6vw, 64px);
+      box-shadow: 0 20px 60px rgba(255,110,180,.22), 0 0 0 5px rgba(255,110,180,.07);
       text-align: center;
-      max-width: 500px;
-      width: 100%;
-      position: relative;
-      z-index: 1;
+      width: min(520px, calc(100vw - 32px));
     }
 
-    .game-logo {
+    .logo {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(44px, 10vw, 76px);
-      line-height: 1;
+      font-size: clamp(48px, 10vw, 80px);
+      line-height: 1.05;
       background: linear-gradient(135deg, #ff6eb4, #a855f7, #3b82f6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       margin-bottom: 4px;
-      filter: drop-shadow(0 4px 8px rgba(255,110,180,0.3));
+    }
+    .logo-sub {
+      font-size: clamp(16px, 3vw, 22px);
+      color: #bbb; font-weight: 800;
+      margin-bottom: clamp(20px, 3vh, 32px);
     }
 
-    .game-subtitle {
-      font-size: clamp(14px, 3vw, 22px);
-      color: #aaa;
-      margin-bottom: clamp(20px, 3vh, 36px);
-      font-weight: 800;
-    }
-
-    .letter-showcase {
-      display: flex;
-      gap: clamp(8px, 2vw, 14px);
+    .tile-row {
+      display: flex; gap: clamp(8px, 2vw, 14px);
       justify-content: center;
-      margin-bottom: clamp(20px, 3vh, 36px);
+      margin-bottom: clamp(20px, 3vh, 32px);
     }
-
-    .showcase-tile {
-      width: clamp(48px, 10vw, 68px);
-      height: clamp(48px, 10vw, 68px);
-      border-radius: clamp(12px, 2vw, 20px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .mini-tile {
+      width: clamp(48px, 10vw, 68px); height: clamp(48px, 10vw, 68px);
+      border-radius: clamp(12px, 2.5vw, 18px);
+      display: flex; align-items: center; justify-content: center;
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(26px, 5vw, 38px);
-      color: white;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-      animation: tile-float 3s ease-in-out infinite;
+      font-size: clamp(26px, 5.5vw, 38px); color: #fff;
+      animation: bob 2.8s ease-in-out infinite;
     }
-    .showcase-tile:nth-child(1) { background: #ef4444; animation-delay: 0s; }
-    .showcase-tile:nth-child(2) { background: #f97316; animation-delay: 0.2s; }
-    .showcase-tile:nth-child(3) { background: #eab308; animation-delay: 0.4s; }
-    .showcase-tile:nth-child(4) { background: #22c55e; animation-delay: 0.6s; }
-    .showcase-tile:nth-child(5) { background: #3b82f6; animation-delay: 0.8s; }
+    .mini-tile:nth-child(1){background:#ef4444;animation-delay:0s}
+    .mini-tile:nth-child(2){background:#f97316;animation-delay:.15s}
+    .mini-tile:nth-child(3){background:#eab308;animation-delay:.3s}
+    .mini-tile:nth-child(4){background:#22c55e;animation-delay:.45s}
+    .mini-tile:nth-child(5){background:#3b82f6;animation-delay:.6s}
+    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 
-    @keyframes tile-float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+    .menu-stack { display: flex; flex-direction: column; gap: clamp(10px, 2vh, 16px); }
 
-    .menu-buttons { display: flex; flex-direction: column; gap: clamp(10px, 2vh, 16px); }
-
+    /* ── BUTTONS ── */
     .btn {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(20px, 4vw, 28px);
+      font-size: clamp(20px, 3.5vw, 28px);
       border: none;
       border-radius: clamp(14px, 3vw, 22px);
-      padding: clamp(14px, 2.5vh, 20px) clamp(24px, 5vw, 40px);
+      padding: clamp(14px, 2.5vh, 20px) clamp(22px, 4vw, 36px);
       cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      white-space: nowrap;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: transform .13s, box-shadow .13s;
+      white-space: nowrap; width: 100%;
     }
-    .btn:hover { transform: scale(1.06) translateY(-2px); }
-    .btn:active { transform: scale(0.96); }
+    .btn:hover  { transform: scale(1.04) translateY(-2px); }
+    .btn:active { transform: scale(0.95); }
 
-    .btn-play {
-      background: linear-gradient(135deg, #ff6eb4, #f97316);
-      color: white;
-      box-shadow: 0 8px 24px rgba(255,110,180,0.45);
-      font-size: clamp(22px, 5vw, 32px);
-      padding: clamp(16px, 3vh, 24px) clamp(28px, 6vw, 44px);
-    }
-    .btn-how { background: linear-gradient(135deg, #a855f7, #3b82f6); color: white; box-shadow: 0 8px 24px rgba(168,85,247,0.35); }
-    .btn-sound-toggle { background: linear-gradient(135deg, #14b8a6, #22c55e); color: white; box-shadow: 0 8px 24px rgba(20,184,166,0.35); font-size: clamp(16px, 3vw, 22px); }
-    .btn-back { background: linear-gradient(135deg, #ff6eb4, #a855f7); color: white; box-shadow: 0 8px 24px rgba(255,110,180,0.35); margin-top: 20px; }
-    .btn-next { background: linear-gradient(135deg, #22c55e, #14b8a6); color: white; box-shadow: 0 8px 24px rgba(34,197,94,0.45); font-size: clamp(20px, 4vw, 28px); padding: clamp(14px, 2.5vh, 20px) 28px; width: 100%; }
-    .btn-finish { background: linear-gradient(135deg, #ff6eb4, #a855f7); color: white; box-shadow: 0 8px 24px rgba(255,110,180,0.45); font-size: clamp(20px, 4vw, 28px); padding: clamp(14px, 2.5vh, 20px) 28px; width: 100%; }
+    .btn-play  { background: linear-gradient(135deg,#ff6eb4,#f97316); color:#fff; box-shadow: 0 8px 24px rgba(255,110,180,.4); font-size: clamp(22px,4vw,32px); }
+    .btn-how   { background: linear-gradient(135deg,#a855f7,#3b82f6); color:#fff; box-shadow: 0 8px 24px rgba(168,85,247,.35); }
+    .btn-sound { background: linear-gradient(135deg,#14b8a6,#22c55e); color:#fff; box-shadow: 0 8px 24px rgba(20,184,166,.3); }
+    .btn-back  { background: linear-gradient(135deg,#ff6eb4,#a855f7); color:#fff; box-shadow: 0 8px 24px rgba(255,110,180,.35); margin-top: 18px; }
+    .btn-green { background: linear-gradient(135deg,#22c55e,#14b8a6); color:#fff; box-shadow: 0 8px 24px rgba(34,197,94,.4); }
+    .btn-pink  { background: linear-gradient(135deg,#ff6eb4,#a855f7); color:#fff; box-shadow: 0 8px 24px rgba(255,110,180,.4); }
 
-    /* ===== HOW SCREEN ===== */
-    #how-screen { z-index: 1; }
+
+    /* ══════════════════════════════════════════
+       HOW TO PLAY SCREEN
+    ══════════════════════════════════════════ */
     .how-card {
-      background: white;
-      border-radius: clamp(24px, 5vw, 40px);
-      padding: clamp(28px, 4vh, 50px) clamp(20px, 5vw, 48px);
-      max-width: 520px;
-      width: 100%;
-      box-shadow: 0 20px 60px rgba(168,85,247,0.2);
-      text-align: center;
-      max-height: calc(100vh - 32px);
-      overflow-y: auto;
+      background: #fff; border-radius: 36px;
+      padding: clamp(28px, 4vh, 52px) clamp(24px, 5vw, 52px);
+      width: min(540px, calc(100vw - 32px));
+      max-height: calc(100vh - 40px); overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(168,85,247,.2); text-align: center;
     }
-    .how-title { font-family: 'Fredoka One', cursive; font-size: clamp(36px, 8vw, 52px); color: #a855f7; margin-bottom: 24px; }
+    .how-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(34px, 7vw, 52px); color: #a855f7; margin-bottom: 22px;
+    }
     .how-step {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      text-align: left;
-      padding: clamp(12px, 2vh, 18px) clamp(14px, 3vw, 20px);
-      background: #faf5ff;
-      border-radius: 18px;
-      margin-bottom: 12px;
-      border: 3px solid #e9d5ff;
+      display: flex; align-items: center; gap: 16px; text-align: left;
+      background: #faf5ff; border: 2px solid #e9d5ff;
+      border-radius: 18px; padding: 14px 18px; margin-bottom: 11px;
     }
-    .how-step-icon { font-size: clamp(30px, 6vw, 44px); flex-shrink: 0; }
-    .how-step-text { font-size: clamp(14px, 2.5vw, 18px); font-weight: 700; color: #5b21b6; line-height: 1.4; }
+    .how-icon { font-size: clamp(28px, 5.5vw, 40px); flex-shrink: 0; }
+    .how-text { font-size: clamp(14px, 2.5vw, 18px); font-weight: 700; color: #5b21b6; line-height: 1.4; }
 
-    /* ===== GAME SCREEN ===== */
+
+    /* ══════════════════════════════════════════
+       GAME SCREEN
+       Strategy: everything lives inside a single
+       centered card. The two tile rows are stacked
+       close together — maximum drag = one tile height.
+       The card is never taller than the screen.
+    ══════════════════════════════════════════ */
     #game-screen {
-      z-index: 1;
-      justify-content: flex-start;
-      padding-top: 0;
-      padding: 0;
+      gap: clamp(14px, 2.5vh, 24px);
+      padding: max(16px, env(safe-area-inset-top))
+               max(16px, env(safe-area-inset-right))
+               max(16px, env(safe-area-inset-bottom))
+               max(16px, env(safe-area-inset-left));
     }
 
-    .game-wrapper {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      height: 100%;
-      max-width: 700px;
-      margin: 0 auto;
-      padding: clamp(10px, 2vw, 20px);
-      gap: clamp(8px, 1.5vh, 16px);
-      justify-content: space-between;
-    }
-
-    /* Header */
-    .game-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    /* ── Top bar (title + round) ── */
+    .g-topbar {
+      display: flex; align-items: center; justify-content: center;
+      gap: clamp(12px, 3vw, 24px);
+      width: 100%; max-width: 700px;
       flex-shrink: 0;
     }
+    .home-btn {
+      background: #fff; border: 3px solid #ffd6ec; border-radius: 50%;
+      width: clamp(48px, 8vw, 64px); height: clamp(48px, 8vw, 64px);
+      font-size: clamp(22px, 4vw, 32px);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0,0,0,.1);
+      transition: transform .13s, box-shadow .13s;
+    }
+    .home-btn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(255,110,180,.3); }
 
-    .game-title-bar {
+    .g-title {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(20px, 4vw, 30px);
-      background: linear-gradient(135deg, #ff6eb4, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-size: clamp(22px, 4.5vw, 38px);
+      background: linear-gradient(135deg,#ff6eb4,#a855f7);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      text-align: center; flex: 1;
     }
 
-    .round-badge {
-      background: linear-gradient(135deg, #a855f7, #3b82f6);
-      color: white;
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(14px, 2.5vw, 20px);
-      padding: 6px 16px;
-      border-radius: 30px;
-      box-shadow: 0 4px 12px rgba(168,85,247,0.4);
+    .round-pill {
+      background: linear-gradient(135deg,#a855f7,#3b82f6);
+      color: #fff; font-family: 'Fredoka One', cursive;
+      font-size: clamp(16px, 3vw, 24px);
+      padding: clamp(8px,1.2vh,12px) clamp(16px,2.5vw,28px);
+      border-radius: 40px;
+      box-shadow: 0 4px 14px rgba(168,85,247,.4);
+      white-space: nowrap; flex-shrink: 0;
     }
 
-    .btn-home-icon {
-      background: white;
-      border: 3px solid #ffd6ec;
-      border-radius: 50%;
-      width: clamp(40px, 8vw, 52px);
-      height: clamp(40px, 8vw, 52px);
-      font-size: clamp(16px, 3.5vw, 22px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    /* ── Stars ── */
+    .stars-row {
+      display: flex; justify-content: center;
+      gap: clamp(8px, 2vw, 18px);
       flex-shrink: 0;
     }
-    .btn-home-icon:hover { transform: scale(1.1); }
-
-    /* Score/Streak Bar */
-    .score-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      flex-shrink: 0;
+    .star {
+      font-size: clamp(28px, 5.5vw, 48px);
+      filter: grayscale(1); opacity: .2;
+      transition: filter .3s, opacity .3s;
     }
-
-    .score-pill {
-      background: white;
-      border-radius: 30px;
-      padding: 6px 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(16px, 3vw, 22px);
-    }
-    .score-val { color: #ff6eb4; }
-    .streak-val { color: #f97316; }
-
-    /* Stars */
-    .stars-bar {
-      display: flex;
-      gap: clamp(6px, 1.5vw, 12px);
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .star-item {
-      font-size: clamp(24px, 5vw, 42px);
-      opacity: 0.2;
-      filter: grayscale(1);
-      transition: all 0.4s;
-    }
-    .star-item.lit {
-      opacity: 1;
-      filter: none;
-      animation: star-pop 0.5s cubic-bezier(.36,.07,.19,.97);
+    .star.lit {
+      filter: none; opacity: 1;
+      animation: star-pop .45s cubic-bezier(.36,.07,.19,.97);
     }
     @keyframes star-pop {
-      0% { transform: scale(0); }
-      60% { transform: scale(1.5) rotate(20deg); }
-      100% { transform: scale(1) rotate(0); }
+      0%  { transform: scale(0) rotate(-20deg); }
+      60% { transform: scale(1.5) rotate(10deg); }
+      100%{ transform: scale(1) rotate(0); }
     }
 
-    /* Section labels */
-    .game-zone-label {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(12px, 2.5vw, 18px);
-      color: #bbb;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    /* Drop zones section */
-    .drop-section, .drag-section {
-      display: flex;
-      flex-direction: column;
+    /* ── THE PLAY CARD ─────────────────────────
+       Both tile rows live here, close together.
+       Gap between the two rows is fixed and small.
+    ──────────────────────────────────────────── */
+    .play-card {
+      background: #fff;
+      border-radius: clamp(24px, 4vw, 40px);
+      padding: clamp(16px, 3.5vh, 36px) clamp(10px, 3vw, 36px);
+      box-shadow: 0 16px 56px rgba(168,85,247,.15), 0 0 0 4px rgba(168,85,247,.07);
+      display: flex; flex-direction: column;
       align-items: center;
-      gap: clamp(6px, 1vh, 12px);
+      gap: 0;                /* controlled per section below */
+      width: min(680px, calc(100vw - 32px));
       flex-shrink: 0;
     }
 
-    .drop-row, .drag-row {
-      display: flex;
-      gap: clamp(8px, 2vw, 16px);
-      justify-content: center;
-      flex-wrap: nowrap;
+    .zone-lbl {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(12px, 2vw, 18px);
+      color: #ccc; text-transform: uppercase; letter-spacing: 3px;
+      margin-bottom: clamp(8px, 1.2vh, 14px);
+      align-self: center;
+    }
+
+    .tile-grid {
+      display: flex; justify-content: center;
+      gap: var(--tg, 12px);
+    }
+
+    /* Divider between the two rows */
+    .row-divider {
       width: 100%;
-    }
-
-    /* Tile sizing — fills available width */
-    .tile-size {
-      width: clamp(52px, calc((100vw - 80px) / 5 - 16px), 120px);
-      height: clamp(52px, calc((100vw - 80px) / 5 - 16px), 120px);
-      flex-shrink: 0;
-    }
-
-    .drop-zone {
-      border-radius: clamp(14px, 3vw, 28px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px;
+      margin: clamp(14px, 2.5vh, 26px) 0;
+      color: #e0d4f7;
+      font-size: clamp(20px, 3.5vw, 30px);
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(28px, 6vw, 58px);
-      color: white;
+    }
+    .row-divider::before,
+    .row-divider::after {
+      content: '';
+      flex: 1; height: 2px;
+      background: linear-gradient(90deg, transparent, #e9d5ff, transparent);
+      border-radius: 2px;
+    }
+
+    /* ── TILES ── */
+    /* Size is set via JS → CSS vars: --ts --tf --tr --tg */
+    .drop-zone {
+      width: var(--ts, 90px); height: var(--ts, 90px);
+      border-radius: var(--tr, 22px);
+      font-size: var(--tf, 46px);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Fredoka One', cursive; color: #fff;
+      position: relative; user-select: none; flex-shrink: 0;
+      box-shadow: 0 6px 20px rgba(0,0,0,.14), inset 0 -4px 0 rgba(0,0,0,.12);
+      transition: transform .18s, box-shadow .18s;
       cursor: default;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-      position: relative;
-      user-select: none;
     }
-
-    .drop-zone.highlight {
-      transform: scale(1.15);
-      box-shadow: 0 0 0 5px white, 0 0 30px rgba(255,255,255,0.9), 0 12px 30px rgba(0,0,0,0.2);
+    .drop-zone.over {
+      transform: scale(1.13);
+      box-shadow: 0 0 0 5px #fff, 0 0 26px rgba(255,255,255,.85), 0 10px 26px rgba(0,0,0,.2);
     }
-    .drop-zone.matched { animation: matched-bounce 0.6s cubic-bezier(.36,.07,.19,.97); }
-    .drop-zone.wrong-shake { animation: shake 0.5s; }
+    .drop-zone.matched { animation: match-pop .52s cubic-bezier(.36,.07,.19,.97); }
+    .drop-zone.wrong   { animation: shake .38s ease-in-out; }
 
-    @keyframes matched-bounce {
-      0% { transform: scale(1); }
-      30% { transform: scale(1.3) rotate(-6deg); }
-      60% { transform: scale(0.95) rotate(3deg); }
-      100% { transform: scale(1) rotate(0); }
+    @keyframes match-pop {
+      0%  { transform: scale(1); }
+      35% { transform: scale(1.28) rotate(-6deg); }
+      65% { transform: scale(.95) rotate(3deg); }
+      100%{ transform: scale(1) rotate(0); }
     }
     @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-12px) rotate(-5deg); }
-      40% { transform: translateX(12px) rotate(5deg); }
-      60% { transform: translateX(-8px); }
-      80% { transform: translateX(8px); }
+      0%,100%{ transform: translateX(0); }
+      20%    { transform: translateX(-10px) rotate(-4deg); }
+      40%    { transform: translateX(10px) rotate(4deg); }
+      60%    { transform: translateX(-6px); }
+      80%    { transform: translateX(6px); }
     }
 
-    .check-badge {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      background: #22c55e;
-      color: white;
-      font-size: clamp(14px, 3vw, 20px);
-      width: clamp(24px, 5vw, 36px);
-      height: clamp(24px, 5vw, 36px);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(34,197,94,0.5);
-      animation: pop-in 0.3s cubic-bezier(.36,.07,.19,.97);
-    }
-    @keyframes pop-in {
-      0% { transform: scale(0); }
-      70% { transform: scale(1.4); }
-      100% { transform: scale(1); }
-    }
-
-    /* Arrow between zones */
-    .match-arrow {
-      font-size: clamp(28px, 5vw, 52px);
-      animation: arrow-pulse 1.2s ease-in-out infinite;
-      text-align: center;
-      flex-shrink: 0;
-      line-height: 1;
-    }
-    @keyframes arrow-pulse {
-      0%, 100% { transform: scale(1); opacity: 0.7; }
-      50% { transform: scale(1.2); opacity: 1; }
-    }
-
-    /* Drag items */
-    .letter-card {
-      border-radius: clamp(14px, 3vw, 28px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(28px, 6vw, 58px);
-      color: white;
-      cursor: grab;
-      transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15), inset 0 -4px 0 rgba(0,0,0,0.15);
-      user-select: none;
-      touch-action: none;
-      border: 4px solid rgba(255,255,255,0.4);
-      position: relative;
-    }
-    .letter-card:hover {
-      transform: scale(1.1) translateY(-5px) rotate(-3deg);
-      box-shadow: 0 16px 36px rgba(0,0,0,0.22);
-    }
-    .letter-card.dragging {
-      transform: scale(1.18) rotate(6deg);
-      box-shadow: 0 24px 56px rgba(0,0,0,0.3);
-      cursor: grabbing;
-      z-index: 1000;
-    }
-    .letter-card.used {
-      opacity: 0;
-      pointer-events: none;
-      transform: scale(0) rotate(20deg);
-    }
-
-    /* Hint pulse on letter cards */
-    .letter-card.hint-pulse {
-      animation: hint-glow 0.8s ease-in-out 3;
-    }
-    @keyframes hint-glow {
-      0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,0.15), inset 0 -4px 0 rgba(0,0,0,0.15); }
-      50% { box-shadow: 0 0 0 6px white, 0 0 28px rgba(255,217,61,0.8), 0 8px 24px rgba(0,0,0,0.15), inset 0 -4px 0 rgba(0,0,0,0.15); }
-    }
-
-    /* Game bottom controls */
-    .game-bottom {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .btn-icon {
-      background: white;
-      border: 3px solid #ffd6ec;
-      border-radius: 50%;
-      width: clamp(44px, 9vw, 58px);
-      height: clamp(44px, 9vw, 58px);
-      font-size: clamp(18px, 3.5vw, 24px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    }
-    .btn-icon:hover { transform: scale(1.12); box-shadow: 0 6px 20px rgba(255,110,180,0.3); }
-    .btn-refresh:hover { transform: rotate(30deg) scale(1.12); }
-
-    /* Hint button with counter */
-    .hint-btn-wrap { position: relative; }
-    .hint-counter {
-      position: absolute;
-      top: -6px; right: -6px;
-      background: #ff6eb4;
-      color: white;
-      font-family: 'Fredoka One', cursive;
-      font-size: 13px;
-      width: 22px; height: 22px;
+    .check {
+      position: absolute; top: -9px; right: -9px;
+      background: #22c55e; color: #fff;
+      font-size: clamp(13px, 2.2vw, 20px);
+      width: clamp(24px, 4.5vw, 36px); height: clamp(24px, 4.5vw, 36px);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 6px rgba(255,110,180,0.5);
+      box-shadow: 0 3px 10px rgba(34,197,94,.55);
+      animation: pop-in .26s cubic-bezier(.36,.07,.19,.97);
+    }
+    @keyframes pop-in { 0%{transform:scale(0)} 70%{transform:scale(1.35)} 100%{transform:scale(1)} }
+
+    .letter-card {
+      width: var(--ts, 90px); height: var(--ts, 90px);
+      border-radius: var(--tr, 22px);
+      font-size: var(--tf, 46px);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Fredoka One', cursive; color: #fff;
+      cursor: grab; user-select: none; touch-action: none;
+      border: 3px solid rgba(255,255,255,.4);
+      box-shadow: 0 6px 20px rgba(0,0,0,.14), inset 0 -4px 0 rgba(0,0,0,.12);
+      transition: transform .15s, box-shadow .15s, opacity .22s;
+      flex-shrink: 0;
+    }
+    .letter-card:hover {
+      transform: scale(1.1) translateY(-5px) rotate(-2deg);
+      box-shadow: 0 14px 30px rgba(0,0,0,.2);
+      cursor: grab;
+    }
+    .letter-card.dragging { opacity: .3; transform: scale(.88); }
+    .letter-card.gone {
+      opacity: 0; transform: scale(0) rotate(15deg);
+      pointer-events: none; transition: transform .22s, opacity .18s;
     }
 
-    /* ===== FLOATING LETTER POPUP ===== */
-    .letter-popup {
-      position: fixed;
-      pointer-events: none;
-      z-index: 9000;
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(60px, 18vw, 140px);
-      color: white;
-      text-shadow: 0 8px 30px rgba(0,0,0,0.2);
-      animation: letter-popup-anim 0.9s cubic-bezier(.36,.07,.19,.97) forwards;
-      transform-origin: center center;
+    /* ── Refresh button below the card ── */
+    .g-refresh {
+      flex-shrink: 0;
     }
-    @keyframes letter-popup-anim {
-      0% { opacity: 0; transform: scale(0.2) rotate(-15deg); }
-      40% { opacity: 1; transform: scale(1.3) rotate(5deg); }
-      70% { opacity: 1; transform: scale(1.1) rotate(-2deg); }
-      100% { opacity: 0; transform: scale(0.8) translateY(-40px); }
+    .refresh-btn {
+      background: #fff; border: 3px solid #ffd6ec; border-radius: 50%;
+      width: clamp(48px, 8vw, 64px); height: clamp(48px, 8vw, 64px);
+      font-size: clamp(22px, 4vw, 30px);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,.1);
+      transition: transform .15s, box-shadow .15s;
     }
+    .refresh-btn:hover { transform: rotate(30deg) scale(1.1); box-shadow: 0 6px 20px rgba(255,110,180,.3); }
 
-    /* ===== SUCCESS OVERLAY ===== */
+
+    /* ══════════════════════════════════════════
+       SUCCESS OVERLAY
+    ══════════════════════════════════════════ */
     #success-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      padding: 20px;
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.55); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center;
+      z-index: 100; padding: 20px;
     }
     #success-overlay.active { display: flex; }
 
     .success-card {
-      background: white;
-      border-radius: clamp(24px, 5vw, 44px);
-      padding: clamp(32px, 5vh, 56px) clamp(28px, 6vw, 64px);
-      text-align: center;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
-      animation: success-pop 0.6s cubic-bezier(.36,.07,.19,.97);
+      background: #fff; border-radius: 38px;
+      padding: clamp(30px, 5vh, 56px) clamp(28px, 6vw, 64px);
+      text-align: center; width: min(420px, 100%);
+      box-shadow: 0 28px 72px rgba(0,0,0,.3);
+      animation: card-in .52s cubic-bezier(.36,.07,.19,.97);
     }
-    @keyframes success-pop {
-      0% { transform: scale(0.3) rotate(-12deg); opacity: 0; }
-      60% { transform: scale(1.06) rotate(2deg); opacity: 1; }
-      100% { transform: scale(1) rotate(0); }
+    @keyframes card-in {
+      0%  { transform: scale(.3) rotate(-10deg); opacity: 0; }
+      60% { transform: scale(1.05) rotate(2deg); opacity: 1; }
+      100%{ transform: scale(1) rotate(0); }
     }
-
-    .success-emoji { font-size: clamp(60px, 14vw, 100px); display: block; margin-bottom: 6px; animation: wobble 1.2s ease-in-out infinite; }
-    @keyframes wobble {
-      0%, 100% { transform: rotate(-6deg) scale(1); }
-      50% { transform: rotate(8deg) scale(1.1); }
-    }
-    .success-stars { font-size: clamp(32px, 8vw, 56px); margin-bottom: 10px; }
-    .success-title {
+    .s-emoji { font-size: clamp(60px, 13vw, 96px); display: block; margin-bottom: 6px; animation: wobble 1.2s ease-in-out infinite; }
+    @keyframes wobble { 0%,100%{transform:rotate(-6deg) scale(1)} 50%{transform:rotate(7deg) scale(1.08)} }
+    .s-stars { font-size: clamp(30px, 7vw, 50px); margin-bottom: 10px; display: flex; justify-content: center; align-items: center; gap: 6px; width: 100%; }
+    .s-title {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(36px, 9vw, 56px);
-      background: linear-gradient(135deg, #ff6eb4, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 6px;
+      font-size: clamp(34px, 8vw, 54px);
+      background: linear-gradient(135deg,#ff6eb4,#a855f7);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 5px;
     }
-    .success-round { font-size: clamp(14px, 3vw, 20px); color: #aaa; font-weight: 800; margin-bottom: 12px; }
-    .success-score { font-size: clamp(16px, 3.5vw, 22px); color: #888; font-weight: 700; margin-bottom: 24px; }
-    .score-highlight { color: #ff6eb4; font-family: 'Fredoka One', cursive; font-size: 1.3em; }
+    .s-info { font-size: clamp(14px, 3vw, 19px); color: #bbb; font-weight: 800; margin-bottom: 24px; }
+    #s-btn  { font-size: clamp(19px, 4vw, 27px) !important; padding: clamp(14px,2.5vh,20px) 28px !important; }
 
-    /* ===== CONFETTI ===== */
-    .confetti-piece {
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      animation: confetti-drop linear forwards;
-    }
-    @keyframes confetti-drop {
-      0% { transform: translateY(-60px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    /* confetti */
+    .cp { position: fixed; pointer-events: none; z-index: 200; animation: fall linear forwards; }
+    @keyframes fall {
+      0%  { transform: translateY(-50px) rotate(0); opacity: 1; }
+      100%{ transform: translateY(110vh) rotate(700deg); opacity: 0; }
     }
 
-    /* ===== COMBO TOAST ===== */
-    .combo-toast {
-      position: fixed;
-      top: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, #f97316, #ffd93d);
-      color: white;
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(22px, 5vw, 36px);
-      padding: 12px 32px;
-      border-radius: 40px;
-      box-shadow: 0 8px 30px rgba(249,115,22,0.5);
-      z-index: 8000;
-      pointer-events: none;
-      animation: toast-pop 1.6s cubic-bezier(.36,.07,.19,.97) forwards;
-      white-space: nowrap;
-    }
-    @keyframes toast-pop {
-      0% { opacity: 0; transform: translateX(-50%) scale(0.4) translateY(20px); }
-      20% { opacity: 1; transform: translateX(-50%) scale(1.15) translateY(0); }
-      70% { opacity: 1; transform: translateX(-50%) scale(1) translateY(0); }
-      100% { opacity: 0; transform: translateX(-50%) scale(0.8) translateY(-20px); }
-    }
-
-    /* ===== PROGRESS BAR ===== */
-    .round-progress {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .round-dot {
-      width: clamp(8px, 1.5vw, 12px);
-      height: clamp(8px, 1.5vw, 12px);
-      border-radius: 50%;
-      background: #e5e7eb;
-      transition: background 0.4s, transform 0.3s;
-    }
-    .round-dot.done { background: linear-gradient(135deg, #ff6eb4, #a855f7); transform: scale(1.3); }
-    .round-dot.current { background: #ffd93d; transform: scale(1.1); box-shadow: 0 0 8px rgba(255,217,61,0.8); }
   </style>
 </head>
 <body>
 
-<!-- DECORATIONS -->
-<div class="deco-layer">
-  <span class="deco">🌟</span>
-  <span class="deco">🎈</span>
-  <span class="deco">🦄</span>
-  <span class="deco">🌈</span>
-  <span class="deco">✨</span>
-  <span class="deco">🎉</span>
-</div>
-
-<!-- ===== HOME SCREEN ===== -->
+<!-- ══ HOME ══ -->
 <div id="home-screen" class="screen active">
   <div class="home-card">
-    <div class="game-logo">Alphabet<br>Warriors!</div>
-    <div class="game-subtitle">🎮 Match the Letters!</div>
-    <div class="letter-showcase">
-      <div class="showcase-tile">A</div>
-      <div class="showcase-tile">B</div>
-      <div class="showcase-tile">C</div>
-      <div class="showcase-tile">D</div>
-      <div class="showcase-tile">E</div>
+    <div class="logo">Alphabet<br>Warriors!</div>
+    <div class="logo-sub">🎮 Match the Letters!</div>
+    <div class="tile-row">
+      <div class="mini-tile">A</div>
+      <div class="mini-tile">B</div>
+      <div class="mini-tile">C</div>
+      <div class="mini-tile">D</div>
+      <div class="mini-tile">E</div>
     </div>
-    <div class="menu-buttons">
-      <button class="btn btn-play" onclick="startGame()">▶ Play Now!</button>
-      <button class="btn btn-how" onclick="showHow()">❓ How to Play</button>
-      <button class="btn btn-sound-toggle" id="sound-btn" onclick="toggleSound()">🔊 Sound: ON</button>
+    <div class="menu-stack">
+      <button class="btn btn-play"  onclick="startGame()">▶ Play Now!</button>
+      <button class="btn btn-how"   onclick="showHow()">❓ How to Play</button>
+      <button class="btn btn-sound" id="sound-btn" onclick="toggleSound()">🔊 Sound: ON</button>
     </div>
   </div>
 </div>
 
-<!-- ===== HOW SCREEN ===== -->
+<!-- ══ HOW TO PLAY ══ -->
 <div id="how-screen" class="screen">
   <div class="how-card">
     <div class="how-title">How to Play 🎓</div>
-    <div class="how-step"><div class="how-step-icon">👀</div><div class="how-step-text">Look at the BIG letters at the top!</div></div>
-    <div class="how-step"><div class="how-step-icon">🔡</div><div class="how-step-text">The small letters at the bottom match the big ones — just lowercase!</div></div>
-    <div class="how-step"><div class="how-step-icon">✋</div><div class="how-step-text">Drag each small letter and DROP it onto its matching BIG letter!</div></div>
-    <div class="how-step"><div class="how-step-icon">⭐</div><div class="how-step-text">Match all 5 to win the round! Play 5 rounds!</div></div>
-    <div class="how-step"><div class="how-step-icon">💡</div><div class="how-step-text">Stuck? Tap the 💡 hint button — 3 hints per game!</div></div>
-    <div class="how-step"><div class="how-step-icon">🔥</div><div class="how-step-text">Match fast to build a streak and earn bonus points!</div></div>
+    <div class="how-step"><span class="how-icon">👀</span><span class="how-text">Look at the BIG letters at the top of the card</span></div>
+    <div class="how-step"><span class="how-icon">🔡</span><span class="how-text">Find the matching small (lowercase) letter just below</span></div>
+    <div class="how-step"><span class="how-icon">✋</span><span class="how-text">Drag the small letter a short distance up onto its matching BIG letter!</span></div>
+    <div class="how-step"><span class="how-icon">⭐</span><span class="how-text">Match all 5 to win the round — play 5 rounds!</span></div>
+    <div class="how-step"><span class="how-icon">🔊</span><span class="how-text">The letter is read out loud when you match it!</span></div>
     <button class="btn btn-back" onclick="showHome()">🏠 Back to Menu</button>
   </div>
 </div>
 
-<!-- ===== GAME SCREEN ===== -->
+<!-- ══ GAME ══ -->
 <div id="game-screen" class="screen">
-  <div class="game-wrapper">
 
-    <!-- Header -->
-    <div class="game-header">
-      <button class="btn-home-icon" onclick="showHome()">🏠</button>
-      <div class="game-title-bar">Alphabet Warriors!</div>
-      <div class="round-badge" id="round-badge">Round 1/5</div>
-    </div>
-
-    <!-- Score + Streak -->
-    <div class="score-bar">
-      <div class="score-pill">⭐ <span id="score-display" class="score-val">0</span></div>
-      <div class="score-pill">🔥 <span id="streak-display" class="streak-val">0</span></div>
-    </div>
-
-    <!-- Round progress dots -->
-    <div class="round-progress" id="round-progress"></div>
-
-    <!-- Stars for current round -->
-    <div class="stars-bar" id="stars-bar">
-      <span class="star-item">⭐</span><span class="star-item">⭐</span><span class="star-item">⭐</span>
-      <span class="star-item">⭐</span><span class="star-item">⭐</span>
-    </div>
-
-    <!-- Drop zones (big letters) -->
-    <div class="drop-section">
-      <div class="game-zone-label">BIG Letters ↓</div>
-      <div class="drop-row" id="drop-zones"></div>
-    </div>
-
-    <!-- Arrow -->
-    <div class="match-arrow">👇</div>
-
-    <!-- Drag items (small letters) -->
-    <div class="drag-section">
-      <div class="game-zone-label">Small Letters ↑</div>
-      <div class="drag-row" id="drag-items"></div>
-    </div>
-
-    <!-- Bottom controls -->
-    <div class="game-bottom">
-      <button class="btn-icon btn-refresh" onclick="initRound()" title="New letters">🔄</button>
-      <div class="hint-btn-wrap">
-        <button class="btn-icon" onclick="useHint()" title="Hint" id="hint-btn">💡</button>
-        <div class="hint-counter" id="hint-counter">3</div>
-      </div>
-    </div>
-
+  <!-- title + round indicator — BIG and clearly visible -->
+  <div class="g-topbar">
+    <button class="home-btn" onclick="showHome()" title="Home">🏠</button>
+    <div class="g-title">Alphabet Warriors!</div>
+    <div class="round-pill" id="round-pill">Round 1 / 5</div>
   </div>
+
+  <!-- progress stars -->
+  <div class="stars-row" id="stars-row">
+    <span class="star">⭐</span>
+    <span class="star">⭐</span>
+    <span class="star">⭐</span>
+    <span class="star">⭐</span>
+    <span class="star">⭐</span>
+  </div>
+
+  <!--
+    THE PLAY CARD
+    Big letters (drop targets) on top.
+    Small letters (drag sources) directly below.
+    The gap between them is intentionally short —
+    so the drag distance is minimal on all screens.
+  -->
+  <div class="play-card">
+    <div class="zone-lbl">Big Letters — drop here!</div>
+    <div class="tile-grid" id="drop-row"></div>
+
+    <div class="row-divider">👇</div>
+
+    <div class="zone-lbl">Small Letters — drag up!</div>
+    <div class="tile-grid" id="drag-row"></div>
+  </div>
+
+  <!-- refresh -->
+  <div class="g-refresh">
+    <button class="refresh-btn" onclick="initRound()" title="New letters">🔄</button>
+  </div>
+
 </div>
 
-<!-- ===== SUCCESS OVERLAY ===== -->
+<!-- ══ SUCCESS OVERLAY ══ -->
 <div id="success-overlay">
   <div class="success-card">
-    <span class="success-emoji" id="success-emoji">🎉</span>
-    <div class="success-stars" id="success-stars">⭐⭐⭐⭐⭐</div>
-    <div class="success-title" id="success-title">Amazing!</div>
-    <div class="success-round" id="success-info">Round 1 of 5 complete!</div>
-    <div class="success-score" id="success-score">Score: <span class="score-highlight">0</span></div>
-    <button class="btn btn-next" id="success-btn" onclick="handleSuccessBtn()">🚀 Next Round!</button>
+    <span class="s-emoji" id="s-emoji">🎉</span>
+    <div class="s-stars"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div>
+    <div class="s-title" id="s-title">Amazing!</div>
+    <div class="s-info"  id="s-info">Round 1 of 5 complete!</div>
+    <button class="btn btn-green" id="s-btn" onclick="handleNext()">🚀 Next Round!</button>
   </div>
 </div>
 
 <script>
-  // ===== STATE =====
-  let currentRound = 1;
-  const TOTAL_ROUNDS = 5;
-  let currentLetters = [];
-  let matchedCount = 0;
-  let soundOn = true;
-  let draggedEl = null;
-  let draggedLetter = null;
-  let touchClone = null;
-  let totalScore = 0;
-  let currentStreak = 0;
-  let hintsLeft = 3;
-  let roundStartTime = 0;
+'use strict';
 
-  const COLORS = [
-    { bg: '#ef4444', shadow: '#b91c1c' },
-    { bg: '#f97316', shadow: '#c2410c' },
-    { bg: '#eab308', shadow: '#a16207' },
-    { bg: '#22c55e', shadow: '#15803d' },
-    { bg: '#3b82f6', shadow: '#1d4ed8' },
-    { bg: '#8b5cf6', shadow: '#6d28d9' },
-    { bg: '#ec4899', shadow: '#be185d' },
-    { bg: '#14b8a6', shadow: '#0f766e' },
-  ];
+// ── STATE ──
+let round      = 1;
+const ROUNDS   = 5;
+let letters    = [];
+let matched    = 0;
+let soundOn    = true;
+let dragSrc    = null;
+let dragLetter = null;
+let touchSrc   = null;
+let touchClone = null;
 
-  // ===== AUDIO =====
-  const AudioCtx = window.AudioContext || window.webkitAudioContext;
-  let audioCtx = null;
-  function getAudioCtx() { if (!audioCtx) audioCtx = new AudioCtx(); return audioCtx; }
+const COLORS = [
+  ['#ef4444','#b91c1c'],
+  ['#f97316','#c2410c'],
+  ['#eab308','#a16207'],
+  ['#22c55e','#15803d'],
+  ['#3b82f6','#1d4ed8'],
+  ['#8b5cf6','#6d28d9'],
+  ['#ec4899','#be185d'],
+  ['#14b8a6','#0f766e'],
+];
 
-  function playDing() {
-    if (!soundOn) return;
-    try {
-      const ctx = getAudioCtx();
-      [{ freq: 880, time: 0, dur: 0.15 }, { freq: 1100, time: 0.15, dur: 0.2 }, { freq: 1320, time: 0.3, dur: 0.35 }]
-        .forEach(({ freq, time, dur }) => {
-          const osc = ctx.createOscillator(), gain = ctx.createGain();
-          osc.connect(gain); gain.connect(ctx.destination);
-          osc.frequency.value = freq; osc.type = 'sine';
-          gain.gain.setValueAtTime(0, ctx.currentTime + time);
-          gain.gain.linearRampToValueAtTime(0.35, ctx.currentTime + time + 0.01);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + time + dur);
-          osc.start(ctx.currentTime + time); osc.stop(ctx.currentTime + time + dur + 0.05);
-        });
-    } catch(e) {}
-  }
+// ── TILE SIZING ──
+// Tiles fill the play-card width. The card has a max-width of 680px
+// and left/right padding. We measure the actual card width at runtime.
+function setTileSize() {
+  const N   = 5;
+  // Use the play-card element if it exists, else estimate from vw
+  const card = document.querySelector('.play-card');
+  const cardW = card
+    ? card.getBoundingClientRect().width - 40 * 2   // subtract card padding (clamped)
+    : Math.min(680, window.innerWidth - 32) - 40;
+  const GAP = Math.max(6, Math.min(14, Math.round(cardW * 0.022)));
+  let sz = Math.floor((cardW - GAP * (N - 1)) / N);
+  sz = Math.max(48, Math.min(120, sz));
+  const font = Math.round(sz * 0.50);
+  const r    = Math.round(sz * 0.235);
+  const root = document.documentElement;
+  root.style.setProperty('--ts', sz   + 'px');
+  root.style.setProperty('--tf', font + 'px');
+  root.style.setProperty('--tr', r    + 'px');
+  root.style.setProperty('--tg', GAP  + 'px');
+}
+window.addEventListener('resize', setTileSize);
+window.addEventListener('orientationchange', () => setTimeout(setTileSize, 160));
+setTileSize();
 
-  function playCombo() {
-    if (!soundOn) return;
-    try {
-      const ctx = getAudioCtx();
-      [{ freq: 1047, time: 0 }, { freq: 1319, time: 0.1 }, { freq: 1568, time: 0.2 }].forEach(({ freq, time }) => {
-        const osc = ctx.createOscillator(), gain = ctx.createGain();
-        osc.connect(gain); gain.connect(ctx.destination);
-        osc.frequency.value = freq; osc.type = 'triangle';
-        gain.gain.setValueAtTime(0, ctx.currentTime + time);
-        gain.gain.linearRampToValueAtTime(0.28, ctx.currentTime + time + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + time + 0.3);
-        osc.start(ctx.currentTime + time); osc.stop(ctx.currentTime + time + 0.4);
-      });
-    } catch(e) {}
-  }
+// ── AUDIO ──
+let audioCtx = null;
+function ac() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+function tone(freq, start, dur, type = 'sine', vol = 0.28) {
+  if (!soundOn) return;
+  try {
+    const ctx = ac(), osc = ctx.createOscillator(), g = ctx.createGain();
+    osc.connect(g); g.connect(ctx.destination);
+    osc.type = type; osc.frequency.value = freq;
+    const t = ctx.currentTime + start;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.015);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    osc.start(t); osc.stop(t + dur + 0.05);
+  } catch(e) {}
+}
+function playDing()    { tone(880,.00,.12); tone(1100,.12,.16); tone(1320,.28,.32); }
+function playWrong()   { tone(220,.00,.28,'sawtooth',.18); }
+function playFanfare() { [523,659,784,1047,1319].forEach((f,i) => tone(f, i*.11, .45)); }
+function speak(letter) {
+  if (!soundOn || !window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(letter);
+  u.rate = 0.85; u.pitch = 1.3; u.volume = 1;
+  const vv   = window.speechSynthesis.getVoices();
+  const pref = vv.find(x => x.lang.startsWith('en') && /Google|Samantha|Karen/.test(x.name));
+  if (pref) u.voice = pref;
+  window.speechSynthesis.speak(u);
+}
 
-  function playWrong() {
-    if (!soundOn) return;
-    try {
-      const ctx = getAudioCtx();
-      const osc = ctx.createOscillator(), gain = ctx.createGain();
-      osc.connect(gain); gain.connect(ctx.destination);
-      osc.frequency.value = 220; osc.type = 'sawtooth';
-      gain.gain.setValueAtTime(0.2, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.35);
-    } catch(e) {}
-  }
+// ── NAVIGATION ──
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function showHome() {
+  document.getElementById('success-overlay').classList.remove('active');
+  show('home-screen'); round = 1;
+}
+function showHow()   { show('how-screen'); }
+function startGame() { round = 1; show('game-screen'); initRound(); }
+function toggleSound() {
+  soundOn = !soundOn;
+  document.getElementById('sound-btn').textContent = soundOn ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+}
 
-  function playFanfare() {
-    if (!soundOn) return;
-    try {
-      const ctx = getAudioCtx();
-      [523, 659, 784, 1047, 1319].forEach((freq, i) => {
-        const osc = ctx.createOscillator(), gain = ctx.createGain();
-        osc.connect(gain); gain.connect(ctx.destination);
-        osc.frequency.value = freq; osc.type = 'sine';
-        const t = ctx.currentTime + i * 0.12;
-        gain.gain.setValueAtTime(0, t);
-        gain.gain.linearRampToValueAtTime(0.3, t + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
-        osc.start(t); osc.stop(t + 0.6);
-      });
-    } catch(e) {}
-  }
+// ── GAME LOGIC ──
+function shuffle(a) { return [...a].sort(() => Math.random() - .5); }
+function pick5()    { return [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].sort(() => Math.random() - .5).slice(0,5); }
 
-  function speakLetter(letter) {
-    if (!soundOn || !window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(letter);
-    utter.rate = 0.85; utter.pitch = 1.3; utter.volume = 1;
-    const voices = window.speechSynthesis.getVoices();
-    const preferred = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Karen')));
-    if (preferred) utter.voice = preferred;
-    window.speechSynthesis.speak(utter);
-  }
-
-  // ===== NAVIGATION =====
-  function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
-
-  function showHome() {
+function initRound() {
+  // Give the DOM a frame to settle before measuring card width
+  requestAnimationFrame(() => {
+    setTileSize();
+    matched = 0;
+    letters = pick5();
+    document.getElementById('round-pill').textContent = `Round ${round} / ${ROUNDS}`;
+    document.querySelectorAll('#stars-row .star').forEach(s => s.classList.remove('lit'));
+    buildDropRow();
+    buildDragRow();
     document.getElementById('success-overlay').classList.remove('active');
-    showScreen('home-screen');
-    currentRound = 1; totalScore = 0; currentStreak = 0; hintsLeft = 3;
-  }
+  });
+}
 
-  function showHow() { showScreen('how-screen'); }
+function buildDropRow() {
+  const row = document.getElementById('drop-row');
+  row.innerHTML = '';
+  letters.forEach((letter, i) => {
+    const [bg, sh] = COLORS[i % COLORS.length];
+    const el = document.createElement('div');
+    el.className = 'drop-zone';
+    el.dataset.letter = letter;
+    el.textContent = letter;
+    el.style.background = `linear-gradient(145deg,${bg},${sh})`;
+    el.addEventListener('dragover',  e => { e.preventDefault(); el.classList.add('over'); });
+    el.addEventListener('dragleave', ()  => el.classList.remove('over'));
+    el.addEventListener('drop',      e  => { e.preventDefault(); el.classList.remove('over'); handleDrop(el); });
+    row.appendChild(el);
+  });
+}
 
-  function startGame() {
-    currentRound = 1; totalScore = 0; currentStreak = 0; hintsLeft = 3;
-    showScreen('game-screen');
-    updateHintUI();
-    initRound();
-  }
-
-  function toggleSound() {
-    soundOn = !soundOn;
-    document.getElementById('sound-btn').textContent = soundOn ? '🔊 Sound: ON' : '🔇 Sound: OFF';
-  }
-
-  // ===== ROUND PROGRESS DOTS =====
-  function renderProgressDots() {
-    const bar = document.getElementById('round-progress');
-    bar.innerHTML = '';
-    for (let i = 1; i <= TOTAL_ROUNDS; i++) {
-      const dot = document.createElement('div');
-      dot.className = 'round-dot' + (i < currentRound ? ' done' : i === currentRound ? ' current' : '');
-      bar.appendChild(dot);
-    }
-  }
-
-  // ===== GAME LOGIC =====
-  function getRandomLetters() {
-    const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    return [...alpha].sort(() => Math.random() - 0.5).slice(0, 5);
-  }
-  function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
-
-  function initRound() {
-    matchedCount = 0;
-    currentLetters = getRandomLetters();
-    roundStartTime = Date.now();
-
-    document.getElementById('round-badge').textContent = `Round ${currentRound}/${TOTAL_ROUNDS}`;
-    document.getElementById('score-display').textContent = totalScore;
-    document.getElementById('streak-display').textContent = currentStreak;
-    renderProgressDots();
-
-    // Reset stars
-    document.querySelectorAll('#stars-bar .star-item').forEach(s => s.classList.remove('lit'));
-
-    // Drop zones
-    const dzc = document.getElementById('drop-zones');
-    dzc.innerHTML = '';
-    currentLetters.forEach((letter, i) => {
-      const color = COLORS[i % COLORS.length];
-      const zone = document.createElement('div');
-      zone.className = 'drop-zone tile-size';
-      zone.dataset.letter = letter;
-      zone.style.background = `linear-gradient(145deg, ${color.bg}, ${color.shadow})`;
-      zone.textContent = letter;
-      zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('highlight'); });
-      zone.addEventListener('dragleave', () => zone.classList.remove('highlight'));
-      zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('highlight'); handleDrop(zone); });
-      dzc.appendChild(zone);
+function buildDragRow() {
+  const row = document.getElementById('drag-row');
+  row.innerHTML = '';
+  shuffle(letters).forEach(letter => {
+    const i  = letters.indexOf(letter);
+    const [bg, sh] = COLORS[i % COLORS.length];
+    const el = document.createElement('div');
+    el.className = 'letter-card';
+    el.dataset.letter = letter;
+    el.textContent = letter.toLowerCase();
+    el.style.background = `linear-gradient(145deg,${bg},${sh})`;
+    el.draggable = true;
+    el.addEventListener('dragstart', e => {
+      dragSrc = el; dragLetter = letter;
+      el.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
     });
-
-    // Drag items
-    const dic = document.getElementById('drag-items');
-    dic.innerHTML = '';
-    shuffle(currentLetters).forEach(letter => {
-      const i = currentLetters.indexOf(letter);
-      const color = COLORS[i % COLORS.length];
-      const card = document.createElement('div');
-      card.className = 'letter-card tile-size';
-      card.dataset.letter = letter;
-      card.style.background = `linear-gradient(145deg, ${color.bg}, ${color.shadow})`;
-      card.draggable = true;
-      card.textContent = letter.toLowerCase();
-      card.addEventListener('dragstart', e => {
-        draggedEl = card; draggedLetter = letter;
-        card.classList.add('dragging');
-        e.dataTransfer.effectAllowed = 'move';
-      });
-      card.addEventListener('dragend', () => {
-        card.classList.remove('dragging');
-        draggedEl = null; draggedLetter = null;
-        document.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('highlight'));
-      });
-      card.addEventListener('touchstart', handleTouchStart, { passive: false });
-      card.addEventListener('touchmove', handleTouchMove, { passive: false });
-      card.addEventListener('touchend', handleTouchEnd);
-      dic.appendChild(card);
+    el.addEventListener('dragend', () => {
+      el.classList.remove('dragging');
+      dragSrc = null; dragLetter = null;
+      document.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('over'));
     });
+    el.addEventListener('touchstart', onTouchStart, { passive: false });
+    el.addEventListener('touchmove',  onTouchMove,  { passive: false });
+    el.addEventListener('touchend',   onTouchEnd,   { passive: false });
+    row.appendChild(el);
+  });
+}
 
-    document.getElementById('success-overlay').classList.remove('active');
+function handleDrop(zone) {
+  if (!dragLetter) return;
+  if (zone.dataset.letter === dragLetter) doMatch(zone, dragSrc);
+  else doWrong(zone);
+}
+
+function doMatch(zone, card) {
+  matched++;
+  document.querySelectorAll('#stars-row .star')[matched - 1].classList.add('lit');
+  zone.classList.add('matched');
+  zone.addEventListener('animationend', () => zone.classList.remove('matched'), { once: true });
+  zone.style.boxShadow = '0 0 0 5px #fff,0 0 24px rgba(34,197,94,.7),0 8px 22px rgba(0,0,0,.15)';
+  const chk = document.createElement('div');
+  chk.className = 'check'; chk.textContent = '✓';
+  zone.appendChild(chk);
+  card.classList.add('gone');
+  playDing();
+  setTimeout(() => speak(zone.dataset.letter), 280);
+  if (matched >= 5) setTimeout(showSuccess, 650);
+}
+
+function doWrong(zone) {
+  zone.classList.remove('wrong');
+  void zone.offsetWidth;
+  zone.classList.add('wrong');
+  zone.addEventListener('animationend', () => zone.classList.remove('wrong'), { once: true });
+  playWrong();
+}
+
+// ── TOUCH DRAG ──
+function onTouchStart(e) {
+  e.preventDefault();
+  const t  = e.touches[0];
+  touchSrc = e.currentTarget;
+  dragLetter = touchSrc.dataset.letter;
+  const r  = touchSrc.getBoundingClientRect();
+  touchClone = touchSrc.cloneNode(true);
+  Object.assign(touchClone.style, {
+    position: 'fixed',
+    left: (t.clientX - r.width  / 2) + 'px',
+    top:  (t.clientY - r.height / 2) + 'px',
+    width:  r.width  + 'px',
+    height: r.height + 'px',
+    borderRadius: getComputedStyle(touchSrc).borderRadius,
+    pointerEvents: 'none', zIndex: '9999',
+    opacity: '.93', transform: 'scale(1.15) rotate(5deg)',
+    boxShadow: '0 20px 48px rgba(0,0,0,.28)', transition: 'none'
+  });
+  document.body.appendChild(touchClone);
+  touchSrc.classList.add('dragging');
+}
+
+function onTouchMove(e) {
+  e.preventDefault();
+  if (!touchClone) return;
+  const t = e.touches[0];
+  const r = touchSrc.getBoundingClientRect();
+  touchClone.style.left = (t.clientX - r.width  / 2) + 'px';
+  touchClone.style.top  = (t.clientY - r.height / 2) + 'px';
+  document.querySelectorAll('.drop-zone').forEach(z => {
+    const zr = z.getBoundingClientRect();
+    z.classList.toggle('over',
+      t.clientX >= zr.left && t.clientX <= zr.right &&
+      t.clientY >= zr.top  && t.clientY <= zr.bottom
+    );
+  });
+}
+
+function onTouchEnd(e) {
+  e.preventDefault();
+  if (!touchClone) return;
+  const t = e.changedTouches[0];
+  let hit = null;
+  document.querySelectorAll('.drop-zone').forEach(z => {
+    z.classList.remove('over');
+    const zr = z.getBoundingClientRect();
+    if (t.clientX >= zr.left && t.clientX <= zr.right &&
+        t.clientY >= zr.top  && t.clientY <= zr.bottom) hit = z;
+  });
+  if (hit) {
+    if (hit.dataset.letter === dragLetter) doMatch(hit, touchSrc);
+    else { touchSrc.classList.remove('dragging'); doWrong(hit); }
+  } else {
+    touchSrc.classList.remove('dragging');
   }
+  touchClone.remove(); touchClone = null; touchSrc = null; dragLetter = null;
+}
 
-  function handleDrop(zone) {
-    if (!draggedLetter) return;
-    if (zone.dataset.letter === draggedLetter) doMatch(zone, draggedEl);
-    else { wrongFeedback(zone); }
+// ── SUCCESS ──
+const MSGS  = ['','Great Start! 🌟','You Rock! 🎸','Halfway There! 🚀','Almost Done! 🔥','YOU WIN! 🏆'];
+const EMOJI = ['','🌟','🎉','🚀','🔥','🏆'];
+
+function showSuccess() {
+  playFanfare(); confetti();
+  document.getElementById('s-emoji').textContent = EMOJI[round];
+  document.getElementById('s-title').textContent = MSGS[round];
+  document.getElementById('s-info').textContent  = `Round ${round} of ${ROUNDS} complete!`;
+  const btn = document.getElementById('s-btn');
+  if (round >= ROUNDS) { btn.className = 'btn btn-pink';  btn.textContent = '🏠 Back to Menu!'; }
+  else                  { btn.className = 'btn btn-green'; btn.textContent = '🚀 Next Round!'; }
+  document.getElementById('success-overlay').classList.add('active');
+}
+
+function handleNext() {
+  if (round >= ROUNDS) showHome();
+  else { round++; document.getElementById('success-overlay').classList.remove('active'); initRound(); }
+}
+
+// ── CONFETTI ──
+function confetti() {
+  const shapes = ['●','■','▲','★','♦','❤'];
+  const cols   = ['#ff6eb4','#ffd93d','#22c55e','#3b82f6','#a855f7','#f97316'];
+  for (let i = 0; i < 70; i++) {
+    setTimeout(() => {
+      const c = document.createElement('div');
+      c.className = 'cp';
+      c.style.cssText = `left:${Math.random()*100}vw;top:-50px;color:${cols[Math.random()*cols.length|0]};font-size:${10+Math.random()*22}px;animation-duration:${2.4+Math.random()*2}s;`;
+      c.textContent = shapes[Math.random()*shapes.length|0];
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 5000);
+    }, i * 38);
   }
+}
 
-  function wrongFeedback(zone) {
-    currentStreak = 0;
-    document.getElementById('streak-display').textContent = currentStreak;
-    zone.classList.remove('wrong-shake');
-    void zone.offsetWidth;
-    zone.classList.add('wrong-shake');
-    zone.addEventListener('animationend', () => zone.classList.remove('wrong-shake'), { once: true });
-    playWrong();
-  }
-
-  function doMatch(zone, card) {
-    matchedCount++;
-    currentStreak++;
-    const elapsed = (Date.now() - roundStartTime) / 1000;
-    const speedBonus = elapsed < 10 ? 20 : elapsed < 20 ? 10 : 0;
-    const streakBonus = currentStreak >= 3 ? 15 : currentStreak >= 2 ? 5 : 0;
-    const points = 10 + speedBonus + streakBonus;
-    totalScore += points;
-
-    document.getElementById('score-display').textContent = totalScore;
-    document.getElementById('streak-display').textContent = currentStreak;
-
-    // Visual
-    zone.classList.add('matched');
-    zone.addEventListener('animationend', () => zone.classList.remove('matched'), { once: true });
-    const badge = document.createElement('div');
-    badge.className = 'check-badge'; badge.textContent = '✓';
-    zone.appendChild(badge);
-    zone.style.boxShadow = '0 0 0 4px white, 0 0 24px rgba(34,197,94,0.7), 0 8px 24px rgba(0,0,0,0.15)';
-
-    card.classList.add('used');
-
-    // Floating letter popup
-    showLetterPopup(zone, zone.dataset.letter, zone.style.background);
-
-    // Star
-    const star = document.querySelectorAll('#stars-bar .star-item')[matchedCount - 1];
-    star.classList.add('lit');
-
-    // Sound
-    if (currentStreak >= 3) {
-      playCombo();
-      showComboToast(currentStreak);
-    } else {
-      playDing();
-    }
-    setTimeout(() => speakLetter(zone.dataset.letter), 250);
-
-    if (matchedCount >= 5) setTimeout(showSuccess, 700);
-  }
-
-  // ===== FLOATING LETTER POPUP =====
-  function showLetterPopup(zone, letter, bg) {
-    const r = zone.getBoundingClientRect();
-    const popup = document.createElement('div');
-    popup.className = 'letter-popup';
-    popup.textContent = letter;
-    popup.style.cssText = `
-      left: ${r.left + r.width / 2}px;
-      top: ${r.top + r.height / 2}px;
-      transform: translate(-50%, -50%);
-      background: ${bg};
-      width: ${r.width * 1.2}px; height: ${r.height * 1.2}px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: ${r.width * 0.25}px;
-    `;
-    document.body.appendChild(popup);
-    setTimeout(() => popup.remove(), 1000);
-  }
-
-  // ===== COMBO TOAST =====
-  function showComboToast(streak) {
-    const msgs = { 3: '🔥 3x Combo!', 4: '💥 4x Combo!', 5: '🚀 PERFECT! 5x Combo!!' };
-    const msg = msgs[streak] || `🔥 ${streak}x Combo!`;
-    const toast = document.createElement('div');
-    toast.className = 'combo-toast';
-    toast.textContent = msg;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 1700);
-  }
-
-  // ===== HINT =====
-  function updateHintUI() {
-    document.getElementById('hint-counter').textContent = hintsLeft;
-    document.getElementById('hint-btn').style.opacity = hintsLeft > 0 ? '1' : '0.4';
-  }
-
-  function useHint() {
-    if (hintsLeft <= 0) return;
-    // Find first unmatched card and its drop zone, highlight them
-    const cards = [...document.querySelectorAll('.letter-card:not(.used)')];
-    if (!cards.length) return;
-    const card = cards[0];
-    const targetLetter = card.dataset.letter;
-    const zone = [...document.querySelectorAll('.drop-zone')].find(z => z.dataset.letter === targetLetter && !z.querySelector('.check-badge'));
-    if (!zone) return;
-    hintsLeft--;
-    updateHintUI();
-    // Flash hint
-    card.classList.remove('hint-pulse');
-    zone.classList.remove('highlight');
-    void card.offsetWidth;
-    card.classList.add('hint-pulse');
-    zone.classList.add('highlight');
-    card.addEventListener('animationend', () => card.classList.remove('hint-pulse'), { once: true });
-    setTimeout(() => zone.classList.remove('highlight'), 2500);
-  }
-
-  // ===== TOUCH =====
-  function handleTouchStart(e) {
-    e.preventDefault();
-    const touch = e.touches[0];
-    draggedEl = e.currentTarget;
-    draggedLetter = draggedEl.dataset.letter;
-    touchClone = draggedEl.cloneNode(true);
-    const r = draggedEl.getBoundingClientRect();
-    Object.assign(touchClone.style, {
-      position: 'fixed', pointerEvents: 'none', zIndex: 9999,
-      width: r.width + 'px', height: r.height + 'px',
-      left: (touch.clientX - r.width / 2) + 'px', top: (touch.clientY - r.height / 2) + 'px',
-      opacity: '0.92', transform: 'scale(1.15) rotate(6deg)',
-      boxShadow: '0 20px 50px rgba(0,0,0,0.3)', borderRadius: r.width * 0.25 + 'px', transition: 'none'
-    });
-    document.body.appendChild(touchClone);
-    draggedEl.style.opacity = '0.3';
-  }
-
-  function handleTouchMove(e) {
-    e.preventDefault();
-    if (!touchClone) return;
-    const touch = e.touches[0];
-    const r = draggedEl.getBoundingClientRect();
-    touchClone.style.left = (touch.clientX - r.width / 2) + 'px';
-    touchClone.style.top = (touch.clientY - r.height / 2) + 'px';
-    document.querySelectorAll('.drop-zone').forEach(z => {
-      const zr = z.getBoundingClientRect();
-      const over = touch.clientX >= zr.left && touch.clientX <= zr.right && touch.clientY >= zr.top && touch.clientY <= zr.bottom;
-      z.classList.toggle('highlight', over);
-    });
-  }
-
-  function handleTouchEnd(e) {
-    if (!touchClone) return;
-    const touch = e.changedTouches[0];
-    let hit = null;
-    document.querySelectorAll('.drop-zone').forEach(z => {
-      z.classList.remove('highlight');
-      const zr = z.getBoundingClientRect();
-      if (touch.clientX >= zr.left && touch.clientX <= zr.right && touch.clientY >= zr.top && touch.clientY <= zr.bottom) hit = z;
-    });
-    if (hit) {
-      if (hit.dataset.letter === draggedLetter) doMatch(hit, draggedEl);
-      else { draggedEl.style.opacity = '1'; wrongFeedback(hit); }
-    } else { draggedEl.style.opacity = '1'; }
-    touchClone.remove(); touchClone = null; draggedEl = null; draggedLetter = null;
-  }
-
-  // ===== SUCCESS =====
-  const ROUND_MSGS = ['', 'Great Start! 🌟', 'You Rock! 🎸', 'Halfway There! 🚀', 'Almost Done! 🔥', 'YOU WIN! 🏆'];
-  const ROUND_EMOJI = ['', '🌟', '🎉', '🚀', '🔥', '🏆'];
-
-  function showSuccess() {
-    playFanfare();
-    spawnConfetti();
-    document.getElementById('success-emoji').textContent = ROUND_EMOJI[currentRound];
-    document.getElementById('success-title').textContent = ROUND_MSGS[currentRound];
-    document.getElementById('success-info').textContent = `Round ${currentRound} of ${TOTAL_ROUNDS} complete!`;
-    document.getElementById('success-score').innerHTML = `Score: <span class="score-highlight">${totalScore}</span>`;
-
-    const btn = document.getElementById('success-btn');
-    if (currentRound >= TOTAL_ROUNDS) {
-      btn.className = 'btn btn-finish';
-      btn.innerHTML = '🏠 Back to Menu!';
-      document.getElementById('success-stars').textContent = '⭐⭐⭐⭐⭐';
-    } else {
-      btn.className = 'btn btn-next';
-      btn.innerHTML = '🚀 Next Round!';
-    }
-    document.getElementById('success-overlay').classList.add('active');
-  }
-
-  function handleSuccessBtn() {
-    if (currentRound >= TOTAL_ROUNDS) showHome();
-    else { currentRound++; document.getElementById('success-overlay').classList.remove('active'); initRound(); }
-  }
-
-  // ===== CONFETTI =====
-  function spawnConfetti() {
-    const shapes = ['●', '■', '▲', '★', '♦', '❤'];
-    const colors = ['#ff6eb4', '#ffd93d', '#22c55e', '#3b82f6', '#a855f7', '#f97316'];
-    for (let i = 0; i < 80; i++) {
-      setTimeout(() => {
-        const c = document.createElement('div');
-        c.className = 'confetti-piece';
-        c.style.left = Math.random() * 100 + 'vw';
-        c.style.top = '-60px';
-        c.style.color = colors[Math.floor(Math.random() * colors.length)];
-        c.style.fontSize = (Math.random() * 22 + 10) + 'px';
-        c.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
-        c.textContent = shapes[Math.floor(Math.random() * shapes.length)];
-        document.body.appendChild(c);
-        setTimeout(() => c.remove(), 5000);
-      }, i * 35);
-    }
-  }
-
-  // Preload voices
-  if (window.speechSynthesis) {
-    window.speechSynthesis.getVoices();
-    window.speechSynthesis.addEventListener('voiceschanged', () => window.speechSynthesis.getVoices());
-  }
+// preload voices
+if (window.speechSynthesis) {
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.addEventListener('voiceschanged', () => window.speechSynthesis.getVoices());
+}
 </script>
 </body>
 </html>
