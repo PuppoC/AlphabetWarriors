@@ -14,11 +14,11 @@
     body{
       width:100%;height:100%;overflow:hidden;
       font-family:'Nunito',sans-serif;
-      background:#fff0fb;
+      background:#fff8fe;
       background-image:
-        radial-gradient(ellipse at 12% 12%,rgba(255,110,180,.22) 0%,transparent 50%),
-        radial-gradient(ellipse at 88% 88%,rgba(168,85,247,.22) 0%,transparent 50%),
-        radial-gradient(ellipse at 50% 50%,rgba(255,217,61,.1) 0%,transparent 60%);
+        radial-gradient(ellipse at 15% 15%,rgba(255,110,180,.18) 0%,transparent 52%),
+        radial-gradient(ellipse at 85% 85%,rgba(168,85,247,.18) 0%,transparent 52%),
+        radial-gradient(ellipse at 50% 50%,rgba(255,217,61,.08) 0%,transparent 60%);
       touch-action:manipulation;
     }
 
@@ -26,11 +26,11 @@
     .screen{
       display:none;position:fixed;inset:0;width:100%;height:100%;
       flex-direction:column;align-items:center;justify-content:center;
-      padding:max(12px,env(safe-area-inset-top))
-              max(12px,env(safe-area-inset-right))
-              max(12px,env(safe-area-inset-bottom))
-              max(12px,env(safe-area-inset-left));
-      overflow-y:auto;overflow-x:hidden;gap:clamp(8px,1.8vh,16px);
+      padding:max(10px,env(safe-area-inset-top))
+              max(10px,env(safe-area-inset-right))
+              max(10px,env(safe-area-inset-bottom))
+              max(10px,env(safe-area-inset-left));
+      overflow-y:auto;overflow-x:hidden;gap:clamp(7px,1.6vh,14px);
     }
     .screen.active{display:flex}
 
@@ -43,30 +43,30 @@
       transition:transform .13s,box-shadow .13s;white-space:nowrap;width:100%;
       font-size:clamp(18px,3.2vw,25px);
     }
-    .btn:hover {transform:scale(1.04) translateY(-2px)}
+    .btn:hover{transform:scale(1.04) translateY(-2px)}
     .btn:active{transform:scale(0.95)}
-    .btn-pink  {background:linear-gradient(135deg,#ff6eb4,#f97316);color:#fff;box-shadow:0 8px 22px rgba(255,110,180,.4)}
-    .btn-green {background:linear-gradient(135deg,#22c55e,#14b8a6);color:#fff;box-shadow:0 8px 22px rgba(34,197,94,.4)}
-    .btn-back  {background:linear-gradient(135deg,#94a3b8,#64748b);color:#fff;box-shadow:0 8px 22px rgba(100,116,139,.3)}
+    .btn-green{background:linear-gradient(135deg,#22c55e,#14b8a6);color:#fff;box-shadow:0 8px 22px rgba(34,197,94,.4)}
+    .btn-back {background:linear-gradient(135deg,#94a3b8,#64748b);color:#fff;box-shadow:0 8px 22px rgba(100,116,139,.3)}
 
     /* ═══════════════════════════════════
        HOME SCREEN
     ═══════════════════════════════════ */
-    #home-screen{gap:clamp(8px,1.6vh,14px)}
-    .home-top{text-align:center;flex-shrink:0}
+    #home-screen{gap:clamp(6px,1.4vh,12px)}
+
     .logo{
       font-family:'Fredoka One',cursive;
-      font-size:clamp(38px,8.5vw,68px);line-height:1.0;
+      font-size:clamp(36px,8vw,62px);line-height:1.0;
       background:linear-gradient(135deg,#ff6eb4,#a855f7,#3b82f6);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      text-align:center;
     }
-    .logo-sub{font-size:clamp(13px,2.5vw,18px);color:#c084fc;font-weight:800;margin-top:2px}
-    .bounce-row{display:flex;gap:clamp(5px,1.4vw,10px);justify-content:center;margin-top:clamp(6px,1.2vh,12px)}
+
+    .bounce-row{display:flex;gap:clamp(5px,1.3vw,9px);justify-content:center;}
     .b-tile{
-      width:clamp(36px,7.5vw,54px);height:clamp(36px,7.5vw,54px);
-      border-radius:clamp(9px,1.8vw,14px);
+      width:clamp(34px,7vw,50px);height:clamp(34px,7vw,50px);
+      border-radius:clamp(9px,1.8vw,13px);
       display:flex;align-items:center;justify-content:center;
-      font-family:'Fredoka One',cursive;font-size:clamp(18px,3.8vw,30px);color:#fff;
+      font-family:'Fredoka One',cursive;font-size:clamp(17px,3.6vw,28px);color:#fff;
       animation:bob 2.8s ease-in-out infinite;
     }
     .b-tile:nth-child(1){background:#ef4444;animation-delay:0s}
@@ -76,58 +76,54 @@
     .b-tile:nth-child(5){background:#3b82f6;animation-delay:.6s}
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
-    /* 4×2 mode grid + full-width combo */
+    /* 4×2 mode grid */
     .modes-grid{
       display:grid;grid-template-columns:repeat(4,1fr);
-      gap:clamp(6px,1.4vw,11px);
-      width:min(560px,calc(100vw - 22px));flex-shrink:0;
+      gap:clamp(6px,1.3vw,10px);
+      width:min(520px,calc(100vw - 20px));flex-shrink:0;
     }
     .mode-card{
-      background:#fff;border-radius:clamp(13px,2.4vw,20px);
-      padding:clamp(10px,1.8vh,16px) clamp(6px,1.2vw,11px);
+      background:#fff;border-radius:clamp(14px,2.5vw,22px);
+      padding:clamp(12px,2vh,18px) clamp(5px,1vw,10px);
       border:3px solid #f3e8ff;
-      cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
-      box-shadow:0 5px 18px rgba(168,85,247,.09);
+      cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;
+      box-shadow:0 4px 16px rgba(168,85,247,.08);
       transition:transform .13s,box-shadow .13s,border-color .13s;
       text-align:center;
     }
-    .mode-card:hover{transform:scale(1.05) translateY(-2px);box-shadow:0 9px 26px rgba(168,85,247,.2);border-color:#a855f7}
-    .mode-card:active{transform:scale(0.96)}
-    .mc-icon{font-size:clamp(22px,4.2vw,34px);line-height:1}
-    .mc-name{font-family:'Fredoka One',cursive;font-size:clamp(10px,1.9vw,14px);color:#7c3aed;line-height:1.2}
-    .mc-desc{font-size:clamp(7px,1.3vw,10px);color:#aaa;font-weight:700;line-height:1.2}
+    .mode-card:hover{transform:scale(1.06) translateY(-2px);box-shadow:0 9px 26px rgba(168,85,247,.22);border-color:#a855f7}
+    .mode-card:active{transform:scale(0.95)}
+    .mc-icon{font-size:clamp(28px,5.5vw,42px);line-height:1}
+    .mc-name{
+      font-family:'Fredoka One',cursive;
+      font-size:clamp(9px,1.7vw,13px);
+      color:#7c3aed;line-height:1.1;
+    }
 
-    /* ── Warrior Mix hero card ── */
-    .combo-wrap{width:min(560px,calc(100vw - 22px));flex-shrink:0}
+    /* Warrior Mix hero */
+    .combo-wrap{width:min(520px,calc(100vw - 20px));flex-shrink:0}
     .combo-card{
       width:100%;border:none;border-radius:clamp(16px,3vw,26px);
-      padding:clamp(14px,2.6vh,22px) clamp(18px,4vw,36px);
+      padding:clamp(13px,2.4vh,20px) clamp(18px,4vw,36px);
       cursor:pointer;display:flex;align-items:center;justify-content:center;gap:clamp(10px,2.4vw,18px);
       background:linear-gradient(135deg,#ff6eb4 0%,#a855f7 50%,#3b82f6 100%);
-      box-shadow:0 10px 32px rgba(168,85,247,.38),0 0 0 3px rgba(255,255,255,.18);
+      box-shadow:0 10px 32px rgba(168,85,247,.38);
       transition:transform .14s,box-shadow .14s;
-      text-align:center;position:relative;overflow:hidden;
+      position:relative;overflow:hidden;
     }
-    .combo-card::before{
-      content:'';position:absolute;inset:0;
-      background:linear-gradient(135deg,rgba(255,255,255,.14) 0%,transparent 60%);
-      pointer-events:none;
-    }
+    .combo-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.14) 0%,transparent 60%);pointer-events:none}
     .combo-card:hover{transform:scale(1.03) translateY(-3px);box-shadow:0 16px 44px rgba(168,85,247,.52)}
     .combo-card:active{transform:scale(0.97)}
-    .combo-icon{font-size:clamp(30px,6.5vw,48px);line-height:1;flex-shrink:0}
-    .combo-text{display:flex;flex-direction:column;align-items:flex-start;gap:1px}
+    .combo-icon{font-size:clamp(32px,7vw,52px);line-height:1;flex-shrink:0}
     .combo-name{
-      font-family:'Fredoka One',cursive;font-size:clamp(18px,4vw,30px);
-      color:#fff;line-height:1.1;
-      text-shadow:0 2px 8px rgba(0,0,0,.18);
+      font-family:'Fredoka One',cursive;font-size:clamp(20px,4.5vw,34px);
+      color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.18);
     }
-    .combo-desc{font-size:clamp(10px,2vw,14px);color:rgba(255,255,255,.82);font-weight:800;line-height:1.2}
 
     .sound-row{display:flex;justify-content:center;flex-shrink:0}
     .sound-btn{
       background:none;border:none;cursor:pointer;
-      font-size:clamp(20px,3.8vw,30px);padding:7px 16px;border-radius:50%;
+      font-size:clamp(22px,4vw,32px);padding:6px 14px;border-radius:50%;
       transition:transform .15s;
     }
     .sound-btn:hover{transform:scale(1.2)}
@@ -137,22 +133,20 @@
     ═══════════════════════════════════ */
     .g-topbar{
       display:flex;align-items:center;justify-content:space-between;
-      gap:clamp(7px,1.8vw,14px);width:100%;max-width:700px;flex-shrink:0;
+      gap:clamp(6px,1.6vw,12px);width:100%;max-width:680px;flex-shrink:0;
     }
     .home-btn{
       background:#fff;border-radius:50%;
-      width:clamp(40px,6.5vw,54px);height:clamp(40px,6.5vw,54px);
-      font-size:clamp(17px,3vw,25px);
+      width:clamp(42px,7vw,56px);height:clamp(42px,7vw,56px);
+      font-size:clamp(18px,3.2vw,26px);
       display:flex;align-items:center;justify-content:center;
       cursor:pointer;flex-shrink:0;border:none;
       box-shadow:0 4px 14px rgba(0,0,0,.1);transition:transform .13s;
     }
     .home-btn:hover{transform:scale(1.12)}
-    .g-title{
-      font-family:'Fredoka One',cursive;font-size:clamp(15px,2.9vw,24px);
-      background:linear-gradient(135deg,#ff6eb4,#a855f7);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-      text-align:center;flex:1;
+    .g-mode-icon{
+      font-size:clamp(22px,4.5vw,34px);
+      text-align:center;flex:1;line-height:1;
     }
     .round-pill{
       background:linear-gradient(135deg,#a855f7,#3b82f6);
@@ -168,7 +162,7 @@
       display:flex;justify-content:center;align-items:center;
       gap:clamp(4px,1.2vw,12px);flex-shrink:0;
     }
-    .star{font-size:clamp(20px,4.2vw,38px);filter:grayscale(1);opacity:.2;transition:filter .3s,opacity .3s}
+    .star{font-size:clamp(20px,4.2vw,36px);filter:grayscale(1);opacity:.18;transition:filter .3s,opacity .3s}
     .star.lit{filter:none;opacity:1;animation:star-pop .45s cubic-bezier(.36,.07,.19,.97)}
     @keyframes star-pop{0%{transform:scale(0) rotate(-20deg)}60%{transform:scale(1.5) rotate(10deg)}100%{transform:scale(1) rotate(0)}}
 
@@ -176,24 +170,18 @@
        DRAG & MATCH
     ═══════════════════════════════════ */
     .play-card{
-      background:#fff;border-radius:clamp(18px,3.2vw,32px);
-      padding:clamp(13px,2.3vh,26px) clamp(9px,2.3vw,26px);
-      box-shadow:0 13px 42px rgba(168,85,247,.11),0 0 0 3px rgba(168,85,247,.06);
+      background:#fff;border-radius:clamp(18px,3.2vw,30px);
+      padding:clamp(12px,2vh,22px) clamp(9px,2vw,22px);
+      box-shadow:0 10px 36px rgba(168,85,247,.1),0 0 0 3px rgba(168,85,247,.05);
       display:flex;flex-direction:column;align-items:center;
-      width:min(680px,calc(100vw - 26px));flex-shrink:0;
+      width:min(660px,calc(100vw - 22px));flex-shrink:0;
+      gap:clamp(8px,1.5vh,14px);
     }
-    .zone-lbl{
-      font-family:'Fredoka One',cursive;font-size:clamp(10px,1.8vw,15px);
-      color:#ccc;text-transform:uppercase;letter-spacing:3px;
-      margin-bottom:clamp(5px,1vh,10px);
+    .zone-arrow{
+      font-size:clamp(22px,4.5vw,36px);
+      opacity:.35;
     }
-    .tile-grid{display:flex;justify-content:center;gap:var(--tg,10px)}
-    .row-div{
-      width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
-      margin:clamp(9px,1.7vh,18px) 0;
-      font-size:clamp(14px,2.8vw,22px);color:#e0d4f7;
-    }
-    .row-div::before,.row-div::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,transparent,#e9d5ff,transparent)}
+    .tile-grid{display:flex;justify-content:center;gap:var(--tg)}
 
     .drop-zone{
       width:var(--ts);height:var(--ts);border-radius:var(--tr);font-size:var(--tf);
@@ -223,7 +211,7 @@
     .check-badge{
       position:absolute;top:-9px;right:-9px;background:#22c55e;color:#fff;
       font-size:clamp(10px,1.9vw,16px);
-      width:clamp(20px,4.2vw,31px);height:clamp(20px,4.2vw,31px);
+      width:clamp(20px,4.2vw,30px);height:clamp(20px,4.2vw,30px);
       border-radius:50%;display:flex;align-items:center;justify-content:center;
       box-shadow:0 3px 9px rgba(34,197,94,.55);
       animation:pop-in .24s cubic-bezier(.36,.07,.19,.97);
@@ -244,11 +232,7 @@
     ═══════════════════════════════════ */
     .flip-wrap{
       display:flex;flex-direction:column;align-items:center;
-      gap:clamp(7px,1.6vh,13px);flex-shrink:0;width:100%;
-    }
-    .flip-note{
-      font-family:'Fredoka One',cursive;font-size:clamp(15px,2.8vw,21px);
-      color:#a855f7;text-align:center;
+      gap:clamp(7px,1.4vh,12px);flex-shrink:0;width:100%;
     }
     .mem-grid{
       display:grid;
@@ -279,10 +263,10 @@
        LINE DRAW
     ═══════════════════════════════════ */
     .line-card{
-      background:#fff;border-radius:clamp(18px,3.2vw,32px);
-      padding:clamp(13px,2.3vh,26px) clamp(13px,2.8vw,30px);
-      box-shadow:0 13px 42px rgba(168,85,247,.11),0 0 0 3px rgba(168,85,247,.06);
-      width:min(680px,calc(100vw - 26px));flex-shrink:0;
+      background:#fff;border-radius:clamp(18px,3.2vw,30px);
+      padding:clamp(13px,2.3vh,24px) clamp(13px,2.8vw,28px);
+      box-shadow:0 10px 36px rgba(168,85,247,.1),0 0 0 3px rgba(168,85,247,.05);
+      width:min(660px,calc(100vw - 22px));flex-shrink:0;
       position:relative;
     }
     .line-cols{display:flex;justify-content:space-between;align-items:center;gap:6px}
@@ -305,8 +289,9 @@
       pointer-events:none;
     }
     .line-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+    .line-node.wrong{animation:shake .38s ease-in-out}
 
-    /* shared tile animations */
+    /* ─── Shared animations ─── */
     @keyframes match-pop{0%{transform:scale(1)}35%{transform:scale(1.32) rotate(-6deg)}65%{transform:scale(.95) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
     @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px) rotate(-4deg)}40%{transform:translateX(10px) rotate(4deg)}60%{transform:translateX(-7px)}80%{transform:translateX(7px)}}
 
@@ -314,36 +299,36 @@
        ADVENTURE SCREEN
     ═══════════════════════════════════ */
     .adv-q-card{
-      background:#fff;border-radius:clamp(18px,3.2vw,30px);
-      padding:clamp(14px,2.3vh,24px) clamp(16px,3.5vw,34px);
-      box-shadow:0 11px 36px rgba(255,110,180,.13),0 0 0 3px rgba(255,110,180,.06);
-      text-align:center;width:min(640px,calc(100vw - 26px));flex-shrink:0;
+      background:#fff;border-radius:clamp(18px,3.2vw,28px);
+      padding:clamp(14px,2.2vh,22px) clamp(16px,3.5vw,32px);
+      box-shadow:0 10px 32px rgba(255,110,180,.12);
+      text-align:center;width:min(620px,calc(100vw - 22px));flex-shrink:0;
     }
     .adv-lbl{
-      font-family:'Fredoka One',cursive;font-size:clamp(12px,2.3vw,17px);
-      color:#ccc;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;
+      font-family:'Fredoka One',cursive;font-size:clamp(11px,2vw,15px);
+      color:#d8b4fe;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;
     }
     .adv-big-letter{
       font-family:'Fredoka One',cursive;
-      font-size:clamp(70px,17vw,124px);line-height:1;
+      font-size:clamp(72px,17vw,120px);line-height:1;
       background:linear-gradient(135deg,#ff6eb4,#a855f7);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
       cursor:pointer;
     }
     .adv-grid{
       display:grid;grid-template-columns:1fr 1fr;
-      gap:clamp(10px,2.3vw,17px);
-      width:min(480px,calc(100vw - 26px));flex-shrink:0;
+      gap:clamp(10px,2.3vw,16px);
+      width:min(460px,calc(100vw - 22px));flex-shrink:0;
     }
     .adv-choice{
       background:#fff;border:3px solid #e9d5ff;
-      border-radius:clamp(15px,2.8vw,23px);
+      border-radius:clamp(15px,2.8vw,22px);
       padding:clamp(12px,2.2vh,20px) 0;
       cursor:pointer;
       display:flex;align-items:center;justify-content:center;
       font-size:clamp(42px,9.5vw,68px);
       line-height:1;
-      box-shadow:0 5px 16px rgba(168,85,247,.09);
+      box-shadow:0 5px 16px rgba(168,85,247,.08);
       transition:transform .13s,box-shadow .13s,border-color .13s;
       user-select:none;
     }
@@ -355,30 +340,26 @@
     .adv-choice.wrong  {animation:shake .36s ease-in-out}
 
     /* ═══════════════════════════════════
-       🫧 BUBBLE POP GAME
+       🫧 BUBBLE POP
     ═══════════════════════════════════ */
-    #bubble-screen{gap:clamp(8px,1.6vh,14px)}
+    #bubble-screen{gap:clamp(8px,1.5vh,13px)}
     .bubble-instruction{
       background:#fff;border-radius:clamp(16px,3vw,26px);
-      padding:clamp(12px,2vh,20px) clamp(18px,4vw,36px);
-      box-shadow:0 8px 28px rgba(168,85,247,.12);
-      text-align:center;width:min(560px,calc(100vw - 26px));flex-shrink:0;
-    }
-    .bubble-prompt-lbl{
-      font-family:'Fredoka One',cursive;font-size:clamp(12px,2.2vw,16px);
-      color:#ccc;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;
+      padding:clamp(10px,1.8vh,18px) clamp(18px,4vw,36px);
+      box-shadow:0 8px 28px rgba(168,85,247,.1);
+      text-align:center;width:min(540px,calc(100vw - 22px));flex-shrink:0;
     }
     .bubble-target{
       font-family:'Fredoka One',cursive;
-      font-size:clamp(52px,13vw,96px);line-height:1;
+      font-size:clamp(56px,14vw,100px);line-height:1;
       background:linear-gradient(135deg,#3b82f6,#8b5cf6);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
       cursor:pointer;
     }
     .bubble-arena{
       position:relative;
-      width:min(560px,calc(100vw - 26px));
-      height:clamp(240px,45vh,380px);
+      width:min(540px,calc(100vw - 22px));
+      height:clamp(240px,44vh,370px);
       background:#fff;border-radius:clamp(18px,3.2vw,28px);
       box-shadow:0 8px 28px rgba(168,85,247,.1);
       overflow:hidden;flex-shrink:0;
@@ -392,104 +373,84 @@
       border:4px solid rgba(255,255,255,.5);
       box-shadow:0 8px 24px rgba(0,0,0,.15),inset 0 -3px 0 rgba(0,0,0,.1),inset 4px 4px 8px rgba(255,255,255,.3);
       transition:transform .12s;
-      animation:float-bubble linear infinite;
       will-change:transform;
     }
     .bubble:hover{transform:scale(1.12)}
     .bubble:active{transform:scale(0.9)}
-    @keyframes float-bubble{
-      0%  {transform:translateY(0px) rotate(0deg)}
-      25% {transform:translateY(-18px) rotate(2deg)}
-      50% {transform:translateY(0px) rotate(-1deg)}
-      75% {transform:translateY(-10px) rotate(1deg)}
-      100%{transform:translateY(0px) rotate(0deg)}
-    }
     .bubble.pop{animation:bubble-pop .4s ease-out forwards}
-    @keyframes bubble-pop{
-      0%  {transform:scale(1);opacity:1}
-      40% {transform:scale(1.5);opacity:.7}
-      100%{transform:scale(0);opacity:0}
-    }
+    @keyframes bubble-pop{0%{transform:scale(1);opacity:1}40%{transform:scale(1.5);opacity:.7}100%{transform:scale(0);opacity:0}}
     .bubble.wrong-shake{animation:shake .35s ease-in-out}
-    .bubble-score{
-      font-family:'Fredoka One',cursive;font-size:clamp(14px,2.6vw,22px);
-      color:#a855f7;text-align:center;flex-shrink:0;
-    }
 
     /* ═══════════════════════════════════
-       🧩 MISSING LETTER GAME
+       🧩 FILL THE GAP (3-letter only)
     ═══════════════════════════════════ */
-    #missing-screen{gap:clamp(8px,1.5vh,14px)}
+    #missing-screen{gap:clamp(8px,1.4vh,13px)}
     .missing-word-card{
       background:#fff;border-radius:clamp(18px,3.2vw,28px);
-      padding:clamp(16px,2.8vh,30px) clamp(18px,4vw,40px);
-      box-shadow:0 10px 32px rgba(168,85,247,.12);
-      text-align:center;width:min(580px,calc(100vw - 26px));flex-shrink:0;
+      padding:clamp(16px,2.8vh,28px) clamp(18px,4vw,38px);
+      box-shadow:0 10px 32px rgba(168,85,247,.1);
+      text-align:center;width:min(560px,calc(100vw - 22px));flex-shrink:0;
     }
-    .missing-emoji{font-size:clamp(54px,12vw,90px);line-height:1;margin-bottom:8px;cursor:pointer}
+    .missing-emoji{font-size:clamp(58px,13vw,92px);line-height:1;margin-bottom:8px;cursor:pointer}
     .missing-word-display{
       display:flex;align-items:center;justify-content:center;
-      gap:clamp(6px,1.4vw,12px);margin-top:10px;flex-wrap:wrap;
+      gap:clamp(8px,1.8vw,14px);margin-top:10px;
     }
     .letter-slot{
-      width:clamp(44px,9vw,68px);height:clamp(44px,9vw,68px);
-      border-radius:clamp(10px,2vw,15px);
+      width:clamp(52px,11vw,78px);height:clamp(52px,11vw,78px);
+      border-radius:clamp(12px,2.2vw,17px);
       display:flex;align-items:center;justify-content:center;
-      font-family:'Fredoka One',cursive;font-size:clamp(22px,4.5vw,36px);
+      font-family:'Fredoka One',cursive;font-size:clamp(26px,5.5vw,42px);
       color:#fff;
       box-shadow:0 5px 15px rgba(0,0,0,.12),inset 0 -3px 0 rgba(0,0,0,.1);
     }
     .letter-slot.blank{
       background:#f3e8ff;border:3px dashed #d8b4fe;
-      color:#a855f7;font-size:clamp(26px,5vw,42px);
+      color:#a855f7;font-size:clamp(28px,6vw,46px);
     }
     .letter-slot.filled{animation:match-pop .4s cubic-bezier(.36,.07,.19,.97)}
     .missing-choices{
-      display:flex;justify-content:center;flex-wrap:wrap;
-      gap:clamp(8px,2vw,14px);width:min(440px,calc(100vw - 26px));flex-shrink:0;
+      display:flex;justify-content:center;
+      gap:clamp(10px,2.2vw,16px);
+      width:min(420px,calc(100vw - 22px));flex-shrink:0;
     }
     .missing-btn{
-      width:clamp(52px,11vw,78px);height:clamp(52px,11vw,78px);
-      border-radius:clamp(12px,2.3vw,18px);
+      width:clamp(60px,13vw,88px);height:clamp(60px,13vw,88px);
+      border-radius:clamp(14px,2.5vw,20px);
       border:none;cursor:pointer;
-      font-family:'Fredoka One',cursive;font-size:clamp(22px,4.8vw,38px);color:#fff;
+      font-family:'Fredoka One',cursive;font-size:clamp(26px,5.5vw,42px);color:#fff;
       box-shadow:0 6px 18px rgba(0,0,0,.14),inset 0 -4px 0 rgba(0,0,0,.1);
       transition:transform .13s,box-shadow .13s;
       flex-shrink:0;
     }
     .missing-btn:hover{transform:scale(1.14) translateY(-4px)}
     .missing-btn:active{transform:scale(0.92)}
-    .missing-btn.used{opacity:.25;pointer-events:none;transform:scale(0.85)}
+    .missing-btn.used{opacity:.22;pointer-events:none;transform:scale(0.85)}
     .missing-btn.wrong-ans{animation:shake .36s ease-in-out}
 
     /* ═══════════════════════════════════
-       🎨 COLOUR & LETTER MATCH GAME
+       🎨 COLOUR MATCH
     ═══════════════════════════════════ */
-    #color-screen{gap:clamp(8px,1.5vh,14px)}
+    #color-screen{gap:clamp(8px,1.4vh,13px)}
     .color-instruction{
       background:#fff;border-radius:clamp(16px,3vw,26px);
-      padding:clamp(12px,2vh,22px) clamp(18px,3.5vw,34px);
-      box-shadow:0 8px 28px rgba(168,85,247,.12);
-      text-align:center;width:min(580px,calc(100vw - 26px));flex-shrink:0;
-    }
-    .color-instr-lbl{
-      font-family:'Fredoka One',cursive;font-size:clamp(13px,2.5vw,20px);
-      color:#6b7280;margin-bottom:6px;
+      padding:clamp(12px,1.8vh,20px) clamp(18px,3.5vw,32px);
+      box-shadow:0 8px 28px rgba(168,85,247,.1);
+      text-align:center;width:min(560px,calc(100vw - 22px));flex-shrink:0;
     }
     .color-target-word{
       font-family:'Fredoka One',cursive;
-      font-size:clamp(38px,9vw,72px);
-      line-height:1.1;
-      transition:color .3s;
+      font-size:clamp(40px,10vw,76px);
+      line-height:1.05;transition:color .3s;
     }
     .color-choices{
       display:flex;flex-wrap:wrap;justify-content:center;
       gap:clamp(10px,2.2vw,18px);
-      width:min(520px,calc(100vw - 26px));flex-shrink:0;
+      width:min(500px,calc(100vw - 22px));flex-shrink:0;
     }
     .color-swatch{
-      width:clamp(68px,14vw,100px);height:clamp(68px,14vw,100px);
-      border-radius:50%;border:5px solid rgba(255,255,255,.8);
+      width:clamp(72px,15vw,106px);height:clamp(72px,15vw,106px);
+      border-radius:50%;border:5px solid rgba(255,255,255,.85);
       cursor:pointer;
       box-shadow:0 7px 22px rgba(0,0,0,.18);
       transition:transform .13s,box-shadow .13s;
@@ -505,36 +466,35 @@
     ═══════════════════════════════════ */
     #success-overlay{
       display:none;position:fixed;inset:0;
-      background:rgba(0,0,0,.58);backdrop-filter:blur(8px);
+      background:rgba(0,0,0,.55);backdrop-filter:blur(10px);
       align-items:center;justify-content:center;z-index:500;padding:20px;
     }
     #success-overlay.active{display:flex}
     .success-card{
       background:#fff;border-radius:34px;
-      padding:clamp(26px,4.8vh,50px) clamp(26px,5vw,56px);
-      text-align:center;width:min(390px,100%);
+      padding:clamp(24px,4.5vh,48px) clamp(26px,5vw,54px);
+      text-align:center;width:min(360px,100%);
       box-shadow:0 26px 70px rgba(0,0,0,.3);
       animation:card-in .5s cubic-bezier(.36,.07,.19,.97);
-      display:flex;flex-direction:column;align-items:center;gap:0;
+      display:flex;flex-direction:column;align-items:center;gap:6px;
     }
     @keyframes card-in{0%{transform:scale(.3) rotate(-10deg);opacity:0}60%{transform:scale(1.05) rotate(2deg);opacity:1}100%{transform:scale(1) rotate(0)}}
-    .s-big-emoji{font-size:clamp(56px,12vw,90px);display:block;margin-bottom:6px;animation:wobble 1.2s ease-in-out infinite}
+    .s-big-emoji{font-size:clamp(60px,13vw,92px);display:block;animation:wobble 1.2s ease-in-out infinite}
     @keyframes wobble{0%,100%{transform:rotate(-6deg) scale(1)}50%{transform:rotate(7deg) scale(1.08)}}
-    .s-stars-row{font-size:clamp(26px,6vw,46px);margin-bottom:9px;display:flex;justify-content:center;gap:5px}
+    .s-stars-row{font-size:clamp(28px,6.5vw,48px);display:flex;justify-content:center;gap:4px}
     .s-title{
-      font-family:'Fredoka One',cursive;font-size:clamp(28px,7.5vw,48px);
+      font-family:'Fredoka One',cursive;font-size:clamp(30px,8vw,52px);
       background:linear-gradient(135deg,#ff6eb4,#a855f7);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-      margin-bottom:3px;
     }
-    .s-info{font-size:clamp(12px,2.3vw,17px);color:#bbb;font-weight:800;margin-bottom:18px}
-    .s-btns{display:flex;flex-direction:column;gap:9px;width:100%}
+    .s-btns{display:flex;flex-direction:column;gap:9px;width:100%;margin-top:10px}
 
+    /* Bingo toast */
     .bingo-toast{
       position:fixed;top:50%;left:50%;
       transform:translate(-50%,-50%) scale(0);
       font-family:'Fredoka One',cursive;
-      font-size:clamp(52px,14vw,115px);
+      font-size:clamp(52px,14vw,110px);
       background:linear-gradient(135deg,#ff6eb4,#ffd93d,#22c55e);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
       pointer-events:none;z-index:9999;
@@ -548,10 +508,11 @@
       100%{transform:translate(-50%,-50%) scale(.65) rotate(0);opacity:0}
     }
 
+    /* Confetti */
     .cp{position:fixed;pointer-events:none;z-index:600;animation:fall linear forwards}
     @keyframes fall{0%{transform:translateY(-50px) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(700deg);opacity:0}}
 
-    /* Tap-ripple feedback */
+    /* Ripple */
     .ripple{
       position:fixed;pointer-events:none;z-index:9998;
       width:60px;height:60px;margin-left:-30px;margin-top:-30px;
@@ -563,71 +524,56 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════
-     HOME SCREEN
-═══════════════════════════════ -->
+<!-- ══════════ HOME ══════════ -->
 <div id="home-screen" class="screen active">
 
-  <div class="home-top">
-    <div class="logo">Alphabet<br>Warriors!</div>
-    <div class="logo-sub">✨ Let's Play! ✨</div>
-    <div class="bounce-row">
-      <div class="b-tile">A</div><div class="b-tile">B</div>
-      <div class="b-tile">C</div><div class="b-tile">D</div>
-      <div class="b-tile">E</div>
-    </div>
+  <div class="logo">Alphabet<br>Warriors!</div>
+
+  <div class="bounce-row">
+    <div class="b-tile">A</div><div class="b-tile">B</div>
+    <div class="b-tile">C</div><div class="b-tile">D</div>
+    <div class="b-tile">E</div>
   </div>
 
   <div class="modes-grid">
     <div class="mode-card" onclick="sfxClick();startClassic('drag')">
       <div class="mc-icon">✋</div>
-      <div class="mc-name">Drag &amp; Match</div>
-      <div class="mc-desc">Drag small to big!</div>
+      <div class="mc-name">Drag</div>
     </div>
     <div class="mode-card" onclick="sfxClick();startClassic('flip')">
       <div class="mc-icon">🃏</div>
-      <div class="mc-name">Flip Cards</div>
-      <div class="mc-desc">Find the pairs!</div>
+      <div class="mc-name">Flip</div>
     </div>
     <div class="mode-card" onclick="sfxClick();startClassic('line')">
       <div class="mc-icon">✏️</div>
-      <div class="mc-name">Draw a Line</div>
-      <div class="mc-desc">Connect letters!</div>
+      <div class="mc-name">Draw</div>
     </div>
     <div class="mode-card" onclick="sfxClick();startAdventure('starts')">
       <div class="mc-icon">🔤</div>
-      <div class="mc-name">Starts With</div>
-      <div class="mc-desc">Pick the picture!</div>
+      <div class="mc-name">Starts</div>
     </div>
     <div class="mode-card" onclick="sfxClick();startAdventure('ends')">
       <div class="mc-icon">🔡</div>
-      <div class="mc-name">Ends With</div>
-      <div class="mc-desc">What ends with it?</div>
+      <div class="mc-name">Ends</div>
     </div>
     <div class="mode-card" onclick="sfxClick();startBubble()">
       <div class="mc-icon">🫧</div>
-      <div class="mc-name">Bubble Pop!</div>
-      <div class="mc-desc">Pop the right bubble!</div>
+      <div class="mc-name">Bubbles</div>
     </div>
     <div class="mode-card" onclick="sfxClick();startMissing()">
       <div class="mc-icon">🧩</div>
-      <div class="mc-name">Fill the Gap!</div>
-      <div class="mc-desc">Missing letter?</div>
+      <div class="mc-name">Gap</div>
     </div>
     <div class="mode-card" onclick="sfxClick();startColorMatch()">
       <div class="mc-icon">🎨</div>
-      <div class="mc-name">Colour Match!</div>
-      <div class="mc-desc">Find the colour!</div>
+      <div class="mc-name">Colour</div>
     </div>
   </div>
 
   <div class="combo-wrap">
     <div class="combo-card" onclick="sfxClick();startClassic('combo')">
       <div class="combo-icon">⚔️</div>
-      <div class="combo-text">
-        <div class="combo-name">Warrior Mix!</div>
-        <div class="combo-desc">All 8 games in one epic challenge!</div>
-      </div>
+      <div class="combo-name">Warrior Mix!</div>
     </div>
   </div>
 
@@ -637,15 +583,13 @@
 
 </div>
 
-<!-- ═══════════════════════════════
-     CLASSIC GAME SCREEN
-═══════════════════════════════ -->
+<!-- ══════════ CLASSIC GAME ══════════ -->
 <div id="game-screen" class="screen">
 
   <div class="g-topbar">
-    <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
-    <div class="g-title" id="g-title">Drag &amp; Match!</div>
-    <div class="round-pill" id="round-pill">Round 1 / 5</div>
+    <button class="home-btn" onclick="sfxClick();goHome()">🏠</button>
+    <div class="g-mode-icon" id="g-mode-icon">✋</div>
+    <div class="round-pill" id="round-pill">1 / 5</div>
   </div>
 
   <div class="stars-row" id="g-stars">
@@ -654,15 +598,12 @@
   </div>
 
   <div class="play-card" id="drag-panel">
-    <div class="zone-lbl">Big Letters — drop here!</div>
     <div class="tile-grid" id="drop-row"></div>
-    <div class="row-div">👇</div>
-    <div class="zone-lbl">Small Letters — drag me up!</div>
+    <div class="zone-arrow">👇</div>
     <div class="tile-grid" id="drag-row"></div>
   </div>
 
   <div class="flip-wrap" id="flip-panel" style="display:none">
-    <div class="flip-note" id="flip-note">Find 5 matching pairs! 🃏</div>
     <div class="mem-grid" id="mem-grid"></div>
   </div>
 
@@ -674,19 +615,17 @@
     </div>
   </div>
 
-  <button class="refresh-btn" id="refresh-btn" onclick="sfxClick();initRound()" title="Try again">🔄</button>
+  <button class="refresh-btn" id="refresh-btn" onclick="sfxClick();initRound()">🔄</button>
 
 </div>
 
-<!-- ═══════════════════════════════
-     ADVENTURE SCREEN
-═══════════════════════════════ -->
+<!-- ══════════ ADVENTURE ══════════ -->
 <div id="adv-screen" class="screen">
 
   <div class="g-topbar">
-    <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
-    <div class="g-title" id="adv-title">Starts With!</div>
-    <div class="round-pill" id="adv-pill">Round 1 / 5</div>
+    <button class="home-btn" onclick="sfxClick();goHome()">🏠</button>
+    <div class="g-mode-icon" id="adv-mode-icon">🔤</div>
+    <div class="round-pill" id="adv-pill">1 / 5</div>
   </div>
 
   <div class="stars-row" id="adv-stars">
@@ -695,7 +634,7 @@
   </div>
 
   <div class="adv-q-card">
-    <div class="adv-lbl" id="adv-lbl">Find the picture that STARTS with...</div>
+    <div class="adv-lbl" id="adv-lbl">STARTS WITH</div>
     <div class="adv-big-letter" id="adv-letter" onclick="sfxClick();speak(this.textContent)">A</div>
   </div>
 
@@ -703,15 +642,13 @@
 
 </div>
 
-<!-- ═══════════════════════════════
-     🫧 BUBBLE POP SCREEN
-═══════════════════════════════ -->
+<!-- ══════════ BUBBLE POP ══════════ -->
 <div id="bubble-screen" class="screen">
 
   <div class="g-topbar">
-    <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
-    <div class="g-title">🫧 Bubble Pop!</div>
-    <div class="round-pill" id="bubble-pill">Round 1 / 5</div>
+    <button class="home-btn" onclick="sfxClick();goHome()">🏠</button>
+    <div class="g-mode-icon">🫧</div>
+    <div class="round-pill" id="bubble-pill">1 / 5</div>
   </div>
 
   <div class="stars-row" id="bubble-stars">
@@ -720,24 +657,20 @@
   </div>
 
   <div class="bubble-instruction">
-    <div class="bubble-prompt-lbl">Pop the bubble with...</div>
     <div class="bubble-target" id="bubble-target" onclick="sfxClick();speak(document.getElementById('bubble-target').textContent)">A</div>
   </div>
 
   <div class="bubble-arena" id="bubble-arena"></div>
-  <div class="bubble-score" id="bubble-score">Find the letter! 🎯</div>
 
 </div>
 
-<!-- ═══════════════════════════════
-     🧩 FILL THE GAP SCREEN
-═══════════════════════════════ -->
+<!-- ══════════ FILL THE GAP ══════════ -->
 <div id="missing-screen" class="screen">
 
   <div class="g-topbar">
-    <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
-    <div class="g-title">🧩 Fill the Gap!</div>
-    <div class="round-pill" id="missing-pill">Round 1 / 5</div>
+    <button class="home-btn" onclick="sfxClick();goHome()">🏠</button>
+    <div class="g-mode-icon">🧩</div>
+    <div class="round-pill" id="missing-pill">1 / 5</div>
   </div>
 
   <div class="stars-row" id="missing-stars">
@@ -754,15 +687,13 @@
 
 </div>
 
-<!-- ═══════════════════════════════
-     🎨 COLOUR MATCH SCREEN
-═══════════════════════════════ -->
+<!-- ══════════ COLOUR MATCH ══════════ -->
 <div id="color-screen" class="screen">
 
   <div class="g-topbar">
-    <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
-    <div class="g-title">🎨 Colour Match!</div>
-    <div class="round-pill" id="color-pill">Round 1 / 5</div>
+    <button class="home-btn" onclick="sfxClick();goHome()">🏠</button>
+    <div class="g-mode-icon">🎨</div>
+    <div class="round-pill" id="color-pill">1 / 5</div>
   </div>
 
   <div class="stars-row" id="color-stars">
@@ -771,7 +702,6 @@
   </div>
 
   <div class="color-instruction">
-    <div class="color-instr-lbl">Tap the colour that matches this word!</div>
     <div class="color-target-word" id="color-target-word">RED</div>
   </div>
 
@@ -779,18 +709,15 @@
 
 </div>
 
-<!-- ═══════════════════════════════
-     SUCCESS OVERLAY
-═══════════════════════════════ -->
+<!-- ══════════ SUCCESS OVERLAY ══════════ -->
 <div id="success-overlay">
   <div class="success-card">
     <span class="s-big-emoji" id="s-emoji">🎉</span>
     <div class="s-stars-row">⭐⭐⭐⭐⭐</div>
-    <div class="s-title" id="s-title">Amazing!</div>
-    <div class="s-info"  id="s-info">Round 1 of 5 done!</div>
+    <div class="s-title" id="s-title">WOW!</div>
     <div class="s-btns">
-      <button class="btn btn-green" id="s-next" onclick="handleNext()">🚀 Next Round!</button>
-      <button class="btn btn-back"               onclick="goHome()">🏠 Back to Menu</button>
+      <button class="btn btn-green" id="s-next" onclick="handleNext()">🚀 Next!</button>
+      <button class="btn btn-back"               onclick="goHome()">🏠 Home</button>
     </div>
   </div>
 </div>
@@ -798,15 +725,15 @@
 <script>
 'use strict';
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    GLOBAL STATE
-════════════════════════════════════════════ */
-let soundOn   = true;
-let musicOn   = false;
-let gMode     = 'drag';
-let round     = 1;
-const ROUNDS  = 5;
-let matched   = 0;
+════════════════════════════ */
+let soundOn  = true;
+let musicOn  = false;
+let gMode    = 'drag';
+let round    = 1;
+const ROUNDS = 5;
+let matched  = 0;
 
 let dragSrc = null, dragLetter = null;
 let touchSrc = null, touchClone = null;
@@ -815,20 +742,16 @@ let lineFrom = null;
 let comboOrder = [];
 let advType = 'starts', advQuestions = [], advIdx = 0, advLocked = false;
 
-// Bubble Pop state
-let bubbleRound = 1, bubbleMatched = 0, bubbleLocked = false;
+let bubbleRound = 1, bubbleLocked = false;
 let bubbleTarget = '', bubbleAnimFrames = [];
 
-// Fill the Gap state
-let missingRound = 1, missingQIdx = 0, missingLocked = false;
+let missingQIdx = 0, missingLocked = false;
 let missingQuestions = [];
 
-// Colour Match state
-let colorRound = 1, colorQIdx = 0, colorLocked = false;
+let colorQIdx = 0, colorLocked = false;
 let colorQuestions = [];
 
-// Track which game "next" button advances
-let currentGameMode = 'classic'; // 'classic' | 'bubble' | 'missing' | 'color'
+let currentGameMode = 'classic';
 
 const COLORS = [
   ['#ef4444','#b91c1c'],['#f97316','#c2410c'],
@@ -837,78 +760,33 @@ const COLORS = [
   ['#ec4899','#be185d'],['#14b8a6','#0f766e'],
 ];
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    WORD DATABASE
-════════════════════════════════════════════ */
+════════════════════════════ */
 const WORDS = [
-  ['🍎','Apple',   'A','E'],
-  ['🐜','Ant',     'A','T'],
-  ['✈️','Airplane','A','E'],
-  ['🐊','Alligator','A','R'],
-  ['🐻','Bear',    'B','R'],
-  ['🐝','Bee',     'B','E'],
-  ['🍌','Banana',  'B','A'],
-  ['🦋','Butterfly','B','Y'],
-  ['🐦','Bird',    'B','D'],
-  ['🎈','Balloon', 'B','N'],
-  ['🐱','Cat',     'C','T'],
-  ['🐄','Cow',     'C','W'],
-  ['🥕','Carrot',  'C','T'],
-  ['🐔','Chicken', 'C','N'],
-  ['🍰','Cake',    'C','E'],
-  ['🐶','Dog',     'D','G'],
-  ['🦆','Duck',    'D','K'],
-  ['🐬','Dolphin', 'D','N'],
-  ['🥚','Egg',     'E','G'],
-  ['🐘','Elephant','E','T'],
-  ['🐟','Fish',    'F','H'],
-  ['🌸','Flower',  'F','R'],
-  ['🐸','Frog',    'F','G'],
-  ['🦊','Fox',     'F','X'],
-  ['🦒','Giraffe', 'G','E'],
-  ['🍇','Grapes',  'G','S'],
-  ['🐐','Goat',    'G','T'],
-  ['🐎','Horse',   'H','E'],
-  ['🏠','House',   'H','E'],
-  ['🦛','Hippo',   'H','O'],
-  ['🍦','Ice Cream','I','M'],
-  ['🐛','Inchworm','I','M'],
-  ['🦁','Lion',    'L','N'],
-  ['🍋','Lemon',   'L','N'],
-  ['🦎','Lizard',  'L','D'],
-  ['🌙','Moon',    'M','N'],
-  ['🐭','Mouse',   'M','E'],
-  ['🐒','Monkey',  'M','Y'],
-  ['🍄','Mushroom','M','M'],
-  ['🐙','Octopus', 'O','S'],
-  ['🦉','Owl',     'O','L'],
-  ['🍊','Orange',  'O','E'],
-  ['🐧','Penguin', 'P','N'],
-  ['🐷','Pig',     'P','G'],
-  ['🍕','Pizza',   'P','A'],
-  ['🦜','Parrot',  'P','T'],
-  ['🌈','Rainbow', 'R','W'],
-  ['🐰','Rabbit',  'R','T'],
-  ['🦏','Rhino',   'R','O'],
-  ['🚀','Rocket',  'R','T'],
-  ['🦭','Seal',    'S','L'],
-  ['🐑','Sheep',   'S','P'],
-  ['☀️','Sun',     'S','N'],
-  ['⭐','Star',    'S','R'],
-  ['🐍','Snake',   'S','E'],
-  ['🦈','Shark',   'S','K'],
-  ['🐯','Tiger',   'T','R'],
-  ['🐢','Turtle',  'T','E'],
-  ['🚂','Train',   'T','N'],
-  ['🍅','Tomato',  'T','O'],
-  ['☂️','Umbrella','U','A'],
-  ['🦄','Unicorn', 'U','N'],
-  ['🎻','Violin',  'V','N'],
-  ['🐋','Whale',   'W','E'],
-  ['🐺','Wolf',    'W','F'],
-  ['🍉','Watermelon','W','N'],
-  ['🧶','Yarn',    'Y','N'],
-  ['🦓','Zebra',   'Z','A'],
+  ['🍎','Apple',   'A','E'],['🐜','Ant',     'A','T'],['✈️','Airplane','A','E'],
+  ['🐊','Alligator','A','R'],['🐻','Bear',   'B','R'],['🐝','Bee',     'B','E'],
+  ['🍌','Banana',  'B','A'],['🦋','Butterfly','B','Y'],['🐦','Bird',   'B','D'],
+  ['🎈','Balloon', 'B','N'],['🐱','Cat',     'C','T'],['🐄','Cow',     'C','W'],
+  ['🥕','Carrot',  'C','T'],['🐔','Chicken', 'C','N'],['🍰','Cake',    'C','E'],
+  ['🐶','Dog',     'D','G'],['🦆','Duck',    'D','K'],['🐬','Dolphin', 'D','N'],
+  ['🥚','Egg',     'E','G'],['🐘','Elephant','E','T'],['🐟','Fish',    'F','H'],
+  ['🌸','Flower',  'F','R'],['🐸','Frog',    'F','G'],['🦊','Fox',     'F','X'],
+  ['🦒','Giraffe', 'G','E'],['🍇','Grapes',  'G','S'],['🐐','Goat',    'G','T'],
+  ['🐎','Horse',   'H','E'],['🏠','House',   'H','E'],['🦛','Hippo',   'H','O'],
+  ['🍦','Ice Cream','I','M'],['🐛','Inchworm','I','M'],['🦁','Lion',   'L','N'],
+  ['🍋','Lemon',   'L','N'],['🦎','Lizard',  'L','D'],['🌙','Moon',    'M','N'],
+  ['🐭','Mouse',   'M','E'],['🐒','Monkey',  'M','Y'],['🍄','Mushroom','M','M'],
+  ['🐙','Octopus', 'O','S'],['🦉','Owl',     'O','L'],['🍊','Orange',  'O','E'],
+  ['🐧','Penguin', 'P','N'],['🐷','Pig',     'P','G'],['🍕','Pizza',   'P','A'],
+  ['🦜','Parrot',  'P','T'],['🌈','Rainbow', 'R','W'],['🐰','Rabbit',  'R','T'],
+  ['🦏','Rhino',   'R','O'],['🚀','Rocket',  'R','T'],['🦭','Seal',    'S','L'],
+  ['🐑','Sheep',   'S','P'],['☀️','Sun',     'S','N'],['⭐','Star',    'S','R'],
+  ['🐍','Snake',   'S','E'],['🦈','Shark',   'S','K'],['🐯','Tiger',   'T','R'],
+  ['🐢','Turtle',  'T','E'],['🚂','Train',   'T','N'],['🍅','Tomato',  'T','O'],
+  ['☂️','Umbrella','U','A'],['🦄','Unicorn', 'U','N'],['🎻','Violin',  'V','N'],
+  ['🐋','Whale',   'W','E'],['🐺','Wolf',    'W','F'],['🍉','Watermelon','W','N'],
+  ['🧶','Yarn',    'Y','N'],['🦓','Zebra',   'Z','A'],
 ];
 
 const BY_FIRST = {}, BY_LAST = {};
@@ -917,18 +795,18 @@ WORDS.forEach(w => {
   (BY_LAST[w[3]]  = BY_LAST[w[3]]  || []).push(w);
 });
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    TILE SIZING
-════════════════════════════════════════════ */
+════════════════════════════ */
 function setTileSize() {
   const N    = 5;
   const vw   = window.innerWidth;
-  const maxW = Math.min(680, vw - 26);
-  const pad  = Math.min(26, Math.max(9, vw * 0.024)) * 2;
+  const maxW = Math.min(660, vw - 22);
+  const pad  = Math.min(22, Math.max(9, vw * 0.022)) * 2;
   const cw   = maxW - pad;
-  const gap  = Math.max(5, Math.min(13, Math.round(cw * 0.021)));
+  const gap  = Math.max(5, Math.min(12, Math.round(cw * 0.02)));
   let sz     = Math.floor((cw - gap * (N - 1)) / N);
-  sz         = Math.max(46, Math.min(114, sz));
+  sz         = Math.max(46, Math.min(112, sz));
   const r    = document.documentElement;
   r.style.setProperty('--ts', sz + 'px');
   r.style.setProperty('--tf', Math.round(sz * 0.49) + 'px');
@@ -939,16 +817,18 @@ window.addEventListener('resize', setTileSize);
 window.addEventListener('orientationchange', () => setTimeout(setTileSize, 150));
 setTileSize();
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    AUDIO ENGINE
-════════════════════════════════════════════ */
+════════════════════════════ */
 let _ctx = null, bgGain = null, bgTimer = null, bgStart = 0;
+let currentBgTrack = '';
 
 function ac() {
   if (!_ctx) _ctx = new (window.AudioContext || window.webkitAudioContext)();
   if (_ctx.state === 'suspended') _ctx.resume();
   return _ctx;
 }
+
 function osc(freq, t0, dur, type='sine', vol=0.28) {
   if (!soundOn) return;
   try {
@@ -970,7 +850,7 @@ const sfxFanfare = () => [523,659,784,1047,1319].forEach((f,i) => osc(f, i*.1, .
 const sfxFlip    = () => osc(720, 0, .07, 'sine', .12);
 const sfxSelect  = () => osc(540, 0, .06, 'sine', .13);
 const sfxStar    = () => osc(1046, 0, .12, 'sine', .16);
-// Pop sound for bubble game
+const sfxColorOk = () => { osc(523,0,.08); osc(659,.09,.1); osc(784,.18,.18); };
 const sfxPop     = () => {
   if (!soundOn) return;
   try {
@@ -978,97 +858,224 @@ const sfxPop     = () => {
     const buf = c.createBuffer(1, c.sampleRate * 0.08, c.sampleRate);
     const d = buf.getChannelData(0);
     for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (d.length * 0.3));
-    const src = c.createBufferSource();
-    const g = c.createGain(); const f = c.createBiquadFilter();
+    const src = c.createBufferSource(), g = c.createGain(), f = c.createBiquadFilter();
     src.buffer = buf; f.type = 'bandpass'; f.frequency.value = 900; f.Q.value = 0.5;
     src.connect(f); f.connect(g); g.connect(c.destination);
     g.gain.value = 0.6;
     src.start(c.currentTime); src.stop(c.currentTime + 0.1);
   } catch(e) {}
 };
-// Colour correct sound — bright ascending
-const sfxColorOk = () => { osc(523,0,.08); osc(659,.09,.1); osc(784,.18,.18); };
 
-const BG_MELODY = [523,659,784,880,784,659,523,440,494,587,698,784,698,587,494,392,
-                   523,659,784,1047,880,784,659,523,440,523,659,784,698,587,523,494];
-const BG_CHORDS = [[261,329,392],[261,329,392],[220,277,330],[220,277,330],
-                   [261,329,392],[261,329,392],[174,220,261],[196,247,294]];
-const NL = 0.21, CL = 0.84;
+/* Menu Music */
+const MENU_BPM = 68, MENU_BEAT = 60/68;
+const MENU_MEL = [
+  [523,0,MENU_BEAT*2.2],[587,2,MENU_BEAT*1.1],[659,3,MENU_BEAT*2.2],
+  [784,5,MENU_BEAT*2.4],[659,7,MENU_BEAT*1.1],[587,8,MENU_BEAT*2.2],
+  [523,10,MENU_BEAT*4.2],[440,14,MENU_BEAT*2.2],[494,16,MENU_BEAT*1.1],
+  [523,17,MENU_BEAT*2.2],[587,19,MENU_BEAT*2.2],[523,21,MENU_BEAT*4.5],
+];
+const MENU_PADS = [
+  [[261,329,392],0,MENU_BEAT*4.2],[[261,329,392],4,MENU_BEAT*4.2],
+  [[220,277,330],8,MENU_BEAT*4.2],[[196,247,294],12,MENU_BEAT*4.2],
+  [[261,329,392],16,MENU_BEAT*4.2],[[220,277,330],20,MENU_BEAT*4.5],
+];
+const MENU_LOOP_BEATS = 24;
 
-function bgLoop() {
-  if (!musicOn || !soundOn) return;
+function menuBgLoop() {
+  if (!musicOn || !soundOn || currentBgTrack !== 'menu') return;
   try {
-    const c = ac(), loopDur = BG_MELODY.length * NL;
-    BG_MELODY.forEach((f,i) => {
-      const o = c.createOscillator(), g = c.createGain();
-      o.connect(g); g.connect(bgGain);
-      o.type = 'triangle'; o.frequency.value = f;
-      const t = bgStart + i * NL;
-      g.gain.setValueAtTime(0, t);
-      g.gain.linearRampToValueAtTime(.5, t + .018);
-      g.gain.exponentialRampToValueAtTime(.001, t + NL * .8);
-      o.start(t); o.stop(t + NL);
+    const c = ac();
+    const loopDur = MENU_LOOP_BEATS * MENU_BEAT;
+    MENU_MEL.forEach(([freq,beat,dur]) => {
+      const t0 = bgStart - c.currentTime + beat * MENU_BEAT;
+      if (t0 < -0.05) return;
+      const o = c.createOscillator(), vib = c.createOscillator(), vibG = c.createGain();
+      const g = c.createGain(), lp = c.createBiquadFilter();
+      vib.frequency.value = 4.8; vibG.gain.value = 2.5;
+      vib.connect(vibG); vibG.connect(o.frequency);
+      lp.type = 'lowpass'; lp.frequency.value = 2200;
+      o.type = 'sine'; o.frequency.value = freq;
+      o.connect(lp); lp.connect(g); g.connect(bgGain);
+      const t = c.currentTime + t0;
+      g.gain.setValueAtTime(0,t);
+      g.gain.linearRampToValueAtTime(0.55,t+0.08);
+      g.gain.setValueAtTime(0.55,t+dur*0.72);
+      g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+      o.start(t); o.stop(t+dur+0.06); vib.start(t); vib.stop(t+dur+0.06);
     });
-    BG_CHORDS.forEach((ch,i) => ch.forEach(f => {
-      const o = c.createOscillator(), g = c.createGain();
-      o.connect(g); g.connect(bgGain);
-      o.type = 'sine'; o.frequency.value = f;
-      const t = bgStart + i * CL;
-      g.gain.setValueAtTime(0, t);
-      g.gain.linearRampToValueAtTime(.2, t + .04);
-      g.gain.exponentialRampToValueAtTime(.001, t + CL * .86);
-      o.start(t); o.stop(t + CL);
-    }));
+    MENU_PADS.forEach(([freqs,beat,dur]) => {
+      freqs.forEach(freq => {
+        const t0 = bgStart - c.currentTime + beat * MENU_BEAT;
+        if (t0 < -0.05) return;
+        const o = c.createOscillator(), g = c.createGain();
+        o.type = 'sine'; o.frequency.value = freq;
+        o.connect(g); g.connect(bgGain);
+        const t = c.currentTime + t0;
+        g.gain.setValueAtTime(0,t);
+        g.gain.linearRampToValueAtTime(0.12,t+0.45);
+        g.gain.setValueAtTime(0.12,t+dur*0.8);
+        g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.start(t); o.stop(t+dur+0.1);
+      });
+    });
     bgStart += loopDur;
-    bgTimer = setTimeout(bgLoop, (loopDur - .35) * 1000);
+    bgTimer = setTimeout(menuBgLoop, (loopDur - 0.5) * 1000);
   } catch(e) {}
 }
-function startMusic() {
-  if (musicOn || !soundOn) return;
+
+/* Game Music */
+const GAME_BPM = 118, GAME_BEAT = 60/118, GAME_8 = GAME_BEAT*0.5;
+const GAME_MEL = [
+  [523,0,GAME_8*.72],[659,0.5,GAME_8*.72],[784,1,GAME_BEAT*.72],
+  [880,2,GAME_8*.72],[784,2.5,GAME_8*.72],[659,3,GAME_8*.72],
+  [523,3.5,GAME_BEAT*.72],[440,4.5,GAME_8*.72],[494,5,GAME_8*.72],
+  [523,5.5,GAME_8*.72],[659,6,GAME_8*.72],[784,6.5,GAME_BEAT*.82],
+  [880,7.5,GAME_8*.72],[1047,8,GAME_BEAT*.82],[880,9,GAME_8*.72],
+  [784,9.5,GAME_8*.72],[659,10,GAME_8*.72],[523,10.5,GAME_BEAT*.72],
+  [392,11.5,GAME_8*.72],[440,12,GAME_8*.72],[494,12.5,GAME_8*.72],
+  [523,13,GAME_BEAT*1.1],[659,14.5,GAME_8*.72],[784,15,GAME_BEAT*1.3],
+];
+const GAME_BASS = [
+  [131,0,GAME_8*.8],[131,1,GAME_8*.8],[147,2,GAME_8*.8],[147,3,GAME_8*.8],
+  [131,4,GAME_8*.8],[131,5,GAME_8*.8],[110,6,GAME_8*.8],[110,7,GAME_8*.8],
+  [131,8,GAME_8*.8],[131,9,GAME_8*.8],[147,10,GAME_8*.8],[165,11,GAME_8*.8],
+  [131,12,GAME_8*.8],[131,13,GAME_8*.8],[98,14,GAME_8*.8],[110,15,GAME_BEAT*.8],
+];
+const GAME_CHORDS = [
+  [[261,329],0.5,GAME_8*.5],[[261,329],2.5,GAME_8*.5],
+  [[220,277],4.5,GAME_8*.5],[[220,277],6.5,GAME_8*.5],
+  [[261,329],8.5,GAME_8*.5],[[247,311],10.5,GAME_8*.5],
+  [[261,329],12.5,GAME_8*.5],[[196,247],14.5,GAME_8*.5],
+];
+const GAME_LOOP_BEATS = 16;
+
+function gameBgLoop() {
+  if (!musicOn || !soundOn || currentBgTrack !== 'game') return;
+  try {
+    const c = ac();
+    const loopDur = GAME_LOOP_BEATS * GAME_BEAT;
+    GAME_MEL.forEach(([freq,beat,dur]) => {
+      const t0 = bgStart - c.currentTime + beat * GAME_BEAT;
+      if (t0 < -0.05) return;
+      const o = c.createOscillator(), g = c.createGain(), lp = c.createBiquadFilter();
+      lp.type = 'lowpass'; lp.frequency.value = 1800;
+      o.type = 'square'; o.frequency.value = freq;
+      o.connect(lp); lp.connect(g); g.connect(bgGain);
+      const t = c.currentTime + t0;
+      g.gain.setValueAtTime(0,t);
+      g.gain.linearRampToValueAtTime(0.12,t+0.012);
+      g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+      o.start(t); o.stop(t+dur+0.03);
+    });
+    GAME_BASS.forEach(([freq,beat,dur]) => {
+      const t0 = bgStart - c.currentTime + beat * GAME_BEAT;
+      if (t0 < -0.05) return;
+      const o = c.createOscillator(), g = c.createGain();
+      o.type = 'triangle'; o.frequency.value = freq;
+      o.connect(g); g.connect(bgGain);
+      const t = c.currentTime + t0;
+      g.gain.setValueAtTime(0,t);
+      g.gain.linearRampToValueAtTime(0.28,t+0.018);
+      g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+      o.start(t); o.stop(t+dur+0.03);
+    });
+    GAME_CHORDS.forEach(([freqs,beat,dur]) => {
+      freqs.forEach(freq => {
+        const t0 = bgStart - c.currentTime + beat * GAME_BEAT;
+        if (t0 < -0.05) return;
+        const o = c.createOscillator(), g = c.createGain();
+        o.type = 'triangle'; o.frequency.value = freq;
+        o.connect(g); g.connect(bgGain);
+        const t = c.currentTime + t0;
+        g.gain.setValueAtTime(0,t);
+        g.gain.linearRampToValueAtTime(0.09,t+0.01);
+        g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.start(t); o.stop(t+dur+0.02);
+      });
+    });
+    bgStart += loopDur;
+    bgTimer = setTimeout(gameBgLoop, (loopDur - 0.4) * 1000);
+  } catch(e) {}
+}
+
+function startMusic(track) {
+  if (!soundOn) return;
+  if (musicOn && currentBgTrack === track) return;
+  stopMusic();
+  currentBgTrack = track || 'game';
   try {
     const c = ac();
     musicOn = true;
-    bgGain = c.createGain(); bgGain.gain.value = .065;
+    bgGain = c.createGain();
+    bgGain.gain.value = currentBgTrack === 'menu' ? 0.055 : 0.072;
     bgGain.connect(c.destination);
-    bgStart = c.currentTime + .1;
-    bgLoop();
+    bgStart = c.currentTime + 0.12;
+    if (currentBgTrack === 'menu') menuBgLoop();
+    else gameBgLoop();
   } catch(e) {}
 }
+
 function stopMusic() {
   musicOn = false;
+  currentBgTrack = '';
   if (bgTimer) { clearTimeout(bgTimer); bgTimer = null; }
   try {
     if (bgGain) {
-      bgGain.gain.linearRampToValueAtTime(0, ac().currentTime + .3);
-      setTimeout(() => { try { bgGain.disconnect(); } catch(e){} bgGain = null; }, 400);
+      const oldGain = bgGain;
+      bgGain = null;
+      oldGain.gain.linearRampToValueAtTime(0, ac().currentTime + 0.35);
+      setTimeout(() => { try { oldGain.disconnect(); } catch(e){} }, 450);
     }
   } catch(e) {}
+}
+
+/* Speech */
+let _bestVoice = null;
+function pickVoice() {
+  if (_bestVoice) return _bestVoice;
+  const vv = window.speechSynthesis.getVoices();
+  if (!vv.length) return null;
+  const priority = [
+    v => /en[-_]GB/.test(v.lang) && /Premium|Enhanced|Neural/.test(v.name),
+    v => /en[-_]US/.test(v.lang) && /Premium|Enhanced|Neural/.test(v.name),
+    v => /en/.test(v.lang) && /Premium|Enhanced|Neural/.test(v.name),
+    v => /en[-_]GB/.test(v.lang) && /Samantha|Karen|Serena|Moira|Fiona|Google/.test(v.name),
+    v => /en[-_]US/.test(v.lang) && /Samantha|Zira|Google US|Google/.test(v.name),
+    v => /en[-_]GB/.test(v.lang),
+    v => v.lang.startsWith('en') && !v.name.toLowerCase().includes('compact'),
+    v => v.lang.startsWith('en'),
+  ];
+  for (const test of priority) {
+    const found = vv.find(test);
+    if (found) { _bestVoice = found; return found; }
+  }
+  return vv[0] || null;
 }
 
 function speak(text) {
   if (!soundOn || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.rate = .82; u.pitch = 1.3; u.volume = 1;
-  const vv = window.speechSynthesis.getVoices();
-  const pref = vv.find(x => x.lang.startsWith('en') && /Google|Samantha|Karen/.test(x.name));
-  if (pref) u.voice = pref;
+  const voice = pickVoice();
+  if (voice) u.voice = voice;
+  const isLetter = text.trim().length === 1;
+  u.rate   = isLetter ? 0.78 : 0.88;
+  u.pitch  = isLetter ? 1.15 : 1.08;
+  u.volume = 1;
   window.speechSynthesis.speak(u);
 }
 
-/* Tap ripple visual feedback */
 function spawnRipple(x, y) {
   const r = document.createElement('div');
   r.className = 'ripple';
-  r.style.left = x + 'px';
-  r.style.top  = y + 'px';
+  r.style.left = x + 'px'; r.style.top = y + 'px';
   document.body.appendChild(r);
   setTimeout(() => r.remove(), 550);
 }
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    NAVIGATION
-════════════════════════════════════════════ */
+════════════════════════════ */
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -1078,23 +1085,21 @@ function goHome() {
   stopMusic();
   if (window.speechSynthesis) window.speechSynthesis.cancel();
   if (touchClone) { try { touchClone.remove(); } catch(e){} touchClone = null; }
-  // Kill bubble animations
   bubbleAnimFrames.forEach(id => cancelAnimationFrame(id));
   bubbleAnimFrames = [];
 
   round = 1; matched = 0; gMode = 'drag';
   dragSrc = null; dragLetter = null; touchSrc = null;
-  flipFlipped = []; flipLocked = false;
-  lineFrom = null;
-  comboOrder = [];
-  advQuestions = []; advIdx = 0; advLocked = false;
-  bubbleRound = 1; bubbleMatched = 0; bubbleLocked = false;
-  missingRound = 1; missingQIdx = 0; missingLocked = false;
-  colorRound = 1; colorQIdx = 0; colorLocked = false;
+  flipFlipped = []; flipLocked = false; lineFrom = null;
+  comboOrder = []; advQuestions = []; advIdx = 0; advLocked = false;
+  bubbleRound = 1; bubbleLocked = false;
+  missingQIdx = 0; missingLocked = false;
+  colorQIdx = 0; colorLocked = false;
   currentGameMode = 'classic';
 
   document.getElementById('success-overlay').classList.remove('active');
   showScreen('home-screen');
+  setTimeout(() => { if (soundOn) startMusic('menu'); }, 320);
 }
 
 function toggleSound() {
@@ -1103,13 +1108,14 @@ function toggleSound() {
   if (!soundOn) stopMusic();
   else {
     const a = document.querySelector('.screen.active');
-    if (a && a.id !== 'home-screen') startMusic();
+    if (a && a.id === 'home-screen') startMusic('menu');
+    else if (a && a.id !== 'home-screen') startMusic('game');
   }
 }
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    HELPERS
-════════════════════════════════════════════ */
+════════════════════════════ */
 const shuffle = a => [...a].sort(() => Math.random() - .5);
 const pick5   = () => shuffle([...'ABCDEFGHIJKLMNOPQRSTUVWXYZ']).slice(0,5);
 
@@ -1120,7 +1126,7 @@ function lightStar(starsId, idx) {
 
 function showBingo() {
   const t = document.createElement('div');
-  t.className = 'bingo-toast'; t.textContent = 'BINGO!';
+  t.className = 'bingo-toast'; t.textContent = '✨';
   document.body.appendChild(t);
   setTimeout(() => t.remove(), 1050);
 }
@@ -1131,14 +1137,11 @@ function doWrongShake(el) {
   el.addEventListener('animationend', () => el.classList.remove('wrong'), { once: true });
 }
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    CLASSIC GAME
-════════════════════════════════════════════ */
-const TITLES = {
-  drag:  '✋ Drag & Match!',
-  flip:  '🃏 Flip Cards!',
-  line:  '✏️ Draw a Line!',
-  combo: '⚔️ Warrior Mix!',
+════════════════════════════ */
+const MODE_ICONS = {
+  drag:'✋', flip:'🃏', line:'✏️', combo:'⚔️',
 };
 
 function startClassic(mode) {
@@ -1150,26 +1153,20 @@ function startClassic(mode) {
     initComboRound();
   } else {
     showScreen('game-screen');
-    document.getElementById('g-title').textContent = TITLES[mode];
+    document.getElementById('g-mode-icon').textContent = MODE_ICONS[mode] || '🎮';
     initRound();
   }
-  setTimeout(startMusic, 240);
+  setTimeout(() => startMusic('game'), 240);
 }
 
 function initRound() {
-  // Combo routes through its own handler
   if (gMode === 'combo') { initComboRound(); return; }
   requestAnimationFrame(() => {
     setTileSize();
-    matched = 0;
-    flipFlipped = [];
-    flipLocked = false;
-    lineFrom = null;
-    dragSrc = null;
-    dragLetter = null;
-
+    matched = 0; flipFlipped = []; flipLocked = false; lineFrom = null;
+    dragSrc = null; dragLetter = null;
     const letters = pick5();
-    document.getElementById('round-pill').textContent = `Round ${round} / ${ROUNDS}`;
+    document.getElementById('round-pill').textContent = `${round} / ${ROUNDS}`;
     document.querySelectorAll('#g-stars .star').forEach(s => s.classList.remove('lit'));
     document.getElementById('success-overlay').classList.remove('active');
 
@@ -1185,7 +1182,6 @@ function initRound() {
   });
 }
 
-/* Combo mode — routes each round to the correct sub-game screen */
 function initComboRound() {
   bubbleAnimFrames.forEach(id => cancelAnimationFrame(id));
   bubbleAnimFrames = [];
@@ -1195,10 +1191,10 @@ function initComboRound() {
 
   if (sub === 'drag' || sub === 'flip' || sub === 'line') {
     setTileSize();
-    matched = 0; flipFlipped = []; flipLocked = false; lineFrom = null; dragSrc = null; dragLetter = null;
-    const subLabels = { drag:'✋ Drag & Match!', flip:'🃏 Flip Cards!', line:'✏️ Draw a Line!' };
-    document.getElementById('g-title').textContent = subLabels[sub];
-    document.getElementById('round-pill').textContent = `Round ${round} / ${ROUNDS}`;
+    matched = 0; flipFlipped = []; flipLocked = false; lineFrom = null;
+    dragSrc = null; dragLetter = null;
+    document.getElementById('g-mode-icon').textContent = MODE_ICONS[sub] || '🎮';
+    document.getElementById('round-pill').textContent = `${round} / ${ROUNDS}`;
     document.querySelectorAll('#g-stars .star').forEach(s => s.classList.remove('lit'));
     document.getElementById('drag-panel').style.display  = sub === 'drag' ? ''     : 'none';
     document.getElementById('flip-panel').style.display  = sub === 'flip' ? 'flex' : 'none';
@@ -1206,26 +1202,26 @@ function initComboRound() {
     document.getElementById('refresh-btn').style.display = sub === 'flip' ? 'none' : '';
     showScreen('game-screen');
     const letters = pick5();
-    if (sub === 'drag') buildDrag(letters);
+    if      (sub === 'drag') buildDrag(letters);
     else if (sub === 'flip') buildFlip(letters);
     else if (sub === 'line') buildLine(letters);
   } else if (sub === 'bubble') {
     bubbleLocked = false;
-    document.getElementById('bubble-pill').textContent = `Round ${round} / ${ROUNDS}`;
     document.querySelectorAll('#bubble-stars .star').forEach(s => s.classList.remove('lit'));
     showScreen('bubble-screen');
     initBubbleRound();
+    document.getElementById('bubble-pill').textContent = `${round} / ${ROUNDS}`;
   } else if (sub === 'missing') {
     missingQIdx = 0; missingLocked = false;
     missingQuestions = shuffle(MISSING_WORDS).slice(0, 1);
-    document.getElementById('missing-pill').textContent = `Round ${round} / ${ROUNDS}`;
+    document.getElementById('missing-pill').textContent = `${round} / ${ROUNDS}`;
     document.querySelectorAll('#missing-stars .star').forEach(s => s.classList.remove('lit'));
     showScreen('missing-screen');
     showMissingQ();
   } else if (sub === 'color') {
     colorQIdx = 0; colorLocked = false;
     colorQuestions = buildColorQuestions(1);
-    document.getElementById('color-pill').textContent = `Round ${round} / ${ROUNDS}`;
+    document.getElementById('color-pill').textContent = `${round} / ${ROUNDS}`;
     document.querySelectorAll('#color-stars .star').forEach(s => s.classList.remove('lit'));
     showScreen('color-screen');
     showColorQ();
@@ -1356,7 +1352,7 @@ function onTouchEnd(e) {
 function buildFlip(letters) {
   const pairs = [];
   letters.forEach((l, i) => {
-    pairs.push({ letter:l, display:l,            ci:i });
+    pairs.push({ letter:l, display:l,              ci:i });
     pairs.push({ letter:l, display:l.toLowerCase(), ci:i });
   });
   const grid = document.getElementById('mem-grid');
@@ -1375,7 +1371,6 @@ function buildFlip(letters) {
     card.addEventListener('click', () => onFlipClick(card, letter, display));
     grid.appendChild(card);
   });
-  document.getElementById('flip-note').textContent = 'Find 5 matching pairs! 🃏';
 }
 
 function onFlipClick(card, letter, display) {
@@ -1420,7 +1415,7 @@ function buildLine(letters) {
   shuffle(letters).forEach(letter => {
     const ci = letters.indexOf(letter);
     const [bg, sh] = COLORS[ci % COLORS.length];
-    leftCol.appendChild(makeNode(letter, letter,             bg, sh, 'left'));
+    leftCol.appendChild(makeNode(letter, letter,              bg, sh, 'left'));
   });
   shuffle(letters).forEach(letter => {
     const ci = letters.indexOf(letter);
@@ -1444,29 +1439,22 @@ function onLineClick(el, letter, side) {
   if (el.classList.contains('ln-ok')) return;
   sfxClick(); speak(letter);
   if (!lineFrom) {
-    el.classList.add('selected');
-    lineFrom = { el, letter, side };
-    return;
+    el.classList.add('selected'); lineFrom = { el, letter, side }; return;
   }
   if (lineFrom.el === el) {
-    el.classList.remove('selected');
-    lineFrom = null;
-    return;
+    el.classList.remove('selected'); lineFrom = null; return;
   }
   if (lineFrom.side === side) {
     lineFrom.el.classList.remove('selected');
     el.classList.add('selected');
-    lineFrom = { el, letter, side };
-    return;
+    lineFrom = { el, letter, side }; return;
   }
-  const from = lineFrom;
-  lineFrom = null;
+  const from = lineFrom; lineFrom = null;
   from.el.classList.remove('selected');
   if (from.letter === letter) {
     const ci = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].indexOf(letter);
     drawLine(from.el, el, COLORS[ci % COLORS.length][0]);
-    from.el.classList.add('ln-ok');
-    el.classList.add('ln-ok');
+    from.el.classList.add('ln-ok'); el.classList.add('ln-ok');
     matched++;
     lightStar('g-stars', matched - 1);
     showBingo(); sfxDing();
@@ -1483,8 +1471,8 @@ function drawLine(fromEl, toEl, color) {
   const cr   = card.getBoundingClientRect();
   const fr   = fromEl.getBoundingClientRect();
   const tr   = toEl.getBoundingClientRect();
-  const x1 = fr.right  - cr.left,  y1 = fr.top - cr.top + fr.height / 2;
-  const x2 = tr.left   - cr.left,  y2 = tr.top - cr.top + tr.height / 2;
+  const x1 = fr.right - cr.left, y1 = fr.top - cr.top + fr.height / 2;
+  const x2 = tr.left  - cr.left, y2 = tr.top - cr.top + tr.height / 2;
   const ln = document.createElementNS('http://www.w3.org/2000/svg','line');
   ln.setAttribute('x1',x1); ln.setAttribute('y1',y1);
   ln.setAttribute('x2',x2); ln.setAttribute('y2',y2);
@@ -1494,22 +1482,20 @@ function drawLine(fromEl, toEl, color) {
 }
 
 /* ROUND SUCCESS (classic) */
-const R_EMOJI = ['','🌟','🎉','🚀','🔥','🏆'];
-const R_MSG   = ['','Great Start!','You Rock!','Halfway There!','Almost Done!','YOU WIN!'];
+const S_EMOJI = ['','🌟','🎉','🚀','🔥','🏆'];
+const S_MSG   = ['','WOW!','YEAH!','GO!','HOT!','WIN!'];
 
 function showRoundSuccess() {
   sfxFanfare(); confetti();
   const r = Math.min(round, 5);
-  document.getElementById('s-emoji').textContent = R_EMOJI[r];
-  document.getElementById('s-title').textContent = R_MSG[r];
+  document.getElementById('s-emoji').textContent = S_EMOJI[r];
+  document.getElementById('s-title').textContent = S_MSG[r];
   const nextBtn = document.getElementById('s-next');
   if (round >= ROUNDS) {
     nextBtn.style.display = 'none';
-    document.getElementById('s-info').textContent = "All done! You're a Warrior! 🏆";
   } else {
     nextBtn.style.display = '';
-    nextBtn.textContent = `🚀 Next Round! (${round + 1}/${ROUNDS})`;
-    document.getElementById('s-info').textContent = `Round ${round} of ${ROUNDS} done!`;
+    nextBtn.textContent = `🚀 Next!`;
   }
   document.getElementById('success-overlay').classList.add('active');
 }
@@ -1519,12 +1505,10 @@ function handleNext() {
   document.getElementById('success-overlay').classList.remove('active');
   if (gMode === 'combo') {
     if (round >= ROUNDS) { goHome(); return; }
-    round++;
-    initComboRound();
+    round++; initComboRound();
   } else if (currentGameMode === 'bubble') {
     if (bubbleRound >= ROUNDS) { goHome(); return; }
-    bubbleRound++;
-    initBubbleRound();
+    bubbleRound++; initBubbleRound();
   } else if (currentGameMode === 'missing') {
     if (missingQIdx >= missingQuestions.length) { goHome(); return; }
     showMissingQ();
@@ -1533,27 +1517,26 @@ function handleNext() {
     showColorQ();
   } else {
     if (round >= ROUNDS) { goHome(); return; }
-    round++;
-    initRound();
+    round++; initRound();
   }
 }
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    ADVENTURE MODE
-════════════════════════════════════════════ */
+════════════════════════════ */
 function startAdventure(type) {
   advType      = type;
   advIdx       = 0;
   advLocked    = false;
   advQuestions = buildAdvQuestions(type, 5);
-  currentGameMode = 'classic'; // uses classic handleNext
+  currentGameMode = 'classic';
   if (!advQuestions.length) return;
-  document.getElementById('adv-title').textContent =
-    type === 'starts' ? '🔤 Starts With!' : '🔡 Ends With!';
+  document.getElementById('adv-mode-icon').textContent = type === 'starts' ? '🔤' : '🔡';
+  document.getElementById('adv-lbl').textContent = type === 'starts' ? 'STARTS WITH' : 'ENDS WITH';
   document.querySelectorAll('#adv-stars .star').forEach(s => s.classList.remove('lit'));
   showScreen('adv-screen');
   showAdvQ();
-  setTimeout(startMusic, 240);
+  setTimeout(() => startMusic('game'), 240);
 }
 
 function buildAdvQuestions(type, count) {
@@ -1586,7 +1569,7 @@ function buildAdvQuestions(type, count) {
         letter,
         options: shuffle([
           { emoji: correct[0], word: correct[1], isCorrect: true  },
-          ...wrongPool.map(w => ({ emoji: w[0],  word: w[1],  isCorrect: false })),
+          ...wrongPool.map(w => ({ emoji: w[0], word: w[1], isCorrect: false })),
         ]),
       });
     }
@@ -1598,9 +1581,7 @@ function showAdvQ() {
   if (advIdx >= advQuestions.length) return;
   advLocked = false;
   const q = advQuestions[advIdx];
-  document.getElementById('adv-pill').textContent = `Round ${advIdx + 1} / ${advQuestions.length}`;
-  document.getElementById('adv-lbl').textContent =
-    advType === 'starts' ? 'Find the picture that STARTS with...' : 'Find the picture that ENDS with...';
+  document.getElementById('adv-pill').textContent = `${advIdx + 1} / ${advQuestions.length}`;
   document.getElementById('adv-letter').textContent = q.letter;
   setTimeout(() => speak(q.letter), 300);
   const grid = document.getElementById('adv-grid');
@@ -1628,8 +1609,7 @@ function onAdvChoice(el, isCorrect, word) {
       setTimeout(() => {
         sfxFanfare(); confetti();
         document.getElementById('s-emoji').textContent = '🏆';
-        document.getElementById('s-title').textContent = 'Adventure Done!';
-        document.getElementById('s-info').textContent  = "You're a true Alphabet Warrior! 🏆";
+        document.getElementById('s-title').textContent = 'WIN!';
         document.getElementById('s-next').style.display = 'none';
         document.getElementById('success-overlay').classList.add('active');
       }, 900);
@@ -1639,20 +1619,13 @@ function onAdvChoice(el, isCorrect, word) {
   } else {
     el.classList.add('wrong');
     doWrongShake(el); sfxWrong();
-    setTimeout(() => {
-      el.classList.remove('wrong');
-      advLocked = false;
-    }, 700);
+    setTimeout(() => { el.classList.remove('wrong'); advLocked = false; }, 700);
   }
 }
 
-/* ════════════════════════════════════════════
-   🫧 BUBBLE POP GAME
-   Show a target letter, fill arena with
-   floating bubbles (correct letter + distractors)
-   Kid taps the correct bubble to pop it.
-   5 rounds, each round new letter + new bubbles.
-════════════════════════════════════════════ */
+/* ════════════════════════════
+   🫧 BUBBLE POP
+════════════════════════════ */
 const BUBBLE_COLORS = [
   '#ef4444','#f97316','#eab308','#22c55e',
   '#3b82f6','#8b5cf6','#ec4899','#14b8a6',
@@ -1661,45 +1634,37 @@ const BUBBLE_COLORS = [
 const ALPHABET = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 
 function startBubble() {
-  bubbleRound = 1;
-  bubbleMatched = 0;
-  bubbleLocked = false;
+  bubbleRound = 1; bubbleLocked = false;
   currentGameMode = 'bubble';
   document.querySelectorAll('#bubble-stars .star').forEach(s => s.classList.remove('lit'));
   showScreen('bubble-screen');
   initBubbleRound();
-  setTimeout(startMusic, 240);
+  setTimeout(() => startMusic('game'), 240);
 }
 
 function initBubbleRound() {
   bubbleLocked = false;
-  // Kill old animations
   bubbleAnimFrames.forEach(id => cancelAnimationFrame(id));
   bubbleAnimFrames = [];
 
   const arena = document.getElementById('bubble-arena');
   arena.innerHTML = '';
 
-  // Pick random target letter
   bubbleTarget = ALPHABET[Math.floor(Math.random() * 26)];
   document.getElementById('bubble-target').textContent = bubbleTarget;
-  document.getElementById('bubble-pill').textContent = `Round ${bubbleRound} / ${ROUNDS}`;
-  document.getElementById('bubble-score').textContent = `Pop the "${bubbleTarget}" bubble! 🎯`;
-
+  document.getElementById('bubble-pill').textContent = `${bubbleRound} / ${ROUNDS}`;
   setTimeout(() => speak(bubbleTarget), 320);
 
-  // Build distractor letters (ensure at least one correct)
   const others = shuffle(ALPHABET.filter(l => l !== bubbleTarget)).slice(0, 6);
-  const allLetters = shuffle([bubbleTarget, bubbleTarget, ...others]); // 2 correct, 6 wrong = 8 bubbles
+  const allLetters = shuffle([bubbleTarget, bubbleTarget, ...others]);
 
   const arenaRect = arena.getBoundingClientRect();
-  const arW = arenaRect.width  || window.innerWidth - 26;
+  const arW = arenaRect.width  || window.innerWidth - 22;
   const arH = arenaRect.height || 280;
   const bSize = Math.min(76, Math.max(52, arW / 7));
 
   const positions = [];
   allLetters.forEach((letter, idx) => {
-    // Non-overlapping placement
     let x, y, tries = 0;
     do {
       x = bSize/2 + Math.random() * (arW - bSize * 1.5);
@@ -1715,14 +1680,10 @@ function initBubbleRound() {
     bubble.dataset.correct = isCorrect ? '1' : '0';
     bubble.textContent = letter;
     Object.assign(bubble.style, {
-      width: bSize + 'px',
-      height: bSize + 'px',
+      width: bSize + 'px', height: bSize + 'px',
       fontSize: Math.round(bSize * 0.47) + 'px',
-      left: x + 'px',
-      top: y + 'px',
+      left: x + 'px', top: y + 'px',
       background: `radial-gradient(circle at 35% 35%, ${color}cc, ${color})`,
-      animationDuration: (2.5 + Math.random() * 2) + 's',
-      animationDelay: (Math.random() * 1.5) + 's',
     });
     bubble.addEventListener('click', e => onBubbleTap(e, bubble, letter, isCorrect));
     bubble.addEventListener('touchend', e => {
@@ -1733,7 +1694,6 @@ function initBubbleRound() {
     }, { passive: false });
     arena.appendChild(bubble);
 
-    // Animate floating (translate around slowly)
     let t0 = null;
     const dx = (Math.random() - 0.5) * 40;
     const dy = (Math.random() - 0.5) * 25;
@@ -1755,12 +1715,10 @@ function onBubbleTap(e, bubble, letter, isCorrect) {
   if (bubbleLocked) return;
   if (bubble.classList.contains('pop')) return;
   sfxClick(); speak(letter);
-
   if (isCorrect) {
     bubbleLocked = true;
     bubble.classList.add('pop');
     sfxPop(); sfxDing(); showBingo();
-    document.getElementById('bubble-score').textContent = '🎉 You got it!';
 
     if (gMode === 'combo') {
       lightStar('bubble-stars', 0);
@@ -1770,86 +1728,75 @@ function onBubbleTap(e, bubble, letter, isCorrect) {
       setTimeout(() => {
         sfxFanfare(); confetti();
         document.getElementById('s-emoji').textContent = '🏆';
-        document.getElementById('s-title').textContent = 'Bubble Master!';
-        document.getElementById('s-info').textContent  = 'You popped every bubble! 🫧🏆';
+        document.getElementById('s-title').textContent = 'WIN!';
         document.getElementById('s-next').style.display = 'none';
         document.getElementById('success-overlay').classList.add('active');
       }, 900);
     } else {
       lightStar('bubble-stars', bubbleRound - 1);
       setTimeout(() => {
-        document.getElementById('s-emoji').textContent = ['🌟','🎉','🚀','🔥'][bubbleRound - 1] || '🌟';
-        document.getElementById('s-title').textContent = ['Nice Pop!','Wow!','On Fire!','Amazing!'][bubbleRound - 1] || 'Nice!';
+        document.getElementById('s-emoji').textContent = S_EMOJI[bubbleRound] || '🌟';
+        document.getElementById('s-title').textContent = S_MSG[bubbleRound]   || 'WOW!';
         document.getElementById('s-next').style.display = '';
-        document.getElementById('s-next').textContent = `🚀 Next Round! (${bubbleRound + 1}/${ROUNDS})`;
-        document.getElementById('s-info').textContent = `Round ${bubbleRound} of ${ROUNDS} done!`;
+        document.getElementById('s-next').textContent = '🚀 Next!';
         document.getElementById('success-overlay').classList.add('active');
       }, 800);
     }
   } else {
-    // Wrong bubble shakes + shrinks
     bubble.classList.remove('wrong-shake'); void bubble.offsetWidth;
     bubble.classList.add('wrong-shake');
     bubble.addEventListener('animationend', () => bubble.classList.remove('wrong-shake'), { once: true });
     sfxWrong();
-    document.getElementById('bubble-score').textContent = `Try again! Find "${bubbleTarget}" 🎯`;
   }
 }
 
-/* ════════════════════════════════════════════
-   🧩 FILL THE GAP GAME
-   Show an emoji + word with ONE letter blanked out.
-   Four letter buttons to pick from.
-   5 questions, single flow (no "round" concept).
-════════════════════════════════════════════ */
-
-// Words specifically chosen so the missing letter is unambiguous and fun
+/* ════════════════════════════
+   🧩 FILL THE GAP — 3-letter only
+════════════════════════════ */
 const MISSING_WORDS = [
-  { emoji:'🐱', word:'CAT',    blank:1, answer:'A', display:['C','_','T'] },
-  { emoji:'🐶', word:'DOG',    blank:1, answer:'O', display:['D','_','G'] },
-  { emoji:'🐸', word:'FROG',   blank:1, answer:'R', display:['F','_','O','G'] },
-  { emoji:'🐘', word:'ELEPHANT',blank:2,answer:'E', display:['E','L','_','P','H','A','N','T'] },
-  { emoji:'🍎', word:'APPLE',  blank:0, answer:'A', display:['_','P','P','L','E'] },
-  { emoji:'🦁', word:'LION',   blank:1, answer:'I', display:['L','_','O','N'] },
-  { emoji:'🐦', word:'BIRD',   blank:1, answer:'I', display:['B','_','R','D'] },
-  { emoji:'🦋', word:'BUTTERFLY',blank:2,answer:'T',display:['B','U','_','T','E','R','F','L','Y'] },
-  { emoji:'🐰', word:'RABBIT', blank:1, answer:'A', display:['R','_','B','B','I','T'] },
-  { emoji:'🐝', word:'BEE',    blank:0, answer:'B', display:['_','E','E'] },
-  { emoji:'🦊', word:'FOX',    blank:1, answer:'O', display:['F','_','X'] },
-  { emoji:'🌙', word:'MOON',   blank:1, answer:'O', display:['M','_','O','N'] },
-  { emoji:'🚀', word:'ROCKET', blank:1, answer:'O', display:['R','_','C','K','E','T'] },
-  { emoji:'🍌', word:'BANANA', blank:2, answer:'N', display:['B','A','_','A','N','A'] },
-  { emoji:'🦓', word:'ZEBRA',  blank:2, answer:'B', display:['Z','E','_','R','A'] },
-  { emoji:'⭐', word:'STAR',   blank:1, answer:'T', display:['S','_','A','R'] },
-  { emoji:'🐢', word:'TURTLE', blank:1, answer:'U', display:['T','_','R','T','L','E'] },
-  { emoji:'🍕', word:'PIZZA',  blank:0, answer:'P', display:['_','I','Z','Z','A'] },
-  { emoji:'🦒', word:'GIRAFFE',blank:2, answer:'R', display:['G','I','_','A','F','F','E'] },
-  { emoji:'🐙', word:'OCTOPUS',blank:3, answer:'T', display:['O','C','T','_','P','U','S'] },
+  { emoji:'🐱', word:'CAT',  blank:1, answer:'A', display:['C','_','T'] },
+  { emoji:'🐶', word:'DOG',  blank:1, answer:'O', display:['D','_','G'] },
+  { emoji:'🐝', word:'BEE',  blank:0, answer:'B', display:['_','E','E'] },
+  { emoji:'🦊', word:'FOX',  blank:1, answer:'O', display:['F','_','X'] },
+  { emoji:'🐜', word:'ANT',  blank:0, answer:'A', display:['_','N','T'] },
+  { emoji:'🐄', word:'COW',  blank:1, answer:'O', display:['C','_','W'] },
+  { emoji:'🐔', word:'HEN',  blank:1, answer:'E', display:['H','_','N'] },
+  { emoji:'🐷', word:'PIG',  blank:1, answer:'I', display:['P','_','G'] },
+  { emoji:'☀️', word:'SUN',  blank:1, answer:'U', display:['S','_','N'] },
+  { emoji:'🦇', word:'BAT',  blank:1, answer:'A', display:['B','_','T'] },
+  { emoji:'🎩', word:'HAT',  blank:1, answer:'A', display:['H','_','T'] },
+  { emoji:'🪵', word:'LOG',  blank:1, answer:'O', display:['L','_','G'] },
+  { emoji:'🐀', word:'RAT',  blank:1, answer:'A', display:['R','_','T'] },
+  { emoji:'🕸️', word:'WEB',  blank:1, answer:'E', display:['W','_','B'] },
+  { emoji:'🍠', word:'YAM',  blank:1, answer:'A', display:['Y','_','M'] },
+  { emoji:'🧊', word:'ICE',  blank:0, answer:'I', display:['_','C','E'] },
+  { emoji:'🔑', word:'KEY',  blank:1, answer:'E', display:['K','_','Y'] },
+  { emoji:'🥜', word:'NUT',  blank:1, answer:'U', display:['N','_','T'] },
+  { emoji:'🍳', word:'PAN',  blank:1, answer:'A', display:['P','_','N'] },
+  { emoji:'🚐', word:'VAN',  blank:1, answer:'A', display:['V','_','N'] },
 ];
 
 function startMissing() {
-  missingQIdx = 0;
-  missingLocked = false;
+  missingQIdx = 0; missingLocked = false;
   currentGameMode = 'missing';
   missingQuestions = shuffle(MISSING_WORDS).slice(0, 5);
   document.querySelectorAll('#missing-stars .star').forEach(s => s.classList.remove('lit'));
   showScreen('missing-screen');
   showMissingQ();
-  setTimeout(startMusic, 240);
+  setTimeout(() => startMusic('game'), 240);
 }
 
 function showMissingQ() {
   if (missingQIdx >= missingQuestions.length) return;
   missingLocked = false;
   const q = missingQuestions[missingQIdx];
-  document.getElementById('missing-pill').textContent = `Round ${missingQIdx + 1} / ${missingQuestions.length}`;
+  document.getElementById('missing-pill').textContent =
+    gMode === 'combo' ? `${round} / ${ROUNDS}` : `${missingQIdx + 1} / ${missingQuestions.length}`;
   document.getElementById('missing-emoji').textContent = q.emoji;
 
-  // Word display with blank slot
   const display = document.getElementById('missing-word-display');
   display.innerHTML = '';
-  const letters = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
-  const ci = letters.indexOf(q.answer);
+  const ci = ALPHABET.indexOf(q.answer);
   const [bg, sh] = COLORS[ci % COLORS.length];
 
   q.display.forEach((ch, i) => {
@@ -1866,17 +1813,15 @@ function showMissingQ() {
     display.appendChild(slot);
   });
 
-  // Speak the emoji word
   setTimeout(() => speak(q.word), 350);
 
-  // Build choices: correct + 3 wrong letters
   const wrongLetters = shuffle(ALPHABET.filter(l => l !== q.answer)).slice(0, 3);
   const choices = shuffle([q.answer, ...wrongLetters]);
 
   const choicesEl = document.getElementById('missing-choices');
   choicesEl.innerHTML = '';
   choices.forEach(letter => {
-    const ci2 = letters.indexOf(letter);
+    const ci2 = ALPHABET.indexOf(letter);
     const [bg2, sh2] = COLORS[ci2 % COLORS.length];
     const btn = document.createElement('button');
     btn.className = 'missing-btn';
@@ -1889,8 +1834,7 @@ function showMissingQ() {
 
 function onMissingEmojiTap() {
   if (missingQIdx < missingQuestions.length) {
-    speak(missingQuestions[missingQIdx].word);
-    sfxClick();
+    speak(missingQuestions[missingQIdx].word); sfxClick();
   }
 }
 
@@ -1920,18 +1864,16 @@ function onMissingPick(btn, letter, q) {
       setTimeout(() => {
         sfxFanfare(); confetti();
         document.getElementById('s-emoji').textContent = '🏆';
-        document.getElementById('s-title').textContent = 'Word Wizard!';
-        document.getElementById('s-info').textContent  = 'You filled every gap! 🧩🏆';
+        document.getElementById('s-title').textContent = 'WIN!';
         document.getElementById('s-next').style.display = 'none';
         document.getElementById('success-overlay').classList.add('active');
       }, 950);
     } else {
       setTimeout(() => {
-        document.getElementById('s-emoji').textContent = ['🌟','🎉','🚀','🔥'][missingQIdx - 1] || '🌟';
-        document.getElementById('s-title').textContent = ['Smart!','Brilliant!','On Fire!','Wow!!'][missingQIdx - 1] || 'Nice!';
+        document.getElementById('s-emoji').textContent = S_EMOJI[missingQIdx] || '🌟';
+        document.getElementById('s-title').textContent = S_MSG[missingQIdx]   || 'WOW!';
         document.getElementById('s-next').style.display = '';
-        document.getElementById('s-next').textContent = `🚀 Next Round! (${missingQIdx + 1}/${missingQuestions.length})`;
-        document.getElementById('s-info').textContent = `Round ${missingQIdx} of ${missingQuestions.length} done!`;
+        document.getElementById('s-next').textContent = '🚀 Next!';
         document.getElementById('success-overlay').classList.add('active');
       }, 900);
     }
@@ -1942,20 +1884,15 @@ function onMissingPick(btn, letter, q) {
     btn.addEventListener('animationend', () => {
       btn.classList.remove('wrong-ans');
       btn.classList.remove('used');
-      btn.style.opacity = '0.35';
+      btn.style.opacity = '0.32';
       btn.style.pointerEvents = 'none';
     }, { once: true });
   }
 }
 
-/* ════════════════════════════════════════════
-   🎨 COLOUR MATCH GAME
-   Show a colour name as TEXT, but the word is
-   printed in a DIFFERENT colour.
-   Kid taps the colour SWATCH that matches the TEXT WORD.
-   Classic Stroop-like — but super simplified for kids.
-   5 rounds. Teaches colour words!
-════════════════════════════════════════════ */
+/* ════════════════════════════
+   🎨 COLOUR MATCH
+════════════════════════════ */
 const COLOR_PALETTE = [
   { name:'RED',    hex:'#ef4444' },
   { name:'BLUE',   hex:'#3b82f6' },
@@ -1968,14 +1905,13 @@ const COLOR_PALETTE = [
 ];
 
 function startColorMatch() {
-  colorQIdx = 0;
-  colorLocked = false;
+  colorQIdx = 0; colorLocked = false;
   currentGameMode = 'color';
   colorQuestions = buildColorQuestions(5);
   document.querySelectorAll('#color-stars .star').forEach(s => s.classList.remove('lit'));
   showScreen('color-screen');
   showColorQ();
-  setTimeout(startMusic, 240);
+  setTimeout(() => startMusic('game'), 240);
 }
 
 function buildColorQuestions(count) {
@@ -1983,14 +1919,11 @@ function buildColorQuestions(count) {
   const pool = shuffle([...COLOR_PALETTE]);
   for (let i = 0; i < count && i < pool.length; i++) {
     const correct = pool[i];
-    // Display word in a DIFFERENT colour (distractor colour)
     const distractorColor = shuffle(COLOR_PALETTE.filter(c => c.name !== correct.name))[0];
-    // 3 wrong swatches
     const wrongs = shuffle(COLOR_PALETTE.filter(c => c.name !== correct.name)).slice(0, 3);
     qs.push({
-      word: correct.name,
-      correctHex: correct.hex,
-      displayHex: distractorColor.hex, // word shown in this colour
+      word: correct.name, correctHex: correct.hex,
+      displayHex: distractorColor.hex,
       options: shuffle([correct, ...wrongs]),
     });
   }
@@ -2001,18 +1934,14 @@ function showColorQ() {
   if (colorQIdx >= colorQuestions.length) return;
   colorLocked = false;
   const q = colorQuestions[colorQIdx];
-  document.getElementById('color-pill').textContent = `Round ${colorQIdx + 1} / ${colorQuestions.length}`;
-
-  // Show word in distractor colour
+  document.getElementById('color-pill').textContent =
+    gMode === 'combo' ? `${round} / ${ROUNDS}` : `${colorQIdx + 1} / ${colorQuestions.length}`;
   const wordEl = document.getElementById('color-target-word');
   wordEl.textContent = q.word;
   wordEl.style.color = q.displayHex;
   wordEl.style.webkitTextFillColor = q.displayHex;
-
-  // Speak the word name
   setTimeout(() => speak(q.word), 350);
 
-  // Build colour swatches
   const choices = document.getElementById('color-choices');
   choices.innerHTML = '';
   q.options.forEach(opt => {
@@ -2022,19 +1951,19 @@ function showColorQ() {
     const isCorrect = opt.name === q.word;
     swatch.addEventListener('click', e => {
       spawnRipple(e.clientX, e.clientY);
-      onColorPick(swatch, isCorrect, opt.name, q.word);
+      onColorPick(swatch, isCorrect, opt.name);
     });
     swatch.addEventListener('touchend', e => {
       e.preventDefault();
       const t = e.changedTouches[0];
       spawnRipple(t.clientX, t.clientY);
-      onColorPick(swatch, isCorrect, opt.name, q.word);
+      onColorPick(swatch, isCorrect, opt.name);
     }, { passive: false });
     choices.appendChild(swatch);
   });
 }
 
-function onColorPick(swatch, isCorrect, colorName, targetWord) {
+function onColorPick(swatch, isCorrect, colorName) {
   if (colorLocked) return;
   sfxClick(); speak(colorName);
   if (isCorrect) {
@@ -2050,18 +1979,16 @@ function onColorPick(swatch, isCorrect, colorName, targetWord) {
       setTimeout(() => {
         sfxFanfare(); confetti();
         document.getElementById('s-emoji').textContent = '🎨';
-        document.getElementById('s-title').textContent = 'Colour Champ!';
-        document.getElementById('s-info').textContent  = 'You know all the colours! 🎨🏆';
+        document.getElementById('s-title').textContent = 'WIN!';
         document.getElementById('s-next').style.display = 'none';
         document.getElementById('success-overlay').classList.add('active');
       }, 950);
     } else {
       setTimeout(() => {
-        document.getElementById('s-emoji').textContent = ['🌟','🎉','🎨','🌈'][colorQIdx - 1] || '🌟';
-        document.getElementById('s-title').textContent = ['Spot On!','Colourful!','Great Eye!','Brilliant!'][colorQIdx - 1] || 'Nice!';
+        document.getElementById('s-emoji').textContent = S_EMOJI[colorQIdx] || '🌟';
+        document.getElementById('s-title').textContent = S_MSG[colorQIdx]   || 'WOW!';
         document.getElementById('s-next').style.display = '';
-        document.getElementById('s-next').textContent = `🚀 Next Round! (${colorQIdx + 1}/${colorQuestions.length})`;
-        document.getElementById('s-info').textContent = `Round ${colorQIdx} of ${colorQuestions.length} done!`;
+        document.getElementById('s-next').textContent = '🚀 Next!';
         document.getElementById('success-overlay').classList.add('active');
       }, 950);
     }
@@ -2070,33 +1997,31 @@ function onColorPick(swatch, isCorrect, colorName, targetWord) {
     sfxWrong();
     swatch.addEventListener('animationend', () => {
       swatch.classList.remove('wrong-swatch');
-      swatch.style.opacity = '0.3';
+      swatch.style.opacity = '0.28';
       swatch.style.pointerEvents = 'none';
     }, { once: true });
   }
 }
 
-/* Shared success display for combo mode — uses global `round` */
+/* Combo success */
 function showComboSuccess() {
   sfxFanfare(); confetti();
   const r = Math.min(round, 5);
-  document.getElementById('s-emoji').textContent = R_EMOJI[r];
-  document.getElementById('s-title').textContent = R_MSG[r];
+  document.getElementById('s-emoji').textContent = S_EMOJI[r];
+  document.getElementById('s-title').textContent = S_MSG[r];
   const nextBtn = document.getElementById('s-next');
   if (round >= ROUNDS) {
     nextBtn.style.display = 'none';
-    document.getElementById('s-info').textContent = "All done! You're a Warrior! 🏆";
   } else {
     nextBtn.style.display = '';
-    nextBtn.textContent = `🚀 Next Round! (${round + 1}/${ROUNDS})`;
-    document.getElementById('s-info').textContent = `Round ${round} of ${ROUNDS} done!`;
+    nextBtn.textContent = '🚀 Next!';
   }
   document.getElementById('success-overlay').classList.add('active');
 }
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    CONFETTI
-════════════════════════════════════════════ */
+════════════════════════════ */
 function confetti() {
   const shapes = ['●','■','▲','★','♦','❤'];
   const cols   = ['#ff6eb4','#ffd93d','#22c55e','#3b82f6','#a855f7','#f97316'];
@@ -2112,11 +2037,23 @@ function confetti() {
   }
 }
 
-/* Preload voices */
+/* Voices */
 if (window.speechSynthesis) {
   window.speechSynthesis.getVoices();
-  window.speechSynthesis.addEventListener('voiceschanged', () => window.speechSynthesis.getVoices());
+  window.speechSynthesis.addEventListener('voiceschanged', () => { _bestVoice = null; pickVoice(); });
 }
+
+/* First interaction → menu music */
+function onFirstInteraction() {
+  document.removeEventListener('click',      onFirstInteraction);
+  document.removeEventListener('touchstart', onFirstInteraction);
+  setTimeout(() => {
+    const active = document.querySelector('.screen.active');
+    if (soundOn && !musicOn && active && active.id === 'home-screen') startMusic('menu');
+  }, 80);
+}
+document.addEventListener('click',      onFirstInteraction, { once: true });
+document.addEventListener('touchstart', onFirstInteraction, { once: true });
 </script>
 </body>
 </html>
