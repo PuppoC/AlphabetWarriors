@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Alphabet Warriors!</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --pink: #ff6eb4;
-      --pink-light: #ffd6ec;
       --yellow: #ffd93d;
       --purple: #a855f7;
       --green: #22c55e;
@@ -17,60 +16,75 @@
       --orange: #f97316;
       --red: #ef4444;
       --teal: #14b8a6;
-      --bg: #fff0f8;
+      --bg: #fff8fe;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
 
     body {
       font-family: 'Nunito', sans-serif;
       background: var(--bg);
-      min-height: 100vh;
-      overflow-x: hidden;
       background-image:
-        radial-gradient(circle at 10% 20%, rgba(255,110,180,0.12) 0%, transparent 50%),
-        radial-gradient(circle at 90% 80%, rgba(168,85,247,0.12) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255,217,61,0.08) 0%, transparent 70%);
+        radial-gradient(circle at 15% 15%, rgba(255,110,180,0.18) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(168,85,247,0.18) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(255,217,61,0.1) 0%, transparent 60%);
     }
-
-    h1, .display-font { font-family: 'Fredoka One', cursive; }
 
     /* ===== SCREENS ===== */
-    .screen { display: none; min-height: 100vh; }
-    .screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .screen {
+      display: none;
+      position: fixed;
+      inset: 0;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 16px;
+    }
+    .screen.active { display: flex; }
 
-    /* ===== HOME SCREEN ===== */
-    #home-screen {
-      padding: 40px 20px;
-      position: relative;
+    /* ===== FLOATING DECO ===== */
+    .deco-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
       overflow: hidden;
     }
-
-    .home-deco {
+    .deco {
       position: absolute;
-      font-size: 60px;
-      animation: wobble 3s ease-in-out infinite;
-      pointer-events: none;
+      font-size: clamp(32px, 6vw, 64px);
+      animation: deco-float 4s ease-in-out infinite;
+      opacity: 0.6;
     }
-    .home-deco:nth-child(1) { top: 5%; left: 5%; animation-delay: 0s; }
-    .home-deco:nth-child(2) { top: 10%; right: 8%; animation-delay: 0.5s; }
-    .home-deco:nth-child(3) { bottom: 15%; left: 8%; animation-delay: 1s; }
-    .home-deco:nth-child(4) { bottom: 10%; right: 6%; animation-delay: 1.5s; }
-    .home-deco:nth-child(5) { top: 40%; left: 2%; animation-delay: 0.8s; font-size: 45px; }
-    .home-deco:nth-child(6) { top: 35%; right: 3%; animation-delay: 1.2s; font-size: 45px; }
+    .deco:nth-child(1) { top: 3%; left: 3%; animation-delay: 0s; }
+    .deco:nth-child(2) { top: 5%; right: 5%; animation-delay: 0.7s; }
+    .deco:nth-child(3) { bottom: 8%; left: 5%; animation-delay: 1.4s; }
+    .deco:nth-child(4) { bottom: 5%; right: 4%; animation-delay: 2.1s; }
+    .deco:nth-child(5) { top: 42%; left: 1%; animation-delay: 1.0s; font-size: clamp(24px, 4vw, 44px); }
+    .deco:nth-child(6) { top: 38%; right: 1%; animation-delay: 1.7s; font-size: clamp(24px, 4vw, 44px); }
 
-    @keyframes wobble {
-      0%, 100% { transform: rotate(-5deg) scale(1); }
-      50% { transform: rotate(8deg) scale(1.15); }
+    @keyframes deco-float {
+      0%, 100% { transform: translateY(0) rotate(-5deg) scale(1); }
+      50% { transform: translateY(-14px) rotate(8deg) scale(1.12); }
     }
+
+    /* ===== HOME SCREEN ===== */
+    #home-screen { z-index: 1; }
 
     .home-card {
       background: white;
-      border-radius: 40px;
-      padding: 50px 60px;
-      box-shadow: 0 20px 60px rgba(255,110,180,0.25), 0 0 0 6px rgba(255,110,180,0.1);
+      border-radius: clamp(24px, 5vw, 44px);
+      padding: clamp(28px, 5vh, 52px) clamp(24px, 6vw, 64px);
+      box-shadow: 0 20px 60px rgba(255,110,180,0.25), 0 0 0 6px rgba(255,110,180,0.08);
       text-align: center;
-      max-width: 520px;
+      max-width: 500px;
       width: 100%;
       position: relative;
       z-index: 1;
@@ -78,40 +92,39 @@
 
     .game-logo {
       font-family: 'Fredoka One', cursive;
-      font-size: 72px;
+      font-size: clamp(44px, 10vw, 76px);
       line-height: 1;
       background: linear-gradient(135deg, #ff6eb4, #a855f7, #3b82f6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       filter: drop-shadow(0 4px 8px rgba(255,110,180,0.3));
     }
 
     .game-subtitle {
-      font-size: 22px;
-      color: #888;
-      margin-bottom: 36px;
-      font-weight: 700;
+      font-size: clamp(14px, 3vw, 22px);
+      color: #aaa;
+      margin-bottom: clamp(20px, 3vh, 36px);
+      font-weight: 800;
     }
 
     .letter-showcase {
       display: flex;
-      gap: 12px;
+      gap: clamp(8px, 2vw, 14px);
       justify-content: center;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
+      margin-bottom: clamp(20px, 3vh, 36px);
     }
 
     .showcase-tile {
-      width: 64px;
-      height: 64px;
-      border-radius: 18px;
+      width: clamp(48px, 10vw, 68px);
+      height: clamp(48px, 10vw, 68px);
+      border-radius: clamp(12px, 2vw, 20px);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'Fredoka One', cursive;
-      font-size: 34px;
+      font-size: clamp(26px, 5vw, 38px);
       color: white;
       box-shadow: 0 6px 16px rgba(0,0,0,0.15);
       animation: tile-float 3s ease-in-out infinite;
@@ -127,121 +140,97 @@
       50% { transform: translateY(-10px); }
     }
 
-    .menu-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    .menu-buttons { display: flex; flex-direction: column; gap: clamp(10px, 2vh, 16px); }
 
     .btn {
       font-family: 'Fredoka One', cursive;
-      font-size: 26px;
+      font-size: clamp(20px, 4vw, 28px);
       border: none;
-      border-radius: 20px;
-      padding: 18px 36px;
+      border-radius: clamp(14px, 3vw, 22px);
+      padding: clamp(14px, 2.5vh, 20px) clamp(24px, 5vw, 40px);
       cursor: pointer;
       transition: transform 0.15s, box-shadow 0.15s;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
+      white-space: nowrap;
     }
-    .btn:hover { transform: scale(1.05) translateY(-2px); }
-    .btn:active { transform: scale(0.97); }
+    .btn:hover { transform: scale(1.06) translateY(-2px); }
+    .btn:active { transform: scale(0.96); }
 
     .btn-play {
       background: linear-gradient(135deg, #ff6eb4, #f97316);
       color: white;
       box-shadow: 0 8px 24px rgba(255,110,180,0.45);
-      font-size: 30px;
-      padding: 22px 40px;
+      font-size: clamp(22px, 5vw, 32px);
+      padding: clamp(16px, 3vh, 24px) clamp(28px, 6vw, 44px);
     }
+    .btn-how { background: linear-gradient(135deg, #a855f7, #3b82f6); color: white; box-shadow: 0 8px 24px rgba(168,85,247,0.35); }
+    .btn-sound-toggle { background: linear-gradient(135deg, #14b8a6, #22c55e); color: white; box-shadow: 0 8px 24px rgba(20,184,166,0.35); font-size: clamp(16px, 3vw, 22px); }
+    .btn-back { background: linear-gradient(135deg, #ff6eb4, #a855f7); color: white; box-shadow: 0 8px 24px rgba(255,110,180,0.35); margin-top: 20px; }
+    .btn-next { background: linear-gradient(135deg, #22c55e, #14b8a6); color: white; box-shadow: 0 8px 24px rgba(34,197,94,0.45); font-size: clamp(20px, 4vw, 28px); padding: clamp(14px, 2.5vh, 20px) 28px; width: 100%; }
+    .btn-finish { background: linear-gradient(135deg, #ff6eb4, #a855f7); color: white; box-shadow: 0 8px 24px rgba(255,110,180,0.45); font-size: clamp(20px, 4vw, 28px); padding: clamp(14px, 2.5vh, 20px) 28px; width: 100%; }
 
-    .btn-how {
-      background: linear-gradient(135deg, #a855f7, #3b82f6);
-      color: white;
-      box-shadow: 0 8px 24px rgba(168,85,247,0.35);
-    }
-
-    .btn-sound-toggle {
-      background: linear-gradient(135deg, #14b8a6, #22c55e);
-      color: white;
-      box-shadow: 0 8px 24px rgba(20,184,166,0.35);
-      font-size: 22px;
-    }
-
-    /* ===== HOW TO PLAY SCREEN ===== */
-    #how-screen {
-      padding: 40px 20px;
-    }
-
+    /* ===== HOW SCREEN ===== */
+    #how-screen { z-index: 1; }
     .how-card {
       background: white;
-      border-radius: 40px;
-      padding: 50px;
-      max-width: 560px;
+      border-radius: clamp(24px, 5vw, 40px);
+      padding: clamp(28px, 4vh, 50px) clamp(20px, 5vw, 48px);
+      max-width: 520px;
       width: 100%;
       box-shadow: 0 20px 60px rgba(168,85,247,0.2);
       text-align: center;
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
     }
-
-    .how-title {
-      font-family: 'Fredoka One', cursive;
-      font-size: 52px;
-      color: #a855f7;
-      margin-bottom: 32px;
-    }
-
+    .how-title { font-family: 'Fredoka One', cursive; font-size: clamp(36px, 8vw, 52px); color: #a855f7; margin-bottom: 24px; }
     .how-step {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
       text-align: left;
-      padding: 18px 20px;
+      padding: clamp(12px, 2vh, 18px) clamp(14px, 3vw, 20px);
       background: #faf5ff;
-      border-radius: 20px;
-      margin-bottom: 16px;
+      border-radius: 18px;
+      margin-bottom: 12px;
       border: 3px solid #e9d5ff;
     }
-
-    .how-step-icon {
-      font-size: 44px;
-      flex-shrink: 0;
-    }
-
-    .how-step-text {
-      font-size: 18px;
-      font-weight: 700;
-      color: #5b21b6;
-      line-height: 1.4;
-    }
-
-    .btn-back {
-      background: linear-gradient(135deg, #ff6eb4, #a855f7);
-      color: white;
-      box-shadow: 0 8px 24px rgba(255,110,180,0.35);
-      margin-top: 28px;
-    }
+    .how-step-icon { font-size: clamp(30px, 6vw, 44px); flex-shrink: 0; }
+    .how-step-text { font-size: clamp(14px, 2.5vw, 18px); font-weight: 700; color: #5b21b6; line-height: 1.4; }
 
     /* ===== GAME SCREEN ===== */
     #game-screen {
-      padding: 20px;
+      z-index: 1;
       justify-content: flex-start;
-      padding-top: 24px;
+      padding-top: 0;
+      padding: 0;
     }
 
+    .game-wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: clamp(10px, 2vw, 20px);
+      gap: clamp(8px, 1.5vh, 16px);
+      justify-content: space-between;
+    }
+
+    /* Header */
     .game-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 100%;
-      max-width: 700px;
-      margin-bottom: 24px;
+      flex-shrink: 0;
     }
 
     .game-title-bar {
       font-family: 'Fredoka One', cursive;
-      font-size: 32px;
+      font-size: clamp(20px, 4vw, 30px);
       background: linear-gradient(135deg, #ff6eb4, #a855f7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -252,8 +241,8 @@
       background: linear-gradient(135deg, #a855f7, #3b82f6);
       color: white;
       font-family: 'Fredoka One', cursive;
-      font-size: 20px;
-      padding: 8px 20px;
+      font-size: clamp(14px, 2.5vw, 20px);
+      padding: 6px 16px;
       border-radius: 30px;
       box-shadow: 0 4px 12px rgba(168,85,247,0.4);
     }
@@ -262,31 +251,54 @@
       background: white;
       border: 3px solid #ffd6ec;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 22px;
+      width: clamp(40px, 8vw, 52px);
+      height: clamp(40px, 8vw, 52px);
+      font-size: clamp(16px, 3.5vw, 22px);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: transform 0.15s, box-shadow 0.15s;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      flex-shrink: 0;
     }
-    .btn-home-icon:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(255,110,180,0.3); }
+    .btn-home-icon:hover { transform: scale(1.1); }
 
-    /* Progress Stars */
+    /* Score/Streak Bar */
+    .score-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .score-pill {
+      background: white;
+      border-radius: 30px;
+      padding: 6px 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(16px, 3vw, 22px);
+    }
+    .score-val { color: #ff6eb4; }
+    .streak-val { color: #f97316; }
+
+    /* Stars */
     .stars-bar {
       display: flex;
-      gap: 10px;
-      margin-bottom: 28px;
+      gap: clamp(6px, 1.5vw, 12px);
       justify-content: center;
+      flex-shrink: 0;
     }
-
     .star-item {
-      font-size: 40px;
+      font-size: clamp(24px, 5vw, 42px);
       opacity: 0.2;
-      transition: all 0.4s;
       filter: grayscale(1);
+      transition: all 0.4s;
     }
     .star-item.lit {
       opacity: 1;
@@ -295,40 +307,52 @@
     }
     @keyframes star-pop {
       0% { transform: scale(0); }
-      60% { transform: scale(1.4) rotate(20deg); }
+      60% { transform: scale(1.5) rotate(20deg); }
       100% { transform: scale(1) rotate(0); }
     }
 
-    /* Drop Zones */
+    /* Section labels */
     .game-zone-label {
       font-family: 'Fredoka One', cursive;
-      font-size: 22px;
-      color: #888;
-      letter-spacing: 3px;
+      font-size: clamp(12px, 2.5vw, 18px);
+      color: #bbb;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      text-align: center;
+      flex-shrink: 0;
     }
 
-    .drop-row {
+    /* Drop zones section */
+    .drop-section, .drag-section {
       display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(6px, 1vh, 12px);
+      flex-shrink: 0;
+    }
+
+    .drop-row, .drag-row {
+      display: flex;
+      gap: clamp(8px, 2vw, 16px);
       justify-content: center;
+      flex-wrap: nowrap;
       width: 100%;
-      max-width: 700px;
-      margin-bottom: 8px;
+    }
+
+    /* Tile sizing — fills available width */
+    .tile-size {
+      width: clamp(52px, calc((100vw - 80px) / 5 - 16px), 120px);
+      height: clamp(52px, calc((100vw - 80px) / 5 - 16px), 120px);
+      flex-shrink: 0;
     }
 
     .drop-zone {
-      width: 110px;
-      height: 110px;
-      border-radius: 26px;
+      border-radius: clamp(14px, 3vw, 28px);
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
       font-family: 'Fredoka One', cursive;
-      font-size: 54px;
+      font-size: clamp(28px, 6vw, 58px);
       color: white;
       cursor: default;
       transition: transform 0.2s, box-shadow 0.2s;
@@ -338,25 +362,18 @@
     }
 
     .drop-zone.highlight {
-      transform: scale(1.12);
+      transform: scale(1.15);
       box-shadow: 0 0 0 5px white, 0 0 30px rgba(255,255,255,0.9), 0 12px 30px rgba(0,0,0,0.2);
     }
-
-    .drop-zone.matched {
-      animation: matched-bounce 0.6s cubic-bezier(.36,.07,.19,.97);
-    }
-
-    .drop-zone.wrong-shake {
-      animation: shake 0.5s;
-    }
+    .drop-zone.matched { animation: matched-bounce 0.6s cubic-bezier(.36,.07,.19,.97); }
+    .drop-zone.wrong-shake { animation: shake 0.5s; }
 
     @keyframes matched-bounce {
       0% { transform: scale(1); }
-      30% { transform: scale(1.25) rotate(-5deg); }
+      30% { transform: scale(1.3) rotate(-6deg); }
       60% { transform: scale(0.95) rotate(3deg); }
       100% { transform: scale(1) rotate(0); }
     }
-
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
       20% { transform: translateX(-12px) rotate(-5deg); }
@@ -371,9 +388,9 @@
       right: -10px;
       background: #22c55e;
       color: white;
-      font-size: 20px;
-      width: 34px;
-      height: 34px;
+      font-size: clamp(14px, 3vw, 20px);
+      width: clamp(24px, 5vw, 36px);
+      height: clamp(24px, 5vw, 36px);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -381,84 +398,83 @@
       box-shadow: 0 4px 10px rgba(34,197,94,0.5);
       animation: pop-in 0.3s cubic-bezier(.36,.07,.19,.97);
     }
-
     @keyframes pop-in {
       0% { transform: scale(0); }
-      70% { transform: scale(1.3); }
+      70% { transform: scale(1.4); }
       100% { transform: scale(1); }
     }
 
-    /* Arrow */
+    /* Arrow between zones */
     .match-arrow {
-      font-size: 60px;
-      animation: arrow-bounce 1s ease-in-out infinite;
-      margin: 16px 0;
-      filter: drop-shadow(0 4px 8px rgba(255,110,180,0.4));
+      font-size: clamp(28px, 5vw, 52px);
+      animation: arrow-pulse 1.2s ease-in-out infinite;
+      text-align: center;
+      flex-shrink: 0;
+      line-height: 1;
     }
-    @keyframes arrow-bounce {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(10px) scale(1.1); }
-    }
-
-    /* Drag Items */
-    .drag-row {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-      max-width: 700px;
+    @keyframes arrow-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.2); opacity: 1; }
     }
 
+    /* Drag items */
     .letter-card {
-      width: 110px;
-      height: 110px;
-      border-radius: 26px;
+      border-radius: clamp(14px, 3vw, 28px);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'Fredoka One', cursive;
-      font-size: 54px;
+      font-size: clamp(28px, 6vw, 58px);
       color: white;
       cursor: grab;
-      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
       box-shadow: 0 8px 24px rgba(0,0,0,0.15), inset 0 -4px 0 rgba(0,0,0,0.15);
       user-select: none;
       touch-action: none;
       border: 4px solid rgba(255,255,255,0.4);
+      position: relative;
     }
     .letter-card:hover {
-      transform: scale(1.08) translateY(-4px);
-      box-shadow: 0 14px 32px rgba(0,0,0,0.2);
-      cursor: grab;
+      transform: scale(1.1) translateY(-5px) rotate(-3deg);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.22);
     }
     .letter-card.dragging {
-      transform: scale(1.15) rotate(5deg);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      transform: scale(1.18) rotate(6deg);
+      box-shadow: 0 24px 56px rgba(0,0,0,0.3);
       cursor: grabbing;
       z-index: 1000;
     }
     .letter-card.used {
       opacity: 0;
       pointer-events: none;
-      transform: scale(0);
+      transform: scale(0) rotate(20deg);
     }
 
-    /* Game Bottom Controls */
+    /* Hint pulse on letter cards */
+    .letter-card.hint-pulse {
+      animation: hint-glow 0.8s ease-in-out 3;
+    }
+    @keyframes hint-glow {
+      0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,0.15), inset 0 -4px 0 rgba(0,0,0,0.15); }
+      50% { box-shadow: 0 0 0 6px white, 0 0 28px rgba(255,217,61,0.8), 0 8px 24px rgba(0,0,0,0.15), inset 0 -4px 0 rgba(0,0,0,0.15); }
+    }
+
+    /* Game bottom controls */
     .game-bottom {
       display: flex;
-      gap: 16px;
-      margin-top: 32px;
+      gap: 14px;
+      justify-content: center;
       align-items: center;
+      flex-shrink: 0;
     }
 
-    .btn-refresh {
+    .btn-icon {
       background: white;
       border: 3px solid #ffd6ec;
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 26px;
+      width: clamp(44px, 9vw, 58px);
+      height: clamp(44px, 9vw, 58px);
+      font-size: clamp(18px, 3.5vw, 24px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -466,77 +482,91 @@
       transition: transform 0.15s, box-shadow 0.15s;
       box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     }
-    .btn-refresh:hover { transform: rotate(20deg) scale(1.1); box-shadow: 0 6px 20px rgba(255,110,180,0.3); }
+    .btn-icon:hover { transform: scale(1.12); box-shadow: 0 6px 20px rgba(255,110,180,0.3); }
+    .btn-refresh:hover { transform: rotate(30deg) scale(1.12); }
+
+    /* Hint button with counter */
+    .hint-btn-wrap { position: relative; }
+    .hint-counter {
+      position: absolute;
+      top: -6px; right: -6px;
+      background: #ff6eb4;
+      color: white;
+      font-family: 'Fredoka One', cursive;
+      font-size: 13px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 6px rgba(255,110,180,0.5);
+    }
+
+    /* ===== FLOATING LETTER POPUP ===== */
+    .letter-popup {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9000;
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(60px, 18vw, 140px);
+      color: white;
+      text-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      animation: letter-popup-anim 0.9s cubic-bezier(.36,.07,.19,.97) forwards;
+      transform-origin: center center;
+    }
+    @keyframes letter-popup-anim {
+      0% { opacity: 0; transform: scale(0.2) rotate(-15deg); }
+      40% { opacity: 1; transform: scale(1.3) rotate(5deg); }
+      70% { opacity: 1; transform: scale(1.1) rotate(-2deg); }
+      100% { opacity: 0; transform: scale(0.8) translateY(-40px); }
+    }
 
     /* ===== SUCCESS OVERLAY ===== */
     #success-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(6px);
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 999;
+      padding: 20px;
     }
-    #success-overlay.active {
-      display: flex;
-    }
+    #success-overlay.active { display: flex; }
 
     .success-card {
       background: white;
-      border-radius: 40px;
-      padding: 50px 60px;
+      border-radius: clamp(24px, 5vw, 44px);
+      padding: clamp(32px, 5vh, 56px) clamp(28px, 6vw, 64px);
       text-align: center;
-      max-width: 440px;
-      width: 90%;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
       animation: success-pop 0.6s cubic-bezier(.36,.07,.19,.97);
     }
-
     @keyframes success-pop {
-      0% { transform: scale(0) rotate(-10deg); opacity: 0; }
-      60% { transform: scale(1.05) rotate(2deg); opacity: 1; }
+      0% { transform: scale(0.3) rotate(-12deg); opacity: 0; }
+      60% { transform: scale(1.06) rotate(2deg); opacity: 1; }
       100% { transform: scale(1) rotate(0); }
     }
 
-    .success-emoji { font-size: 90px; display: block; margin-bottom: 8px; animation: wobble 1s ease-in-out infinite; }
-    .success-stars { font-size: 50px; margin-bottom: 16px; }
-
+    .success-emoji { font-size: clamp(60px, 14vw, 100px); display: block; margin-bottom: 6px; animation: wobble 1.2s ease-in-out infinite; }
+    @keyframes wobble {
+      0%, 100% { transform: rotate(-6deg) scale(1); }
+      50% { transform: rotate(8deg) scale(1.1); }
+    }
+    .success-stars { font-size: clamp(32px, 8vw, 56px); margin-bottom: 10px; }
     .success-title {
       font-family: 'Fredoka One', cursive;
-      font-size: 50px;
+      font-size: clamp(36px, 9vw, 56px);
       background: linear-gradient(135deg, #ff6eb4, #a855f7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
-
-    .success-round {
-      font-size: 22px;
-      color: #888;
-      font-weight: 700;
-      margin-bottom: 32px;
-    }
-
-    .btn-next {
-      background: linear-gradient(135deg, #22c55e, #14b8a6);
-      color: white;
-      box-shadow: 0 8px 24px rgba(34,197,94,0.45);
-      font-size: 28px;
-      padding: 20px 40px;
-      width: 100%;
-    }
-
-    .btn-finish {
-      background: linear-gradient(135deg, #ff6eb4, #a855f7);
-      color: white;
-      box-shadow: 0 8px 24px rgba(255,110,180,0.45);
-      font-size: 28px;
-      padding: 20px 40px;
-      width: 100%;
-    }
+    .success-round { font-size: clamp(14px, 3vw, 20px); color: #aaa; font-weight: 800; margin-bottom: 12px; }
+    .success-score { font-size: clamp(16px, 3.5vw, 22px); color: #888; font-weight: 700; margin-bottom: 24px; }
+    .score-highlight { color: #ff6eb4; font-family: 'Fredoka One', cursive; font-size: 1.3em; }
 
     /* ===== CONFETTI ===== */
     .confetti-piece {
@@ -550,117 +580,159 @@
       100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
     }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 600px) {
-      .game-logo { font-size: 52px; }
-      .home-card { padding: 36px 28px; }
-      .drop-zone, .letter-card { width: 80px; height: 80px; font-size: 40px; }
-      .drop-row, .drag-row { gap: 10px; }
-      .how-card { padding: 36px 24px; }
+    /* ===== COMBO TOAST ===== */
+    .combo-toast {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #f97316, #ffd93d);
+      color: white;
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(22px, 5vw, 36px);
+      padding: 12px 32px;
+      border-radius: 40px;
+      box-shadow: 0 8px 30px rgba(249,115,22,0.5);
+      z-index: 8000;
+      pointer-events: none;
+      animation: toast-pop 1.6s cubic-bezier(.36,.07,.19,.97) forwards;
+      white-space: nowrap;
     }
+    @keyframes toast-pop {
+      0% { opacity: 0; transform: translateX(-50%) scale(0.4) translateY(20px); }
+      20% { opacity: 1; transform: translateX(-50%) scale(1.15) translateY(0); }
+      70% { opacity: 1; transform: translateX(-50%) scale(1) translateY(0); }
+      100% { opacity: 0; transform: translateX(-50%) scale(0.8) translateY(-20px); }
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    .round-progress {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .round-dot {
+      width: clamp(8px, 1.5vw, 12px);
+      height: clamp(8px, 1.5vw, 12px);
+      border-radius: 50%;
+      background: #e5e7eb;
+      transition: background 0.4s, transform 0.3s;
+    }
+    .round-dot.done { background: linear-gradient(135deg, #ff6eb4, #a855f7); transform: scale(1.3); }
+    .round-dot.current { background: #ffd93d; transform: scale(1.1); box-shadow: 0 0 8px rgba(255,217,61,0.8); }
   </style>
 </head>
 <body>
 
-  <!-- ===== HOME SCREEN ===== -->
-  <div id="home-screen" class="screen active">
-    <span class="home-deco">🌟</span>
-    <span class="home-deco">🎈</span>
-    <span class="home-deco">🦄</span>
-    <span class="home-deco">🌈</span>
-    <span class="home-deco">✨</span>
-    <span class="home-deco">🎉</span>
+<!-- DECORATIONS -->
+<div class="deco-layer">
+  <span class="deco">🌟</span>
+  <span class="deco">🎈</span>
+  <span class="deco">🦄</span>
+  <span class="deco">🌈</span>
+  <span class="deco">✨</span>
+  <span class="deco">🎉</span>
+</div>
 
-    <div class="home-card">
-      <div class="game-logo">Alphabet<br>Warriors!</div>
-      <div class="game-subtitle">🎮 Match the Letters!</div>
-
-      <div class="letter-showcase">
-        <div class="showcase-tile">A</div>
-        <div class="showcase-tile">B</div>
-        <div class="showcase-tile">C</div>
-        <div class="showcase-tile">D</div>
-        <div class="showcase-tile">E</div>
-      </div>
-
-      <div class="menu-buttons">
-        <button class="btn btn-play" onclick="startGame()">▶ Play Now!</button>
-        <button class="btn btn-how" onclick="showHow()">❓ How to Play</button>
-        <button class="btn btn-sound-toggle" id="sound-btn" onclick="toggleSound()">🔊 Sound: ON</button>
-      </div>
+<!-- ===== HOME SCREEN ===== -->
+<div id="home-screen" class="screen active">
+  <div class="home-card">
+    <div class="game-logo">Alphabet<br>Warriors!</div>
+    <div class="game-subtitle">🎮 Match the Letters!</div>
+    <div class="letter-showcase">
+      <div class="showcase-tile">A</div>
+      <div class="showcase-tile">B</div>
+      <div class="showcase-tile">C</div>
+      <div class="showcase-tile">D</div>
+      <div class="showcase-tile">E</div>
+    </div>
+    <div class="menu-buttons">
+      <button class="btn btn-play" onclick="startGame()">▶ Play Now!</button>
+      <button class="btn btn-how" onclick="showHow()">❓ How to Play</button>
+      <button class="btn btn-sound-toggle" id="sound-btn" onclick="toggleSound()">🔊 Sound: ON</button>
     </div>
   </div>
+</div>
 
-  <!-- ===== HOW TO PLAY SCREEN ===== -->
-  <div id="how-screen" class="screen">
-    <div class="how-card">
-      <div class="how-title">How to Play 🎓</div>
-
-      <div class="how-step">
-        <div class="how-step-icon">👀</div>
-        <div class="how-step-text">Look at the BIG letters at the top of the screen!</div>
-      </div>
-      <div class="how-step">
-        <div class="how-step-icon">👇</div>
-        <div class="how-step-text">You'll see small letters at the bottom — those are the same letters, just lowercase!</div>
-      </div>
-      <div class="how-step">
-        <div class="how-step-icon">🖱️</div>
-        <div class="how-step-text">Drag each small letter and DROP it onto its matching BIG letter!</div>
-      </div>
-      <div class="how-step">
-        <div class="how-step-icon">⭐</div>
-        <div class="how-step-text">Match all 5 letters to win the round! Play 5 rounds total!</div>
-      </div>
-      <div class="how-step">
-        <div class="how-step-icon">🔊</div>
-        <div class="how-step-text">Listen — the letter will be read out loud when you match it!</div>
-      </div>
-
-      <button class="btn btn-back" onclick="showHome()">🏠 Back to Menu</button>
-    </div>
+<!-- ===== HOW SCREEN ===== -->
+<div id="how-screen" class="screen">
+  <div class="how-card">
+    <div class="how-title">How to Play 🎓</div>
+    <div class="how-step"><div class="how-step-icon">👀</div><div class="how-step-text">Look at the BIG letters at the top!</div></div>
+    <div class="how-step"><div class="how-step-icon">🔡</div><div class="how-step-text">The small letters at the bottom match the big ones — just lowercase!</div></div>
+    <div class="how-step"><div class="how-step-icon">✋</div><div class="how-step-text">Drag each small letter and DROP it onto its matching BIG letter!</div></div>
+    <div class="how-step"><div class="how-step-icon">⭐</div><div class="how-step-text">Match all 5 to win the round! Play 5 rounds!</div></div>
+    <div class="how-step"><div class="how-step-icon">💡</div><div class="how-step-text">Stuck? Tap the 💡 hint button — 3 hints per game!</div></div>
+    <div class="how-step"><div class="how-step-icon">🔥</div><div class="how-step-text">Match fast to build a streak and earn bonus points!</div></div>
+    <button class="btn btn-back" onclick="showHome()">🏠 Back to Menu</button>
   </div>
+</div>
 
-  <!-- ===== GAME SCREEN ===== -->
-  <div id="game-screen" class="screen">
+<!-- ===== GAME SCREEN ===== -->
+<div id="game-screen" class="screen">
+  <div class="game-wrapper">
+
+    <!-- Header -->
     <div class="game-header">
-      <button class="btn-home-icon" onclick="showHome()" title="Home">🏠</button>
+      <button class="btn-home-icon" onclick="showHome()">🏠</button>
       <div class="game-title-bar">Alphabet Warriors!</div>
       <div class="round-badge" id="round-badge">Round 1/5</div>
     </div>
 
-    <div class="stars-bar" id="stars-bar">
-      <span class="star-item">⭐</span>
-      <span class="star-item">⭐</span>
-      <span class="star-item">⭐</span>
-      <span class="star-item">⭐</span>
-      <span class="star-item">⭐</span>
+    <!-- Score + Streak -->
+    <div class="score-bar">
+      <div class="score-pill">⭐ <span id="score-display" class="score-val">0</span></div>
+      <div class="score-pill">🔥 <span id="streak-display" class="streak-val">0</span></div>
     </div>
 
-    <div class="game-zone-label">Match These ↓</div>
+    <!-- Round progress dots -->
+    <div class="round-progress" id="round-progress"></div>
 
-    <div class="drop-row" id="drop-zones"></div>
+    <!-- Stars for current round -->
+    <div class="stars-bar" id="stars-bar">
+      <span class="star-item">⭐</span><span class="star-item">⭐</span><span class="star-item">⭐</span>
+      <span class="star-item">⭐</span><span class="star-item">⭐</span>
+    </div>
 
+    <!-- Drop zones (big letters) -->
+    <div class="drop-section">
+      <div class="game-zone-label">BIG Letters ↓</div>
+      <div class="drop-row" id="drop-zones"></div>
+    </div>
+
+    <!-- Arrow -->
     <div class="match-arrow">👇</div>
 
-    <div class="game-zone-label">Drag These ↑</div>
-    <div class="drag-row" id="drag-items"></div>
+    <!-- Drag items (small letters) -->
+    <div class="drag-section">
+      <div class="game-zone-label">Small Letters ↑</div>
+      <div class="drag-row" id="drag-items"></div>
+    </div>
 
+    <!-- Bottom controls -->
     <div class="game-bottom">
-      <button class="btn-refresh" onclick="initRound()" title="New letters">🔄</button>
+      <button class="btn-icon btn-refresh" onclick="initRound()" title="New letters">🔄</button>
+      <div class="hint-btn-wrap">
+        <button class="btn-icon" onclick="useHint()" title="Hint" id="hint-btn">💡</button>
+        <div class="hint-counter" id="hint-counter">3</div>
+      </div>
     </div>
-  </div>
 
-  <!-- ===== SUCCESS OVERLAY ===== -->
-  <div id="success-overlay">
-    <div class="success-card">
-      <span class="success-emoji" id="success-emoji">🎉</span>
-      <div class="success-stars" id="success-stars">⭐⭐⭐⭐⭐</div>
-      <div class="success-title" id="success-title">Amazing!</div>
-      <div class="success-round" id="success-info">Round 1 of 5 complete!</div>
-      <button class="btn btn-next" id="success-btn" onclick="handleSuccessBtn()">🚀 Next Round!</button>
-    </div>
   </div>
+</div>
+
+<!-- ===== SUCCESS OVERLAY ===== -->
+<div id="success-overlay">
+  <div class="success-card">
+    <span class="success-emoji" id="success-emoji">🎉</span>
+    <div class="success-stars" id="success-stars">⭐⭐⭐⭐⭐</div>
+    <div class="success-title" id="success-title">Amazing!</div>
+    <div class="success-round" id="success-info">Round 1 of 5 complete!</div>
+    <div class="success-score" id="success-score">Score: <span class="score-highlight">0</span></div>
+    <button class="btn btn-next" id="success-btn" onclick="handleSuccessBtn()">🚀 Next Round!</button>
+  </div>
+</div>
 
 <script>
   // ===== STATE =====
@@ -672,8 +744,11 @@
   let draggedEl = null;
   let draggedLetter = null;
   let touchClone = null;
+  let totalScore = 0;
+  let currentStreak = 0;
+  let hintsLeft = 3;
+  let roundStartTime = 0;
 
-  // ===== COLORS =====
   const COLORS = [
     { bg: '#ef4444', shadow: '#b91c1c' },
     { bg: '#f97316', shadow: '#c2410c' },
@@ -688,34 +763,37 @@
   // ===== AUDIO =====
   const AudioCtx = window.AudioContext || window.webkitAudioContext;
   let audioCtx = null;
-
-  function getAudioCtx() {
-    if (!audioCtx) audioCtx = new AudioCtx();
-    return audioCtx;
-  }
+  function getAudioCtx() { if (!audioCtx) audioCtx = new AudioCtx(); return audioCtx; }
 
   function playDing() {
     if (!soundOn) return;
     try {
       const ctx = getAudioCtx();
-      // Cheerful ding-dong: two tones
-      const notes = [
-        { freq: 880, time: 0, dur: 0.15 },
-        { freq: 1100, time: 0.15, dur: 0.2 },
-        { freq: 1320, time: 0.3, dur: 0.35 },
-      ];
-      notes.forEach(({ freq, time, dur }) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.frequency.value = freq;
-        osc.type = 'sine';
+      [{ freq: 880, time: 0, dur: 0.15 }, { freq: 1100, time: 0.15, dur: 0.2 }, { freq: 1320, time: 0.3, dur: 0.35 }]
+        .forEach(({ freq, time, dur }) => {
+          const osc = ctx.createOscillator(), gain = ctx.createGain();
+          osc.connect(gain); gain.connect(ctx.destination);
+          osc.frequency.value = freq; osc.type = 'sine';
+          gain.gain.setValueAtTime(0, ctx.currentTime + time);
+          gain.gain.linearRampToValueAtTime(0.35, ctx.currentTime + time + 0.01);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + time + dur);
+          osc.start(ctx.currentTime + time); osc.stop(ctx.currentTime + time + dur + 0.05);
+        });
+    } catch(e) {}
+  }
+
+  function playCombo() {
+    if (!soundOn) return;
+    try {
+      const ctx = getAudioCtx();
+      [{ freq: 1047, time: 0 }, { freq: 1319, time: 0.1 }, { freq: 1568, time: 0.2 }].forEach(({ freq, time }) => {
+        const osc = ctx.createOscillator(), gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.frequency.value = freq; osc.type = 'triangle';
         gain.gain.setValueAtTime(0, ctx.currentTime + time);
-        gain.gain.linearRampToValueAtTime(0.35, ctx.currentTime + time + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + time + dur);
-        osc.start(ctx.currentTime + time);
-        osc.stop(ctx.currentTime + time + dur + 0.05);
+        gain.gain.linearRampToValueAtTime(0.28, ctx.currentTime + time + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + time + 0.3);
+        osc.start(ctx.currentTime + time); osc.stop(ctx.currentTime + time + 0.4);
       });
     } catch(e) {}
   }
@@ -724,16 +802,12 @@
     if (!soundOn) return;
     try {
       const ctx = getAudioCtx();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.frequency.value = 220;
-      osc.type = 'sawtooth';
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.value = 220; osc.type = 'sawtooth';
       gain.gain.setValueAtTime(0.2, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-      osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.35);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.35);
     } catch(e) {}
   }
 
@@ -741,34 +815,24 @@
     if (!soundOn) return;
     try {
       const ctx = getAudioCtx();
-      const notes = [523, 659, 784, 1047, 1319];
-      notes.forEach((freq, i) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.frequency.value = freq;
-        osc.type = 'sine';
+      [523, 659, 784, 1047, 1319].forEach((freq, i) => {
+        const osc = ctx.createOscillator(), gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.frequency.value = freq; osc.type = 'sine';
         const t = ctx.currentTime + i * 0.12;
         gain.gain.setValueAtTime(0, t);
         gain.gain.linearRampToValueAtTime(0.3, t + 0.02);
         gain.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
-        osc.start(t);
-        osc.stop(t + 0.6);
+        osc.start(t); osc.stop(t + 0.6);
       });
     } catch(e) {}
   }
 
   function speakLetter(letter) {
-    if (!soundOn) return;
-    if (!window.speechSynthesis) return;
-    // Cancel any ongoing speech
+    if (!soundOn || !window.speechSynthesis) return;
     window.speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(letter);
-    utter.rate = 0.85;
-    utter.pitch = 1.3;
-    utter.volume = 1;
-    // Try to find a clear, child-friendly voice
+    utter.rate = 0.85; utter.pitch = 1.3; utter.volume = 1;
     const voices = window.speechSynthesis.getVoices();
     const preferred = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Karen')));
     if (preferred) utter.voice = preferred;
@@ -784,14 +848,15 @@
   function showHome() {
     document.getElementById('success-overlay').classList.remove('active');
     showScreen('home-screen');
-    currentRound = 1;
+    currentRound = 1; totalScore = 0; currentStreak = 0; hintsLeft = 3;
   }
 
   function showHow() { showScreen('how-screen'); }
 
   function startGame() {
-    currentRound = 1;
+    currentRound = 1; totalScore = 0; currentStreak = 0; hintsLeft = 3;
     showScreen('game-screen');
+    updateHintUI();
     initRound();
   }
 
@@ -800,33 +865,44 @@
     document.getElementById('sound-btn').textContent = soundOn ? '🔊 Sound: ON' : '🔇 Sound: OFF';
   }
 
+  // ===== ROUND PROGRESS DOTS =====
+  function renderProgressDots() {
+    const bar = document.getElementById('round-progress');
+    bar.innerHTML = '';
+    for (let i = 1; i <= TOTAL_ROUNDS; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'round-dot' + (i < currentRound ? ' done' : i === currentRound ? ' current' : '');
+      bar.appendChild(dot);
+    }
+  }
+
   // ===== GAME LOGIC =====
   function getRandomLetters() {
     const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     return [...alpha].sort(() => Math.random() - 0.5).slice(0, 5);
   }
-
   function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
 
   function initRound() {
     matchedCount = 0;
     currentLetters = getRandomLetters();
+    roundStartTime = Date.now();
 
-    // Update round badge
     document.getElementById('round-badge').textContent = `Round ${currentRound}/${TOTAL_ROUNDS}`;
+    document.getElementById('score-display').textContent = totalScore;
+    document.getElementById('streak-display').textContent = currentStreak;
+    renderProgressDots();
 
     // Reset stars
-    document.querySelectorAll('#stars-bar .star-item').forEach(s => {
-      s.classList.remove('lit');
-    });
+    document.querySelectorAll('#stars-bar .star-item').forEach(s => s.classList.remove('lit'));
 
-    // Build drop zones
+    // Drop zones
     const dzc = document.getElementById('drop-zones');
     dzc.innerHTML = '';
     currentLetters.forEach((letter, i) => {
       const color = COLORS[i % COLORS.length];
       const zone = document.createElement('div');
-      zone.className = 'drop-zone';
+      zone.className = 'drop-zone tile-size';
       zone.dataset.letter = letter;
       zone.style.background = `linear-gradient(145deg, ${color.bg}, ${color.shadow})`;
       zone.textContent = letter;
@@ -836,28 +912,26 @@
       dzc.appendChild(zone);
     });
 
-    // Build drag items (shuffled)
+    // Drag items
     const dic = document.getElementById('drag-items');
     dic.innerHTML = '';
     shuffle(currentLetters).forEach(letter => {
       const i = currentLetters.indexOf(letter);
       const color = COLORS[i % COLORS.length];
       const card = document.createElement('div');
-      card.className = 'letter-card';
+      card.className = 'letter-card tile-size';
       card.dataset.letter = letter;
       card.style.background = `linear-gradient(145deg, ${color.bg}, ${color.shadow})`;
       card.draggable = true;
       card.textContent = letter.toLowerCase();
       card.addEventListener('dragstart', e => {
-        draggedEl = card;
-        draggedLetter = letter;
+        draggedEl = card; draggedLetter = letter;
         card.classList.add('dragging');
         e.dataTransfer.effectAllowed = 'move';
       });
       card.addEventListener('dragend', () => {
         card.classList.remove('dragging');
-        draggedEl = null;
-        draggedLetter = null;
+        draggedEl = null; draggedLetter = null;
         document.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('highlight'));
       });
       card.addEventListener('touchstart', handleTouchStart, { passive: false });
@@ -871,62 +945,132 @@
 
   function handleDrop(zone) {
     if (!draggedLetter) return;
-    if (zone.dataset.letter === draggedLetter) {
-      doMatch(zone, draggedEl);
-    } else {
-      zone.classList.remove('wrong-shake');
-      void zone.offsetWidth;
-      zone.classList.add('wrong-shake');
-      zone.addEventListener('animationend', () => zone.classList.remove('wrong-shake'), { once: true });
-      playWrong();
-    }
+    if (zone.dataset.letter === draggedLetter) doMatch(zone, draggedEl);
+    else { wrongFeedback(zone); }
+  }
+
+  function wrongFeedback(zone) {
+    currentStreak = 0;
+    document.getElementById('streak-display').textContent = currentStreak;
+    zone.classList.remove('wrong-shake');
+    void zone.offsetWidth;
+    zone.classList.add('wrong-shake');
+    zone.addEventListener('animationend', () => zone.classList.remove('wrong-shake'), { once: true });
+    playWrong();
   }
 
   function doMatch(zone, card) {
     matchedCount++;
+    currentStreak++;
+    const elapsed = (Date.now() - roundStartTime) / 1000;
+    const speedBonus = elapsed < 10 ? 20 : elapsed < 20 ? 10 : 0;
+    const streakBonus = currentStreak >= 3 ? 15 : currentStreak >= 2 ? 5 : 0;
+    const points = 10 + speedBonus + streakBonus;
+    totalScore += points;
 
-    // Visual: add check badge
+    document.getElementById('score-display').textContent = totalScore;
+    document.getElementById('streak-display').textContent = currentStreak;
+
+    // Visual
     zone.classList.add('matched');
     zone.addEventListener('animationend', () => zone.classList.remove('matched'), { once: true });
     const badge = document.createElement('div');
-    badge.className = 'check-badge';
-    badge.textContent = '✓';
+    badge.className = 'check-badge'; badge.textContent = '✓';
     zone.appendChild(badge);
     zone.style.boxShadow = '0 0 0 4px white, 0 0 24px rgba(34,197,94,0.7), 0 8px 24px rgba(0,0,0,0.15)';
 
-    // Hide card
     card.classList.add('used');
 
-    // Light up star
+    // Floating letter popup
+    showLetterPopup(zone, zone.dataset.letter, zone.style.background);
+
+    // Star
     const star = document.querySelectorAll('#stars-bar .star-item')[matchedCount - 1];
     star.classList.add('lit');
 
-    // Sound + speech
-    playDing();
-    setTimeout(() => speakLetter(zone.dataset.letter), 300);
-
-    if (matchedCount >= 5) {
-      setTimeout(showSuccess, 700);
+    // Sound
+    if (currentStreak >= 3) {
+      playCombo();
+      showComboToast(currentStreak);
+    } else {
+      playDing();
     }
+    setTimeout(() => speakLetter(zone.dataset.letter), 250);
+
+    if (matchedCount >= 5) setTimeout(showSuccess, 700);
   }
 
-  // ===== TOUCH DRAG =====
+  // ===== FLOATING LETTER POPUP =====
+  function showLetterPopup(zone, letter, bg) {
+    const r = zone.getBoundingClientRect();
+    const popup = document.createElement('div');
+    popup.className = 'letter-popup';
+    popup.textContent = letter;
+    popup.style.cssText = `
+      left: ${r.left + r.width / 2}px;
+      top: ${r.top + r.height / 2}px;
+      transform: translate(-50%, -50%);
+      background: ${bg};
+      width: ${r.width * 1.2}px; height: ${r.height * 1.2}px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: ${r.width * 0.25}px;
+    `;
+    document.body.appendChild(popup);
+    setTimeout(() => popup.remove(), 1000);
+  }
+
+  // ===== COMBO TOAST =====
+  function showComboToast(streak) {
+    const msgs = { 3: '🔥 3x Combo!', 4: '💥 4x Combo!', 5: '🚀 PERFECT! 5x Combo!!' };
+    const msg = msgs[streak] || `🔥 ${streak}x Combo!`;
+    const toast = document.createElement('div');
+    toast.className = 'combo-toast';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 1700);
+  }
+
+  // ===== HINT =====
+  function updateHintUI() {
+    document.getElementById('hint-counter').textContent = hintsLeft;
+    document.getElementById('hint-btn').style.opacity = hintsLeft > 0 ? '1' : '0.4';
+  }
+
+  function useHint() {
+    if (hintsLeft <= 0) return;
+    // Find first unmatched card and its drop zone, highlight them
+    const cards = [...document.querySelectorAll('.letter-card:not(.used)')];
+    if (!cards.length) return;
+    const card = cards[0];
+    const targetLetter = card.dataset.letter;
+    const zone = [...document.querySelectorAll('.drop-zone')].find(z => z.dataset.letter === targetLetter && !z.querySelector('.check-badge'));
+    if (!zone) return;
+    hintsLeft--;
+    updateHintUI();
+    // Flash hint
+    card.classList.remove('hint-pulse');
+    zone.classList.remove('highlight');
+    void card.offsetWidth;
+    card.classList.add('hint-pulse');
+    zone.classList.add('highlight');
+    card.addEventListener('animationend', () => card.classList.remove('hint-pulse'), { once: true });
+    setTimeout(() => zone.classList.remove('highlight'), 2500);
+  }
+
+  // ===== TOUCH =====
   function handleTouchStart(e) {
     e.preventDefault();
     const touch = e.touches[0];
     draggedEl = e.currentTarget;
     draggedLetter = draggedEl.dataset.letter;
-
     touchClone = draggedEl.cloneNode(true);
     const r = draggedEl.getBoundingClientRect();
     Object.assign(touchClone.style, {
       position: 'fixed', pointerEvents: 'none', zIndex: 9999,
       width: r.width + 'px', height: r.height + 'px',
-      left: (touch.clientX - r.width / 2) + 'px',
-      top: (touch.clientY - r.height / 2) + 'px',
-      opacity: '0.9', transform: 'scale(1.12) rotate(5deg)',
-      boxShadow: '0 20px 50px rgba(0,0,0,0.3)', borderRadius: '26px',
-      transition: 'none'
+      left: (touch.clientX - r.width / 2) + 'px', top: (touch.clientY - r.height / 2) + 'px',
+      opacity: '0.92', transform: 'scale(1.15) rotate(6deg)',
+      boxShadow: '0 20px 50px rgba(0,0,0,0.3)', borderRadius: r.width * 0.25 + 'px', transition: 'none'
     });
     document.body.appendChild(touchClone);
     draggedEl.style.opacity = '0.3';
@@ -939,11 +1083,9 @@
     const r = draggedEl.getBoundingClientRect();
     touchClone.style.left = (touch.clientX - r.width / 2) + 'px';
     touchClone.style.top = (touch.clientY - r.height / 2) + 'px';
-
     document.querySelectorAll('.drop-zone').forEach(z => {
       const zr = z.getBoundingClientRect();
-      const over = touch.clientX >= zr.left && touch.clientX <= zr.right &&
-                   touch.clientY >= zr.top && touch.clientY <= zr.bottom;
+      const over = touch.clientX >= zr.left && touch.clientX <= zr.right && touch.clientY >= zr.top && touch.clientY <= zr.bottom;
       z.classList.toggle('highlight', over);
     });
   }
@@ -951,36 +1093,17 @@
   function handleTouchEnd(e) {
     if (!touchClone) return;
     const touch = e.changedTouches[0];
-
     let hit = null;
     document.querySelectorAll('.drop-zone').forEach(z => {
       z.classList.remove('highlight');
       const zr = z.getBoundingClientRect();
-      if (touch.clientX >= zr.left && touch.clientX <= zr.right &&
-          touch.clientY >= zr.top && touch.clientY <= zr.bottom) {
-        hit = z;
-      }
+      if (touch.clientX >= zr.left && touch.clientX <= zr.right && touch.clientY >= zr.top && touch.clientY <= zr.bottom) hit = z;
     });
-
     if (hit) {
-      if (hit.dataset.letter === draggedLetter) {
-        doMatch(hit, draggedEl);
-      } else {
-        draggedEl.style.opacity = '1';
-        hit.classList.remove('wrong-shake');
-        void hit.offsetWidth;
-        hit.classList.add('wrong-shake');
-        hit.addEventListener('animationend', () => hit.classList.remove('wrong-shake'), { once: true });
-        playWrong();
-      }
-    } else {
-      draggedEl.style.opacity = '1';
-    }
-
-    touchClone.remove();
-    touchClone = null;
-    draggedEl = null;
-    draggedLetter = null;
+      if (hit.dataset.letter === draggedLetter) doMatch(hit, draggedEl);
+      else { draggedEl.style.opacity = '1'; wrongFeedback(hit); }
+    } else { draggedEl.style.opacity = '1'; }
+    touchClone.remove(); touchClone = null; draggedEl = null; draggedLetter = null;
   }
 
   // ===== SUCCESS =====
@@ -990,10 +1113,10 @@
   function showSuccess() {
     playFanfare();
     spawnConfetti();
-
     document.getElementById('success-emoji').textContent = ROUND_EMOJI[currentRound];
     document.getElementById('success-title').textContent = ROUND_MSGS[currentRound];
     document.getElementById('success-info').textContent = `Round ${currentRound} of ${TOTAL_ROUNDS} complete!`;
+    document.getElementById('success-score').innerHTML = `Score: <span class="score-highlight">${totalScore}</span>`;
 
     const btn = document.getElementById('success-btn');
     if (currentRound >= TOTAL_ROUNDS) {
@@ -1004,25 +1127,19 @@
       btn.className = 'btn btn-next';
       btn.innerHTML = '🚀 Next Round!';
     }
-
     document.getElementById('success-overlay').classList.add('active');
   }
 
   function handleSuccessBtn() {
-    if (currentRound >= TOTAL_ROUNDS) {
-      showHome();
-    } else {
-      currentRound++;
-      document.getElementById('success-overlay').classList.remove('active');
-      initRound();
-    }
+    if (currentRound >= TOTAL_ROUNDS) showHome();
+    else { currentRound++; document.getElementById('success-overlay').classList.remove('active'); initRound(); }
   }
 
   // ===== CONFETTI =====
   function spawnConfetti() {
     const shapes = ['●', '■', '▲', '★', '♦', '❤'];
     const colors = ['#ff6eb4', '#ffd93d', '#22c55e', '#3b82f6', '#a855f7', '#f97316'];
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 80; i++) {
       setTimeout(() => {
         const c = document.createElement('div');
         c.className = 'confetti-piece';
@@ -1031,20 +1148,17 @@
         c.style.color = colors[Math.floor(Math.random() * colors.length)];
         c.style.fontSize = (Math.random() * 22 + 10) + 'px';
         c.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
-        c.style.animationDelay = '0s';
         c.textContent = shapes[Math.floor(Math.random() * shapes.length)];
         document.body.appendChild(c);
         setTimeout(() => c.remove(), 5000);
-      }, i * 40);
+      }, i * 35);
     }
   }
 
   // Preload voices
   if (window.speechSynthesis) {
     window.speechSynthesis.getVoices();
-    window.speechSynthesis.addEventListener('voiceschanged', () => {
-      window.speechSynthesis.getVoices();
-    });
+    window.speechSynthesis.addEventListener('voiceschanged', () => window.speechSynthesis.getVoices());
   }
 </script>
 </body>
