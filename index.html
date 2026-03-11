@@ -51,7 +51,7 @@
     /* ═══════════════════════════════════
        HOME SCREEN
     ═══════════════════════════════════ */
-    #home-screen{gap:clamp(6px,1.4vh,12px)}
+    #home-screen{gap:clamp(10px,2.2vh,20px)}
 
     .logo{
       font-family:'Fredoka One',cursive;
@@ -60,21 +60,54 @@
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
       text-align:center;
     }
-
-    .bounce-row{display:flex;gap:clamp(5px,1.3vw,9px);justify-content:center;}
-    .b-tile{
-      width:clamp(34px,7vw,50px);height:clamp(34px,7vw,50px);
-      border-radius:clamp(9px,1.8vw,13px);
-      display:flex;align-items:center;justify-content:center;
-      font-family:'Fredoka One',cursive;font-size:clamp(17px,3.6vw,28px);color:#fff;
-      animation:bob 2.8s ease-in-out infinite;
+    .tagline{
+      font-family:'Fredoka One',cursive;
+      font-size:clamp(17px,3.8vw,28px);
+      color:#c084fc;text-align:center;letter-spacing:.5px;
     }
-    .b-tile:nth-child(1){background:#ef4444;animation-delay:0s}
-    .b-tile:nth-child(2){background:#f97316;animation-delay:.15s}
-    .b-tile:nth-child(3){background:#eab308;animation-delay:.3s}
-    .b-tile:nth-child(4){background:#22c55e;animation-delay:.45s}
-    .b-tile:nth-child(5){background:#3b82f6;animation-delay:.6s}
-    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+    .home-main-btns{
+      display:flex;flex-direction:column;
+      gap:clamp(10px,2.2vh,16px);
+      width:min(380px,calc(100vw - 24px));flex-shrink:0;
+    }
+    .home-big-btn{
+      border:none;border-radius:clamp(20px,4vw,30px);
+      padding:clamp(18px,3.8vh,32px) clamp(24px,5vw,44px);
+      display:flex;align-items:center;justify-content:center;
+      gap:clamp(12px,2.8vw,20px);
+      cursor:pointer;transition:transform .13s,box-shadow .13s;
+      position:relative;overflow:hidden;width:100%;
+    }
+    .home-big-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.16) 0%,transparent 60%);pointer-events:none}
+    .home-big-btn:hover{transform:scale(1.04) translateY(-2px)}
+    .home-big-btn:active{transform:scale(0.96)}
+    .play-btn{
+      background:linear-gradient(135deg,#a855f7,#3b82f6);
+      box-shadow:0 10px 32px rgba(168,85,247,.42);
+    }
+    .warrior-home-btn{
+      background:linear-gradient(135deg,#ff6eb4 0%,#a855f7 50%,#3b82f6 100%);
+      box-shadow:0 10px 32px rgba(168,85,247,.38);
+    }
+    .hb-icon{font-size:clamp(34px,8vw,54px);line-height:1;flex-shrink:0}
+    .hb-label{
+      font-family:'Fredoka One',cursive;font-size:clamp(22px,5.5vw,40px);
+      color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.18);
+    }
+
+    .sound-row{display:flex;justify-content:center;flex-shrink:0}
+    .sound-btn{
+      background:none;border:none;cursor:pointer;
+      font-size:clamp(22px,4vw,32px);padding:6px 14px;border-radius:50%;
+      transition:transform .15s;
+    }
+    .sound-btn:hover{transform:scale(1.2)}
+
+    /* ═══════════════════════════════════
+       MODE SELECT SCREEN
+    ═══════════════════════════════════ */
+    #mode-screen{gap:clamp(8px,1.6vh,14px)}
 
     /* 4×2 mode grid */
     .modes-grid{
@@ -99,34 +132,6 @@
       font-size:clamp(9px,1.7vw,13px);
       color:#7c3aed;line-height:1.1;
     }
-
-    /* Warrior Mix hero */
-    .combo-wrap{width:min(520px,calc(100vw - 20px));flex-shrink:0}
-    .combo-card{
-      width:100%;border:none;border-radius:clamp(16px,3vw,26px);
-      padding:clamp(13px,2.4vh,20px) clamp(18px,4vw,36px);
-      cursor:pointer;display:flex;align-items:center;justify-content:center;gap:clamp(10px,2.4vw,18px);
-      background:linear-gradient(135deg,#ff6eb4 0%,#a855f7 50%,#3b82f6 100%);
-      box-shadow:0 10px 32px rgba(168,85,247,.38);
-      transition:transform .14s,box-shadow .14s;
-      position:relative;overflow:hidden;
-    }
-    .combo-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.14) 0%,transparent 60%);pointer-events:none}
-    .combo-card:hover{transform:scale(1.03) translateY(-3px);box-shadow:0 16px 44px rgba(168,85,247,.52)}
-    .combo-card:active{transform:scale(0.97)}
-    .combo-icon{font-size:clamp(32px,7vw,52px);line-height:1;flex-shrink:0}
-    .combo-name{
-      font-family:'Fredoka One',cursive;font-size:clamp(20px,4.5vw,34px);
-      color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.18);
-    }
-
-    .sound-row{display:flex;justify-content:center;flex-shrink:0}
-    .sound-btn{
-      background:none;border:none;cursor:pointer;
-      font-size:clamp(22px,4vw,32px);padding:6px 14px;border-radius:50%;
-      transition:transform .15s;
-    }
-    .sound-btn:hover{transform:scale(1.2)}
 
     /* ═══════════════════════════════════
        SHARED GAME TOP BAR
@@ -189,10 +194,11 @@
       cursor:grab;touch-action:none;
     }
     .drop-zone.over    {transform:scale(1.14);box-shadow:0 0 0 5px #fff,0 0 26px rgba(255,255,255,.9),0 9px 22px rgba(0,0,0,.2)}
-    .drop-zone.dragging{opacity:.22;transform:scale(.84);cursor:grabbing}
+    .drop-zone.dragging{opacity:0;cursor:grabbing}
     .drop-zone.matched {animation:match-pop .52s cubic-bezier(.36,.07,.19,.97)}
     .drop-zone.wrong   {animation:shake .38s ease-in-out}
     .letter-card.over  {transform:scale(1.14) translateY(-5px);box-shadow:0 0 0 5px #fff,0 0 26px rgba(255,255,255,.9),0 9px 22px rgba(0,0,0,.2)}
+
 
     .letter-card{
       width:var(--ts);height:var(--ts);border-radius:var(--tr);font-size:var(--tf);
@@ -204,7 +210,7 @@
       transition:transform .15s,box-shadow .15s,opacity .2s;flex-shrink:0;
     }
     .letter-card:hover{transform:scale(1.1) translateY(-5px) rotate(-2deg);box-shadow:0 12px 26px rgba(0,0,0,.2)}
-    .letter-card.dragging{opacity:.22;transform:scale(.84)}
+    .letter-card.dragging{opacity:0}
     .letter-card.gone{opacity:0;transform:scale(0) rotate(15deg);pointer-events:none;transition:transform .2s,opacity .16s}
     .drop-zone.gone  {opacity:0;transform:scale(0) rotate(15deg);pointer-events:none;transition:transform .22s,opacity .18s}
 
@@ -260,7 +266,7 @@
       width:min(660px,calc(100vw - 22px));flex-shrink:0;
       position:relative;
     }
-    .line-cols{display:flex;justify-content:space-between;align-items:center;gap:6px}
+    .line-cols{display:flex;justify-content:space-between;align-items:center;gap:6px;position:relative;z-index:1}
     .line-col{display:flex;flex-direction:column;gap:var(--tg);align-items:center;flex-shrink:0}
     .line-node{
       width:var(--ts);height:var(--ts);border-radius:var(--tr);
@@ -279,7 +285,7 @@
       box-shadow:0 0 0 4px #fff,0 0 17px rgba(34,197,94,.7),0 5px 15px rgba(0,0,0,.14);
       pointer-events:none;
     }
-    .line-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+    .line-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:0}
     .line-node.wrong{animation:shake .38s ease-in-out}
 
     /* ─── Shared animations ─── */
@@ -532,11 +538,31 @@
 <div id="home-screen" class="screen active">
 
   <div class="logo">Alphabet<br>Warriors!</div>
+  <div class="tagline">Let's Play! 🎉</div>
 
-  <div class="bounce-row">
-    <div class="b-tile">A</div><div class="b-tile">B</div>
-    <div class="b-tile">C</div><div class="b-tile">D</div>
-    <div class="b-tile">E</div>
+  <div class="home-main-btns">
+    <button class="home-big-btn play-btn" onclick="sfxClick();showScreen('mode-screen')">
+      <div class="hb-icon">🎮</div>
+      <div class="hb-label">Play!</div>
+    </button>
+    <button class="home-big-btn warrior-home-btn" onclick="sfxClick();startClassic('combo')">
+      <div class="hb-icon">⚔️</div>
+      <div class="hb-label">Warrior Mix</div>
+    </button>
+  </div>
+
+  <div class="sound-row">
+    <button class="sound-btn" id="sound-btn" onclick="toggleSound()">🔊</button>
+  </div>
+
+</div>
+
+<!-- ══════════ MODE SELECT ══════════ -->
+<div id="mode-screen" class="screen">
+
+  <div class="g-topbar" style="max-width:520px">
+    <button class="home-btn" onclick="sfxClick();showScreen('home-screen')">🏠</button>
+    <div class="round-pill">Pick a Game</div>
   </div>
 
   <div class="modes-grid">
@@ -572,17 +598,6 @@
       <div class="mc-icon">🎨</div>
       <div class="mc-name">Colour</div>
     </div>
-  </div>
-
-  <div class="combo-wrap">
-    <div class="combo-card" onclick="sfxClick();startClassic('combo')">
-      <div class="combo-icon">⚔️</div>
-      <div class="combo-name">Warrior Mix!</div>
-    </div>
-  </div>
-
-  <div class="sound-row">
-    <button class="sound-btn" id="sound-btn" onclick="toggleSound()">🔊</button>
   </div>
 
 </div>
@@ -760,6 +775,7 @@ const COLORS = [
 /* ════════════════════════════
    WORD DATABASE
 ════════════════════════════ */
+// Full word list kept for any future use
 const WORDS = [
   ['🍎','Apple',   'A','E'],['🐜','Ant',     'A','T'],['✈️','Airplane','A','E'],
   ['🐊','Alligator','A','R'],['🐻','Bear',   'B','R'],['🐝','Bee',     'B','E'],
@@ -786,11 +802,31 @@ const WORDS = [
   ['🧶','Yarn',    'Y','N'],['🦓','Zebra',   'Z','A'],
 ];
 
-const BY_FIRST = {}, BY_LAST = {};
-WORDS.forEach(w => {
-  (BY_FIRST[w[2]] = BY_FIRST[w[2]] || []).push(w);
-  (BY_LAST[w[3]]  = BY_LAST[w[3]]  || []).push(w);
+// 3-letter only words for Starts With / Ends With
+// Format: [emoji, Word, firstLetter, lastLetter]
+const ADV_WORDS = [
+  ['🐱','Cat', 'C','T'],['🐶','Dog', 'D','G'],['🐝','Bee', 'B','E'],
+  ['🦊','Fox', 'F','X'],['🐜','Ant', 'A','T'],['🐄','Cow', 'C','W'],
+  ['🐔','Hen', 'H','N'],['🐷','Pig', 'P','G'],['☀️','Sun', 'S','N'],
+  ['🦇','Bat', 'B','T'],['🎩','Hat', 'H','T'],['🐀','Rat', 'R','T'],
+  ['🕸️','Web', 'W','B'],['🍠','Yam', 'Y','M'],['🧊','Ice', 'I','E'],
+  ['🔑','Key', 'K','Y'],['🥜','Nut', 'N','T'],['🍳','Pan', 'P','N'],
+  ['🚐','Van', 'V','N'],['🪵','Log', 'L','G'],['🥚','Egg', 'E','G'],
+  ['🛩️','Jet', 'J','T'],['🗺️','Map', 'M','P'],['📦','Box', 'B','X'],
+  ['🫙','Jug', 'J','G'],['🐛','Bug', 'B','G'],['💎','Gem', 'G','M'],
+  ['🐗','Hog', 'H','G'],['🥫','Tin', 'T','N'],['🌿','Ivy', 'I','Y'],
+  ['🥧','Pie', 'P','E'],['🚗','Car', 'C','R'],['☕','Cup', 'C','P'],
+  ['🍯','Jam', 'J','M'],['🌊','Sea', 'S','A'],['🍖','Ham', 'H','M'],
+];
+
+const ADV_BY_FIRST = {}, ADV_BY_LAST = {};
+ADV_WORDS.forEach(w => {
+  (ADV_BY_FIRST[w[2]] = ADV_BY_FIRST[w[2]] || []).push(w);
+  (ADV_BY_LAST[w[3]]  = ADV_BY_LAST[w[3]]  || []).push(w);
 });
+
+const BY_FIRST = ADV_BY_FIRST;
+const BY_LAST  = ADV_BY_LAST;
 
 /* ════════════════════════════
    TILE SIZING
@@ -1105,8 +1141,8 @@ function toggleSound() {
   if (!soundOn) stopMusic();
   else {
     const a = document.querySelector('.screen.active');
-    if (a && a.id === 'home-screen') startMusic('menu');
-    else if (a && a.id !== 'home-screen') startMusic('game');
+    if (a && (a.id === 'home-screen' || a.id === 'mode-screen')) startMusic('menu');
+    else if (a) startMusic('game');
   }
 }
 
@@ -1355,11 +1391,10 @@ function onTouchEnd(e) {
     if (t.clientX >= zr.left && t.clientX <= zr.right &&
         t.clientY >= zr.top  && t.clientY <= zr.bottom) hit = z;
   });
+  touchSrc.classList.remove('dragging');
   if (hit) {
     if (hit.dataset.letter === dragLetter) doBothMatch(touchSrc, hit);
-    else { touchSrc.classList.remove('dragging'); doWrongShake(hit); sfxWrong(); }
-  } else {
-    touchSrc.classList.remove('dragging');
+    else { doWrongShake(hit); sfxWrong(); }
   }
   touchClone.remove(); touchClone = null; touchSrc = null; dragLetter = null;
 }
@@ -1567,14 +1602,14 @@ function buildAdvQuestions(type, count) {
     const correct = cpArr[Math.floor(Math.random() * cpArr.length)];
     usedEmoji.add(correct[0]);
     const wrongPool = shuffle(
-      WORDS.filter(w => {
+      ADV_WORDS.filter(w => {
         const ltr = type === 'starts' ? w[2] : w[3];
         return ltr !== letter && !usedEmoji.has(w[0]);
       })
     ).slice(0, 3);
     wrongPool.forEach(w => usedEmoji.add(w[0]));
     if (wrongPool.length < 3) {
-      WORDS.filter(w => {
+      ADV_WORDS.filter(w => {
         const ltr = type === 'starts' ? w[2] : w[3];
         return ltr !== letter && w[0] !== correct[0] && !wrongPool.find(x => x[0] === w[0]);
       }).forEach(w => { if (wrongPool.length < 3) wrongPool.push(w); });
@@ -1939,11 +1974,9 @@ function buildColorQuestions(count) {
   const pool = shuffle([...COLOR_PALETTE]);
   for (let i = 0; i < count && i < pool.length; i++) {
     const correct = pool[i];
-    const distractorColor = shuffle(COLOR_PALETTE.filter(c => c.name !== correct.name))[0];
     const wrongs = shuffle(COLOR_PALETTE.filter(c => c.name !== correct.name)).slice(0, 3);
     qs.push({
       word: correct.name, correctHex: correct.hex,
-      displayHex: distractorColor.hex,
       options: shuffle([correct, ...wrongs]),
     });
   }
@@ -1958,8 +1991,8 @@ function showColorQ() {
     gMode === 'combo' ? `${round} / ${ROUNDS}` : `${colorQIdx + 1} / ${colorQuestions.length}`;
   const wordEl = document.getElementById('color-target-word');
   wordEl.textContent = q.word;
-  wordEl.style.color = q.displayHex;
-  wordEl.style.webkitTextFillColor = q.displayHex;
+  wordEl.style.color = q.correctHex;
+  wordEl.style.webkitTextFillColor = q.correctHex;
   setTimeout(() => speak(q.word), 350);
 
   const choices = document.getElementById('color-choices');
