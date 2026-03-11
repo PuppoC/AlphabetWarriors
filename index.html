@@ -5,593 +5,910 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Alphabet Warriors!</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
   <style>
-
-    /* ── RESET ── */
-    *, *::before, *::after {
-      box-sizing: border-box; margin: 0; padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-    html {
-      position: fixed; width: 100%; height: 100%; overflow: hidden;
-    }
-    body {
-      width: 100%; height: 100%; overflow: hidden;
-      font-family: 'Nunito', sans-serif;
-      background: #fff8fe;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html{position:fixed;width:100%;height:100%;overflow:hidden}
+    body{
+      width:100%;height:100%;overflow:hidden;
+      font-family:'Nunito',sans-serif;
+      background:#fff0fb;
       background-image:
-        radial-gradient(circle at 15% 15%, rgba(255,110,180,.18) 0%, transparent 45%),
-        radial-gradient(circle at 85% 85%, rgba(168,85,247,.18) 0%, transparent 45%);
-      touch-action: none;
+        radial-gradient(ellipse at 12% 12%,rgba(255,110,180,.22) 0%,transparent 50%),
+        radial-gradient(ellipse at 88% 88%,rgba(168,85,247,.22) 0%,transparent 50%),
+        radial-gradient(ellipse at 50% 50%,rgba(255,217,61,.1) 0%,transparent 60%);
+      touch-action:manipulation;
     }
 
-    /* ── SCREENS ── */
-    .screen {
-      display: none; position: fixed; inset: 0;
-      width: 100%; height: 100%;
-      flex-direction: column; align-items: center; justify-content: center;
-      padding: env(safe-area-inset-top, 16px) env(safe-area-inset-right, 16px)
-               env(safe-area-inset-bottom, 16px) env(safe-area-inset-left, 16px);
+    /* ═══ SCREENS ═══ */
+    .screen{
+      display:none;position:fixed;inset:0;width:100%;height:100%;
+      flex-direction:column;align-items:center;justify-content:center;
+      padding:max(12px,env(safe-area-inset-top))
+              max(12px,env(safe-area-inset-right))
+              max(12px,env(safe-area-inset-bottom))
+              max(12px,env(safe-area-inset-left));
+      overflow-y:auto;overflow-x:hidden;gap:clamp(8px,1.8vh,16px);
     }
-    .screen.active { display: flex; }
+    .screen.active{display:flex}
 
+    /* ═══ SHARED BUTTONS ═══ */
+    .btn{
+      font-family:'Fredoka One',cursive;
+      border:none;border-radius:clamp(14px,3vw,20px);
+      padding:clamp(13px,2.3vh,19px) clamp(20px,4vw,34px);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+      transition:transform .13s,box-shadow .13s;white-space:nowrap;width:100%;
+      font-size:clamp(18px,3.2vw,25px);
+    }
+    .btn:hover {transform:scale(1.04) translateY(-2px)}
+    .btn:active{transform:scale(0.95)}
+    .btn-pink  {background:linear-gradient(135deg,#ff6eb4,#f97316);color:#fff;box-shadow:0 8px 22px rgba(255,110,180,.4)}
+    .btn-green {background:linear-gradient(135deg,#22c55e,#14b8a6);color:#fff;box-shadow:0 8px 22px rgba(34,197,94,.4)}
+    .btn-back  {background:linear-gradient(135deg,#94a3b8,#64748b);color:#fff;box-shadow:0 8px 22px rgba(100,116,139,.3)}
 
-    /* ══════════════════════════════════════════
+    /* ═══════════════════════════════════
        HOME SCREEN
-    ══════════════════════════════════════════ */
-    .home-card {
-      background: #fff;
-      border-radius: 36px;
-      padding: clamp(28px, 5vh, 52px) clamp(28px, 6vw, 64px);
-      box-shadow: 0 20px 60px rgba(255,110,180,.22), 0 0 0 5px rgba(255,110,180,.07);
-      text-align: center;
-      width: min(520px, calc(100vw - 32px));
+    ═══════════════════════════════════ */
+    #home-screen{gap:clamp(10px,2vh,18px)}
+    .home-top{text-align:center;flex-shrink:0}
+    .logo{
+      font-family:'Fredoka One',cursive;
+      font-size:clamp(42px,9.5vw,72px);line-height:1.0;
+      background:linear-gradient(135deg,#ff6eb4,#a855f7,#3b82f6);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .logo-sub{font-size:clamp(14px,2.8vw,20px);color:#c084fc;font-weight:800;margin-top:2px}
+    .bounce-row{display:flex;gap:clamp(6px,1.6vw,11px);justify-content:center;margin-top:clamp(8px,1.5vh,14px)}
+    .b-tile{
+      width:clamp(40px,8vw,58px);height:clamp(40px,8vw,58px);
+      border-radius:clamp(10px,2vw,15px);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Fredoka One',cursive;font-size:clamp(20px,4vw,32px);color:#fff;
+      animation:bob 2.8s ease-in-out infinite;
+    }
+    .b-tile:nth-child(1){background:#ef4444;animation-delay:0s}
+    .b-tile:nth-child(2){background:#f97316;animation-delay:.15s}
+    .b-tile:nth-child(3){background:#eab308;animation-delay:.3s}
+    .b-tile:nth-child(4){background:#22c55e;animation-delay:.45s}
+    .b-tile:nth-child(5){background:#3b82f6;animation-delay:.6s}
+    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+    /* 2×3 mode grid */
+    .modes-grid{
+      display:grid;grid-template-columns:repeat(2,1fr);
+      gap:clamp(8px,1.8vw,13px);
+      width:min(540px,calc(100vw - 26px));flex-shrink:0;
+    }
+    .mode-card{
+      background:#fff;border-radius:clamp(15px,2.8vw,22px);
+      padding:clamp(13px,2.2vh,19px) clamp(10px,2vw,16px);
+      border:3px solid #f3e8ff;
+      cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;
+      box-shadow:0 5px 18px rgba(168,85,247,.09);
+      transition:transform .13s,box-shadow .13s,border-color .13s;
+      text-align:center;
+    }
+    .mode-card:hover{transform:scale(1.05) translateY(-2px);box-shadow:0 9px 26px rgba(168,85,247,.2);border-color:#a855f7}
+    .mode-card:active{transform:scale(0.96)}
+    .mc-icon{font-size:clamp(28px,5.5vw,42px);line-height:1}
+    .mc-name{font-family:'Fredoka One',cursive;font-size:clamp(13px,2.5vw,18px);color:#7c3aed;line-height:1.2}
+    .mc-desc{font-size:clamp(9px,1.6vw,12px);color:#aaa;font-weight:700;line-height:1.3}
+    /* Warrior Mix highlight */
+    .mode-card.combo-card{border-color:#fed7aa;background:linear-gradient(135deg,#fffbeb,#fef3c7)}
+    .combo-card .mc-name{color:#d97706}
+
+    .sound-row{display:flex;justify-content:center;flex-shrink:0}
+    .sound-btn{
+      background:none;border:none;cursor:pointer;
+      font-size:clamp(22px,4.2vw,32px);padding:7px 16px;border-radius:50%;
+      transition:transform .15s;
+    }
+    .sound-btn:hover{transform:scale(1.2)}
+
+    /* ═══════════════════════════════════
+       SHARED GAME TOP BAR
+    ═══════════════════════════════════ */
+    .g-topbar{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:clamp(7px,1.8vw,14px);width:100%;max-width:700px;flex-shrink:0;
+    }
+    .home-btn{
+      background:#fff;border-radius:50%;
+      width:clamp(42px,7vw,56px);height:clamp(42px,7vw,56px);
+      font-size:clamp(19px,3.3vw,27px);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;flex-shrink:0;border:none;
+      box-shadow:0 4px 14px rgba(0,0,0,.1);transition:transform .13s;
+    }
+    .home-btn:hover{transform:scale(1.12)}
+    .g-title{
+      font-family:'Fredoka One',cursive;font-size:clamp(16px,3.2vw,26px);
+      background:linear-gradient(135deg,#ff6eb4,#a855f7);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      text-align:center;flex:1;
+    }
+    .round-pill{
+      background:linear-gradient(135deg,#a855f7,#3b82f6);
+      color:#fff;font-family:'Fredoka One',cursive;
+      font-size:clamp(12px,2.2vw,18px);
+      padding:clamp(5px,1vh,9px) clamp(11px,2vw,20px);
+      border-radius:40px;box-shadow:0 4px 14px rgba(168,85,247,.4);
+      white-space:nowrap;flex-shrink:0;
     }
 
-    .logo {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(48px, 10vw, 80px);
-      line-height: 1.05;
-      background: linear-gradient(135deg, #ff6eb4, #a855f7, #3b82f6);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      margin-bottom: 4px;
+    /* star progress */
+    .stars-row{
+      display:flex;justify-content:center;align-items:center;
+      gap:clamp(5px,1.4vw,13px);flex-shrink:0;
     }
-    .logo-sub {
-      font-size: clamp(16px, 3vw, 22px);
-      color: #bbb; font-weight: 800;
-      margin-bottom: clamp(20px, 3vh, 32px);
-    }
+    .star{font-size:clamp(22px,4.5vw,40px);filter:grayscale(1);opacity:.2;transition:filter .3s,opacity .3s}
+    .star.lit{filter:none;opacity:1;animation:star-pop .45s cubic-bezier(.36,.07,.19,.97)}
+    @keyframes star-pop{0%{transform:scale(0) rotate(-20deg)}60%{transform:scale(1.5) rotate(10deg)}100%{transform:scale(1) rotate(0)}}
 
-    .tile-row {
-      display: flex; gap: clamp(8px, 2vw, 14px);
-      justify-content: center;
-      margin-bottom: clamp(20px, 3vh, 32px);
+    /* ═══════════════════════════════════
+       DRAG & MATCH
+    ═══════════════════════════════════ */
+    .play-card{
+      background:#fff;border-radius:clamp(18px,3.2vw,32px);
+      padding:clamp(13px,2.3vh,26px) clamp(9px,2.3vw,26px);
+      box-shadow:0 13px 42px rgba(168,85,247,.11),0 0 0 3px rgba(168,85,247,.06);
+      display:flex;flex-direction:column;align-items:center;
+      width:min(680px,calc(100vw - 26px));flex-shrink:0;
     }
-    .mini-tile {
-      width: clamp(48px, 10vw, 68px); height: clamp(48px, 10vw, 68px);
-      border-radius: clamp(12px, 2.5vw, 18px);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(26px, 5.5vw, 38px); color: #fff;
-      animation: bob 2.8s ease-in-out infinite;
+    .zone-lbl{
+      font-family:'Fredoka One',cursive;font-size:clamp(10px,1.8vw,15px);
+      color:#ccc;text-transform:uppercase;letter-spacing:3px;
+      margin-bottom:clamp(5px,1vh,10px);
     }
-    .mini-tile:nth-child(1){background:#ef4444;animation-delay:0s}
-    .mini-tile:nth-child(2){background:#f97316;animation-delay:.15s}
-    .mini-tile:nth-child(3){background:#eab308;animation-delay:.3s}
-    .mini-tile:nth-child(4){background:#22c55e;animation-delay:.45s}
-    .mini-tile:nth-child(5){background:#3b82f6;animation-delay:.6s}
-    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .tile-grid{display:flex;justify-content:center;gap:var(--tg,10px)}
+    .row-div{
+      width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
+      margin:clamp(9px,1.7vh,18px) 0;
+      font-size:clamp(14px,2.8vw,22px);color:#e0d4f7;
+    }
+    .row-div::before,.row-div::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,transparent,#e9d5ff,transparent)}
 
-    .menu-stack { display: flex; flex-direction: column; gap: clamp(10px, 2vh, 16px); }
+    /* tiles */
+    .drop-zone{
+      width:var(--ts);height:var(--ts);border-radius:var(--tr);font-size:var(--tf);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Fredoka One',cursive;color:#fff;
+      position:relative;user-select:none;flex-shrink:0;
+      box-shadow:0 5px 15px rgba(0,0,0,.14),inset 0 -4px 0 rgba(0,0,0,.11);
+      transition:transform .18s,box-shadow .18s;cursor:pointer;
+    }
+    .drop-zone.over{transform:scale(1.14);box-shadow:0 0 0 5px #fff,0 0 26px rgba(255,255,255,.9),0 9px 22px rgba(0,0,0,.2)}
+    .drop-zone.matched{animation:match-pop .52s cubic-bezier(.36,.07,.19,.97)}
+    .drop-zone.wrong  {animation:shake .38s ease-in-out}
 
-    /* ── BUTTONS ── */
-    .btn {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(20px, 3.5vw, 28px);
-      border: none;
-      border-radius: clamp(14px, 3vw, 22px);
-      padding: clamp(14px, 2.5vh, 20px) clamp(22px, 4vw, 36px);
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      transition: transform .13s, box-shadow .13s;
-      white-space: nowrap; width: 100%;
+    .letter-card{
+      width:var(--ts);height:var(--ts);border-radius:var(--tr);font-size:var(--tf);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Fredoka One',cursive;color:#fff;
+      cursor:grab;user-select:none;touch-action:none;
+      border:3px solid rgba(255,255,255,.4);
+      box-shadow:0 5px 15px rgba(0,0,0,.14),inset 0 -4px 0 rgba(0,0,0,.11);
+      transition:transform .15s,box-shadow .15s,opacity .2s;flex-shrink:0;
     }
-    .btn:hover  { transform: scale(1.04) translateY(-2px); }
-    .btn:active { transform: scale(0.95); }
+    .letter-card:hover{transform:scale(1.1) translateY(-5px) rotate(-2deg);box-shadow:0 12px 26px rgba(0,0,0,.2)}
+    .letter-card.dragging{opacity:.22;transform:scale(.84)}
+    .letter-card.gone{opacity:0;transform:scale(0) rotate(15deg);pointer-events:none;transition:transform .2s,opacity .16s}
 
-    .btn-play  { background: linear-gradient(135deg,#ff6eb4,#f97316); color:#fff; box-shadow: 0 8px 24px rgba(255,110,180,.4); font-size: clamp(22px,4vw,32px); }
-    .btn-how   { background: linear-gradient(135deg,#a855f7,#3b82f6); color:#fff; box-shadow: 0 8px 24px rgba(168,85,247,.35); }
-    .btn-sound { background: linear-gradient(135deg,#14b8a6,#22c55e); color:#fff; box-shadow: 0 8px 24px rgba(20,184,166,.3); }
-    .btn-back  { background: linear-gradient(135deg,#ff6eb4,#a855f7); color:#fff; box-shadow: 0 8px 24px rgba(255,110,180,.35); margin-top: 18px; }
-    .btn-green { background: linear-gradient(135deg,#22c55e,#14b8a6); color:#fff; box-shadow: 0 8px 24px rgba(34,197,94,.4); }
-    .btn-pink  { background: linear-gradient(135deg,#ff6eb4,#a855f7); color:#fff; box-shadow: 0 8px 24px rgba(255,110,180,.4); }
+    .check-badge{
+      position:absolute;top:-9px;right:-9px;background:#22c55e;color:#fff;
+      font-size:clamp(10px,1.9vw,16px);
+      width:clamp(20px,4.2vw,31px);height:clamp(20px,4.2vw,31px);
+      border-radius:50%;display:flex;align-items:center;justify-content:center;
+      box-shadow:0 3px 9px rgba(34,197,94,.55);
+      animation:pop-in .24s cubic-bezier(.36,.07,.19,.97);
+    }
+    @keyframes pop-in{0%{transform:scale(0)}70%{transform:scale(1.35)}100%{transform:scale(1)}}
 
+    /* refresh btn */
+    .refresh-btn{
+      background:#fff;border:none;border-radius:50%;
+      width:clamp(42px,7vw,56px);height:clamp(42px,7vw,56px);
+      font-size:clamp(19px,3.3vw,27px);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.1);transition:transform .15s;
+    }
+    .refresh-btn:hover{transform:rotate(30deg) scale(1.1)}
 
-    /* ══════════════════════════════════════════
-       HOW TO PLAY SCREEN
-    ══════════════════════════════════════════ */
-    .how-card {
-      background: #fff; border-radius: 36px;
-      padding: clamp(28px, 4vh, 52px) clamp(24px, 5vw, 52px);
-      width: min(540px, calc(100vw - 32px));
-      max-height: calc(100vh - 40px); overflow-y: auto;
-      box-shadow: 0 20px 60px rgba(168,85,247,.2); text-align: center;
+    /* ═══════════════════════════════════
+       FLIP / MEMORY
+    ═══════════════════════════════════ */
+    .flip-wrap{
+      display:flex;flex-direction:column;align-items:center;
+      gap:clamp(7px,1.6vh,13px);flex-shrink:0;width:100%;
     }
-    .how-title {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(34px, 7vw, 52px); color: #a855f7; margin-bottom: 22px;
+    .flip-note{
+      font-family:'Fredoka One',cursive;font-size:clamp(15px,2.8vw,21px);
+      color:#a855f7;text-align:center;
     }
-    .how-step {
-      display: flex; align-items: center; gap: 16px; text-align: left;
-      background: #faf5ff; border: 2px solid #e9d5ff;
-      border-radius: 18px; padding: 14px 18px; margin-bottom: 11px;
+    .mem-grid{
+      display:grid;
+      grid-template-columns:repeat(5,var(--ts));
+      gap:var(--tg);
+      justify-content:center;
     }
-    .how-icon { font-size: clamp(28px, 5.5vw, 40px); flex-shrink: 0; }
-    .how-text { font-size: clamp(14px, 2.5vw, 18px); font-weight: 700; color: #5b21b6; line-height: 1.4; }
+    .mem-card{width:var(--ts);height:var(--ts);position:relative;cursor:pointer;perspective:700px}
+    .mem-inner{
+      width:100%;height:100%;transform-style:preserve-3d;
+      transition:transform .4s cubic-bezier(.4,0,.2,1);
+    }
+    .mem-card.flipped .mem-inner,
+    .mem-card.mem-ok  .mem-inner{transform:rotateY(180deg)}
+    .mem-face{
+      position:absolute;inset:0;border-radius:var(--tr);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Fredoka One',cursive;color:#fff;font-size:var(--tf);
+      backface-visibility:hidden;-webkit-backface-visibility:hidden;
+      box-shadow:0 5px 15px rgba(0,0,0,.14),inset 0 -4px 0 rgba(0,0,0,.11);
+      user-select:none;
+    }
+    /* back face — purple with ? */
+    .mem-back{background:linear-gradient(145deg,#a855f7,#6d28d9)}
+    .mem-front{transform:rotateY(180deg)}
+    .mem-card.mem-ok .mem-face{box-shadow:0 0 0 4px #fff,0 0 18px rgba(34,197,94,.7),0 5px 15px rgba(0,0,0,.14)}
 
+    /* ═══════════════════════════════════
+       LINE DRAW
+    ═══════════════════════════════════ */
+    .line-card{
+      background:#fff;border-radius:clamp(18px,3.2vw,32px);
+      padding:clamp(13px,2.3vh,26px) clamp(13px,2.8vw,30px);
+      box-shadow:0 13px 42px rgba(168,85,247,.11),0 0 0 3px rgba(168,85,247,.06);
+      width:min(680px,calc(100vw - 26px));flex-shrink:0;
+      position:relative;
+    }
+    .line-cols{display:flex;justify-content:space-between;align-items:center;gap:6px}
+    .line-col{display:flex;flex-direction:column;gap:var(--tg);align-items:center;flex-shrink:0}
+    .line-mid-lbl{font-family:'Fredoka One',cursive;font-size:clamp(18px,3.2vw,28px);color:#ddd;text-align:center;flex-shrink:0}
+    .line-node{
+      width:var(--ts);height:var(--ts);border-radius:var(--tr);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Fredoka One',cursive;color:#fff;font-size:var(--tf);
+      box-shadow:0 5px 15px rgba(0,0,0,.14),inset 0 -4px 0 rgba(0,0,0,.11);
+      cursor:pointer;user-select:none;touch-action:none;
+      transition:transform .15s,box-shadow .15s;flex-shrink:0;
+    }
+    .line-node:hover{transform:scale(1.08)}
+    .line-node.selected{
+      box-shadow:0 0 0 5px #fff,0 0 22px rgba(255,217,61,.9),0 5px 15px rgba(0,0,0,.14);
+      transform:scale(1.12);
+    }
+    .line-node.ln-ok{
+      box-shadow:0 0 0 4px #fff,0 0 17px rgba(34,197,94,.7),0 5px 15px rgba(0,0,0,.14);
+      pointer-events:none;
+    }
+    .line-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
 
-    /* ══════════════════════════════════════════
-       GAME SCREEN
-       Strategy: everything lives inside a single
-       centered card. The two tile rows are stacked
-       close together — maximum drag = one tile height.
-       The card is never taller than the screen.
-    ══════════════════════════════════════════ */
-    #game-screen {
-      gap: clamp(14px, 2.5vh, 24px);
-      padding: max(16px, env(safe-area-inset-top))
-               max(16px, env(safe-area-inset-right))
-               max(16px, env(safe-area-inset-bottom))
-               max(16px, env(safe-area-inset-left));
-    }
+    /* shared tile animations */
+    @keyframes match-pop{0%{transform:scale(1)}35%{transform:scale(1.32) rotate(-6deg)}65%{transform:scale(.95) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
+    @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px) rotate(-4deg)}40%{transform:translateX(10px) rotate(4deg)}60%{transform:translateX(-7px)}80%{transform:translateX(7px)}}
 
-    /* ── Top bar (title + round) ── */
-    .g-topbar {
-      display: flex; align-items: center; justify-content: center;
-      gap: clamp(12px, 3vw, 24px);
-      width: 100%; max-width: 700px;
-      flex-shrink: 0;
+    /* ═══════════════════════════════════
+       ADVENTURE SCREEN
+    ═══════════════════════════════════ */
+    .adv-q-card{
+      background:#fff;border-radius:clamp(18px,3.2vw,30px);
+      padding:clamp(14px,2.3vh,24px) clamp(16px,3.5vw,34px);
+      box-shadow:0 11px 36px rgba(255,110,180,.13),0 0 0 3px rgba(255,110,180,.06);
+      text-align:center;width:min(640px,calc(100vw - 26px));flex-shrink:0;
     }
-    .home-btn {
-      background: #fff; border: 3px solid #ffd6ec; border-radius: 50%;
-      width: clamp(48px, 8vw, 64px); height: clamp(48px, 8vw, 64px);
-      font-size: clamp(22px, 4vw, 32px);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; flex-shrink: 0;
-      box-shadow: 0 4px 14px rgba(0,0,0,.1);
-      transition: transform .13s, box-shadow .13s;
+    .adv-lbl{
+      font-family:'Fredoka One',cursive;font-size:clamp(12px,2.3vw,17px);
+      color:#ccc;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;
     }
-    .home-btn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(255,110,180,.3); }
+    .adv-big-letter{
+      font-family:'Fredoka One',cursive;
+      font-size:clamp(70px,17vw,124px);line-height:1;
+      background:linear-gradient(135deg,#ff6eb4,#a855f7);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      cursor:pointer; /* tap to hear the letter */
+    }
+    /* 2×2 emoji grid — no text, emoji only */
+    .adv-grid{
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:clamp(10px,2.3vw,17px);
+      width:min(480px,calc(100vw - 26px));flex-shrink:0;
+    }
+    .adv-choice{
+      background:#fff;border:3px solid #e9d5ff;
+      border-radius:clamp(15px,2.8vw,23px);
+      padding:clamp(12px,2.2vh,20px) 0;
+      cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      font-size:clamp(42px,9.5vw,68px);
+      line-height:1;
+      box-shadow:0 5px 16px rgba(168,85,247,.09);
+      transition:transform .13s,box-shadow .13s,border-color .13s;
+      user-select:none;
+      /* deliberately no text content */
+    }
+    .adv-choice:hover{transform:scale(1.07) translateY(-2px);box-shadow:0 9px 24px rgba(168,85,247,.18);border-color:#a855f7}
+    .adv-choice:active{transform:scale(0.95)}
+    .adv-choice.correct{border-color:#22c55e;background:#f0fdf4;pointer-events:none}
+    .adv-choice.wrong  {border-color:#ef4444;background:#fef2f2}
+    .adv-choice.correct{animation:match-pop .5s cubic-bezier(.36,.07,.19,.97)}
+    .adv-choice.wrong  {animation:shake .36s ease-in-out}
 
-    .g-title {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(22px, 4.5vw, 38px);
-      background: linear-gradient(135deg,#ff6eb4,#a855f7);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      text-align: center; flex: 1;
-    }
-
-    .round-pill {
-      background: linear-gradient(135deg,#a855f7,#3b82f6);
-      color: #fff; font-family: 'Fredoka One', cursive;
-      font-size: clamp(16px, 3vw, 24px);
-      padding: clamp(8px,1.2vh,12px) clamp(16px,2.5vw,28px);
-      border-radius: 40px;
-      box-shadow: 0 4px 14px rgba(168,85,247,.4);
-      white-space: nowrap; flex-shrink: 0;
-    }
-
-    /* ── Stars ── */
-    .stars-row {
-      display: flex; justify-content: center;
-      gap: clamp(8px, 2vw, 18px);
-      flex-shrink: 0;
-    }
-    .star {
-      font-size: clamp(28px, 5.5vw, 48px);
-      filter: grayscale(1); opacity: .2;
-      transition: filter .3s, opacity .3s;
-    }
-    .star.lit {
-      filter: none; opacity: 1;
-      animation: star-pop .45s cubic-bezier(.36,.07,.19,.97);
-    }
-    @keyframes star-pop {
-      0%  { transform: scale(0) rotate(-20deg); }
-      60% { transform: scale(1.5) rotate(10deg); }
-      100%{ transform: scale(1) rotate(0); }
-    }
-
-    /* ── THE PLAY CARD ─────────────────────────
-       Both tile rows live here, close together.
-       Gap between the two rows is fixed and small.
-    ──────────────────────────────────────────── */
-    .play-card {
-      background: #fff;
-      border-radius: clamp(24px, 4vw, 40px);
-      padding: clamp(16px, 3.5vh, 36px) clamp(10px, 3vw, 36px);
-      box-shadow: 0 16px 56px rgba(168,85,247,.15), 0 0 0 4px rgba(168,85,247,.07);
-      display: flex; flex-direction: column;
-      align-items: center;
-      gap: 0;                /* controlled per section below */
-      width: min(680px, calc(100vw - 32px));
-      flex-shrink: 0;
-    }
-
-    .zone-lbl {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(12px, 2vw, 18px);
-      color: #ccc; text-transform: uppercase; letter-spacing: 3px;
-      margin-bottom: clamp(8px, 1.2vh, 14px);
-      align-self: center;
-    }
-
-    .tile-grid {
-      display: flex; justify-content: center;
-      gap: var(--tg, 12px);
-    }
-
-    /* Divider between the two rows */
-    .row-divider {
-      width: 100%;
-      display: flex; align-items: center; justify-content: center;
-      gap: 16px;
-      margin: clamp(14px, 2.5vh, 26px) 0;
-      color: #e0d4f7;
-      font-size: clamp(20px, 3.5vw, 30px);
-      font-family: 'Fredoka One', cursive;
-    }
-    .row-divider::before,
-    .row-divider::after {
-      content: '';
-      flex: 1; height: 2px;
-      background: linear-gradient(90deg, transparent, #e9d5ff, transparent);
-      border-radius: 2px;
-    }
-
-    /* ── TILES ── */
-    /* Size is set via JS → CSS vars: --ts --tf --tr --tg */
-    .drop-zone {
-      width: var(--ts, 90px); height: var(--ts, 90px);
-      border-radius: var(--tr, 22px);
-      font-size: var(--tf, 46px);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Fredoka One', cursive; color: #fff;
-      position: relative; user-select: none; flex-shrink: 0;
-      box-shadow: 0 6px 20px rgba(0,0,0,.14), inset 0 -4px 0 rgba(0,0,0,.12);
-      transition: transform .18s, box-shadow .18s;
-      cursor: default;
-    }
-    .drop-zone.over {
-      transform: scale(1.13);
-      box-shadow: 0 0 0 5px #fff, 0 0 26px rgba(255,255,255,.85), 0 10px 26px rgba(0,0,0,.2);
-    }
-    .drop-zone.matched { animation: match-pop .52s cubic-bezier(.36,.07,.19,.97); }
-    .drop-zone.wrong   { animation: shake .38s ease-in-out; }
-
-    @keyframes match-pop {
-      0%  { transform: scale(1); }
-      35% { transform: scale(1.28) rotate(-6deg); }
-      65% { transform: scale(.95) rotate(3deg); }
-      100%{ transform: scale(1) rotate(0); }
-    }
-    @keyframes shake {
-      0%,100%{ transform: translateX(0); }
-      20%    { transform: translateX(-10px) rotate(-4deg); }
-      40%    { transform: translateX(10px) rotate(4deg); }
-      60%    { transform: translateX(-6px); }
-      80%    { transform: translateX(6px); }
-    }
-
-    .check {
-      position: absolute; top: -9px; right: -9px;
-      background: #22c55e; color: #fff;
-      font-size: clamp(13px, 2.2vw, 20px);
-      width: clamp(24px, 4.5vw, 36px); height: clamp(24px, 4.5vw, 36px);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 3px 10px rgba(34,197,94,.55);
-      animation: pop-in .26s cubic-bezier(.36,.07,.19,.97);
-    }
-    @keyframes pop-in { 0%{transform:scale(0)} 70%{transform:scale(1.35)} 100%{transform:scale(1)} }
-
-    .letter-card {
-      width: var(--ts, 90px); height: var(--ts, 90px);
-      border-radius: var(--tr, 22px);
-      font-size: var(--tf, 46px);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Fredoka One', cursive; color: #fff;
-      cursor: grab; user-select: none; touch-action: none;
-      border: 3px solid rgba(255,255,255,.4);
-      box-shadow: 0 6px 20px rgba(0,0,0,.14), inset 0 -4px 0 rgba(0,0,0,.12);
-      transition: transform .15s, box-shadow .15s, opacity .22s;
-      flex-shrink: 0;
-    }
-    .letter-card:hover {
-      transform: scale(1.1) translateY(-5px) rotate(-2deg);
-      box-shadow: 0 14px 30px rgba(0,0,0,.2);
-      cursor: grab;
-    }
-    .letter-card.dragging { opacity: .3; transform: scale(.88); }
-    .letter-card.gone {
-      opacity: 0; transform: scale(0) rotate(15deg);
-      pointer-events: none; transition: transform .22s, opacity .18s;
-    }
-
-    /* ── Refresh button below the card ── */
-    .g-refresh {
-      flex-shrink: 0;
-    }
-    .refresh-btn {
-      background: #fff; border: 3px solid #ffd6ec; border-radius: 50%;
-      width: clamp(48px, 8vw, 64px); height: clamp(48px, 8vw, 64px);
-      font-size: clamp(22px, 4vw, 30px);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0,0,0,.1);
-      transition: transform .15s, box-shadow .15s;
-    }
-    .refresh-btn:hover { transform: rotate(30deg) scale(1.1); box-shadow: 0 6px 20px rgba(255,110,180,.3); }
-
-
-    /* ══════════════════════════════════════════
+    /* ═══════════════════════════════════
        SUCCESS OVERLAY
-    ══════════════════════════════════════════ */
-    #success-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,.55); backdrop-filter: blur(8px);
-      align-items: center; justify-content: center;
-      z-index: 100; padding: 20px;
+    ═══════════════════════════════════ */
+    #success-overlay{
+      display:none;position:fixed;inset:0;
+      background:rgba(0,0,0,.58);backdrop-filter:blur(8px);
+      align-items:center;justify-content:center;z-index:500;padding:20px;
     }
-    #success-overlay.active { display: flex; }
+    #success-overlay.active{display:flex}
+    .success-card{
+      background:#fff;border-radius:34px;
+      padding:clamp(26px,4.8vh,50px) clamp(26px,5vw,56px);
+      text-align:center;width:min(390px,100%);
+      box-shadow:0 26px 70px rgba(0,0,0,.3);
+      animation:card-in .5s cubic-bezier(.36,.07,.19,.97);
+      display:flex;flex-direction:column;align-items:center;gap:0;
+    }
+    @keyframes card-in{0%{transform:scale(.3) rotate(-10deg);opacity:0}60%{transform:scale(1.05) rotate(2deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+    .s-big-emoji{font-size:clamp(56px,12vw,90px);display:block;margin-bottom:6px;animation:wobble 1.2s ease-in-out infinite}
+    @keyframes wobble{0%,100%{transform:rotate(-6deg) scale(1)}50%{transform:rotate(7deg) scale(1.08)}}
+    .s-stars-row{font-size:clamp(26px,6vw,46px);margin-bottom:9px;display:flex;justify-content:center;gap:5px}
+    .s-title{
+      font-family:'Fredoka One',cursive;font-size:clamp(28px,7.5vw,48px);
+      background:linear-gradient(135deg,#ff6eb4,#a855f7);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:3px;
+    }
+    .s-info{font-size:clamp(12px,2.3vw,17px);color:#bbb;font-weight:800;margin-bottom:18px}
+    .s-btns{display:flex;flex-direction:column;gap:9px;width:100%}
 
-    .success-card {
-      background: #fff; border-radius: 38px;
-      padding: clamp(30px, 5vh, 56px) clamp(28px, 6vw, 64px);
-      text-align: center; width: min(420px, 100%);
-      box-shadow: 0 28px 72px rgba(0,0,0,.3);
-      animation: card-in .52s cubic-bezier(.36,.07,.19,.97);
+    /* BINGO */
+    .bingo-toast{
+      position:fixed;top:50%;left:50%;
+      transform:translate(-50%,-50%) scale(0);
+      font-family:'Fredoka One',cursive;
+      font-size:clamp(52px,14vw,115px);
+      background:linear-gradient(135deg,#ff6eb4,#ffd93d,#22c55e);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      pointer-events:none;z-index:9999;
+      filter:drop-shadow(0 5px 14px rgba(255,110,180,.5));
+      animation:bingo-pop .95s cubic-bezier(.36,.07,.19,.97) forwards;
     }
-    @keyframes card-in {
-      0%  { transform: scale(.3) rotate(-10deg); opacity: 0; }
-      60% { transform: scale(1.05) rotate(2deg); opacity: 1; }
-      100%{ transform: scale(1) rotate(0); }
+    @keyframes bingo-pop{
+      0%  {transform:translate(-50%,-50%) scale(0) rotate(-15deg);opacity:0}
+      28% {transform:translate(-50%,-50%) scale(1.35) rotate(5deg);opacity:1}
+      62% {transform:translate(-50%,-50%) scale(1.1) rotate(-2deg);opacity:1}
+      100%{transform:translate(-50%,-50%) scale(.65) rotate(0);opacity:0}
     }
-    .s-emoji { font-size: clamp(60px, 13vw, 96px); display: block; margin-bottom: 6px; animation: wobble 1.2s ease-in-out infinite; }
-    @keyframes wobble { 0%,100%{transform:rotate(-6deg) scale(1)} 50%{transform:rotate(7deg) scale(1.08)} }
-    .s-stars { font-size: clamp(30px, 7vw, 50px); margin-bottom: 10px; display: flex; justify-content: center; align-items: center; gap: 6px; width: 100%; }
-    .s-title {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(34px, 8vw, 54px);
-      background: linear-gradient(135deg,#ff6eb4,#a855f7);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      margin-bottom: 5px;
-    }
-    .s-info { font-size: clamp(14px, 3vw, 19px); color: #bbb; font-weight: 800; margin-bottom: 24px; }
-    #s-btn  { font-size: clamp(19px, 4vw, 27px) !important; padding: clamp(14px,2.5vh,20px) 28px !important; }
 
     /* confetti */
-    .cp { position: fixed; pointer-events: none; z-index: 200; animation: fall linear forwards; }
-    @keyframes fall {
-      0%  { transform: translateY(-50px) rotate(0); opacity: 1; }
-      100%{ transform: translateY(110vh) rotate(700deg); opacity: 0; }
-    }
-
+    .cp{position:fixed;pointer-events:none;z-index:600;animation:fall linear forwards}
+    @keyframes fall{0%{transform:translateY(-50px) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(700deg);opacity:0}}
   </style>
 </head>
 <body>
 
-<!-- ══ HOME ══ -->
+<!-- ═══════════════════════════════
+     HOME SCREEN
+═══════════════════════════════ -->
 <div id="home-screen" class="screen active">
-  <div class="home-card">
+
+  <div class="home-top">
     <div class="logo">Alphabet<br>Warriors!</div>
-    <div class="logo-sub">🎮 Match the Letters!</div>
-    <div class="tile-row">
-      <div class="mini-tile">A</div>
-      <div class="mini-tile">B</div>
-      <div class="mini-tile">C</div>
-      <div class="mini-tile">D</div>
-      <div class="mini-tile">E</div>
-    </div>
-    <div class="menu-stack">
-      <button class="btn btn-play"  onclick="startGame()">▶ Play Now!</button>
-      <button class="btn btn-how"   onclick="showHow()">❓ How to Play</button>
-      <button class="btn btn-sound" id="sound-btn" onclick="toggleSound()">🔊 Sound: ON</button>
+    <div class="logo-sub">✨ Let's Play! ✨</div>
+    <div class="bounce-row">
+      <div class="b-tile">A</div><div class="b-tile">B</div>
+      <div class="b-tile">C</div><div class="b-tile">D</div>
+      <div class="b-tile">E</div>
     </div>
   </div>
-</div>
 
-<!-- ══ HOW TO PLAY ══ -->
-<div id="how-screen" class="screen">
-  <div class="how-card">
-    <div class="how-title">How to Play 🎓</div>
-    <div class="how-step"><span class="how-icon">👀</span><span class="how-text">Look at the BIG letters at the top of the card</span></div>
-    <div class="how-step"><span class="how-icon">🔡</span><span class="how-text">Find the matching small (lowercase) letter just below</span></div>
-    <div class="how-step"><span class="how-icon">✋</span><span class="how-text">Drag the small letter a short distance up onto its matching BIG letter!</span></div>
-    <div class="how-step"><span class="how-icon">⭐</span><span class="how-text">Match all 5 to win the round — play 5 rounds!</span></div>
-    <div class="how-step"><span class="how-icon">🔊</span><span class="how-text">The letter is read out loud when you match it!</span></div>
-    <button class="btn btn-back" onclick="showHome()">🏠 Back to Menu</button>
+  <div class="modes-grid">
+    <div class="mode-card" onclick="sfxClick();startClassic('drag')">
+      <div class="mc-icon">✋</div>
+      <div class="mc-name">Drag & Match</div>
+      <div class="mc-desc">Drag small letters to big ones!</div>
+    </div>
+    <div class="mode-card" onclick="sfxClick();startClassic('flip')">
+      <div class="mc-icon">🃏</div>
+      <div class="mc-name">Flip Cards</div>
+      <div class="mc-desc">Find the matching pairs!</div>
+    </div>
+    <div class="mode-card" onclick="sfxClick();startClassic('line')">
+      <div class="mc-icon">✏️</div>
+      <div class="mc-name">Draw a Line</div>
+      <div class="mc-desc">Connect the letters!</div>
+    </div>
+    <div class="mode-card" onclick="sfxClick();startAdventure('starts')">
+      <div class="mc-icon">🔤</div>
+      <div class="mc-name">Starts With</div>
+      <div class="mc-desc">Pick the right picture!</div>
+    </div>
+    <div class="mode-card" onclick="sfxClick();startAdventure('ends')">
+      <div class="mc-icon">🔡</div>
+      <div class="mc-name">Ends With</div>
+      <div class="mc-desc">What ends with this letter?</div>
+    </div>
+    <div class="mode-card combo-card" onclick="sfxClick();startClassic('combo')">
+      <div class="mc-icon">⚔️</div>
+      <div class="mc-name">Warrior Mix!</div>
+      <div class="mc-desc">All games in one!</div>
+    </div>
   </div>
+
+  <div class="sound-row">
+    <button class="sound-btn" id="sound-btn" onclick="toggleSound()">🔊</button>
+  </div>
+
 </div>
 
-<!-- ══ GAME ══ -->
+<!-- ═══════════════════════════════
+     CLASSIC GAME SCREEN
+═══════════════════════════════ -->
 <div id="game-screen" class="screen">
 
-  <!-- title + round indicator — BIG and clearly visible -->
   <div class="g-topbar">
-    <button class="home-btn" onclick="showHome()" title="Home">🏠</button>
-    <div class="g-title">Alphabet Warriors!</div>
+    <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
+    <div class="g-title" id="g-title">Drag &amp; Match!</div>
     <div class="round-pill" id="round-pill">Round 1 / 5</div>
   </div>
 
-  <!-- progress stars -->
-  <div class="stars-row" id="stars-row">
-    <span class="star">⭐</span>
-    <span class="star">⭐</span>
-    <span class="star">⭐</span>
-    <span class="star">⭐</span>
-    <span class="star">⭐</span>
+  <div class="stars-row" id="g-stars">
+    <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+    <span class="star">⭐</span><span class="star">⭐</span>
   </div>
 
-  <!--
-    THE PLAY CARD
-    Big letters (drop targets) on top.
-    Small letters (drag sources) directly below.
-    The gap between them is intentionally short —
-    so the drag distance is minimal on all screens.
-  -->
-  <div class="play-card">
+  <!-- drag panel -->
+  <div class="play-card" id="drag-panel">
     <div class="zone-lbl">Big Letters — drop here!</div>
     <div class="tile-grid" id="drop-row"></div>
-
-    <div class="row-divider">👇</div>
-
-    <div class="zone-lbl">Small Letters — drag up!</div>
+    <div class="row-div">👇</div>
+    <div class="zone-lbl">Small Letters — drag me up!</div>
     <div class="tile-grid" id="drag-row"></div>
   </div>
 
-  <!-- refresh -->
-  <div class="g-refresh">
-    <button class="refresh-btn" onclick="initRound()" title="New letters">🔄</button>
+  <!-- flip panel -->
+  <div class="flip-wrap" id="flip-panel" style="display:none">
+    <div class="flip-note" id="flip-note">Find 5 matching pairs! 🃏</div>
+    <div class="mem-grid" id="mem-grid"></div>
   </div>
+
+  <!-- line panel -->
+  <div class="line-card" id="line-panel" style="display:none">
+    <svg class="line-svg" id="line-svg"></svg>
+    <div class="line-cols">
+      <div class="line-col" id="line-left"></div>
+      <div class="line-mid-lbl">✏️</div>
+      <div class="line-col" id="line-right"></div>
+    </div>
+  </div>
+
+  <button class="refresh-btn" id="refresh-btn" onclick="sfxClick();initRound()" title="Try again">🔄</button>
 
 </div>
 
-<!-- ══ SUCCESS OVERLAY ══ -->
+<!-- ═══════════════════════════════
+     ADVENTURE SCREEN
+═══════════════════════════════ -->
+<div id="adv-screen" class="screen">
+
+  <div class="g-topbar">
+    <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
+    <div class="g-title" id="adv-title">Starts With!</div>
+    <div class="round-pill" id="adv-pill">Q 1 / 5</div>
+  </div>
+
+  <div class="stars-row" id="adv-stars">
+    <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+    <span class="star">⭐</span><span class="star">⭐</span>
+  </div>
+
+  <div class="adv-q-card">
+    <div class="adv-lbl" id="adv-lbl">Find the picture that STARTS with...</div>
+    <!-- tap the big letter to hear it -->
+    <div class="adv-big-letter" id="adv-letter" onclick="sfxClick();speak(this.textContent)">A</div>
+  </div>
+
+  <div class="adv-grid" id="adv-grid"></div>
+
+</div>
+
+<!-- ═══════════════════════════════
+     SUCCESS OVERLAY
+═══════════════════════════════ -->
 <div id="success-overlay">
   <div class="success-card">
-    <span class="s-emoji" id="s-emoji">🎉</span>
-    <div class="s-stars"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div>
+    <span class="s-big-emoji" id="s-emoji">🎉</span>
+    <div class="s-stars-row">⭐⭐⭐⭐⭐</div>
     <div class="s-title" id="s-title">Amazing!</div>
-    <div class="s-info"  id="s-info">Round 1 of 5 complete!</div>
-    <button class="btn btn-green" id="s-btn" onclick="handleNext()">🚀 Next Round!</button>
+    <div class="s-info"  id="s-info">Round 1 of 5 done!</div>
+    <div class="s-btns">
+      <button class="btn btn-green" id="s-next" onclick="handleNext()">🚀 Next Round!</button>
+      <button class="btn btn-back"               onclick="goHome()">🏠 Back to Menu</button>
+    </div>
   </div>
 </div>
 
 <script>
 'use strict';
 
-// ── STATE ──
-let round      = 1;
-const ROUNDS   = 5;
-let letters    = [];
-let matched    = 0;
-let soundOn    = true;
-let dragSrc    = null;
-let dragLetter = null;
-let touchSrc   = null;
-let touchClone = null;
+/* ════════════════════════════════════════════
+   GLOBAL STATE
+════════════════════════════════════════════ */
+let soundOn   = true;
+let musicOn   = false;
+let gMode     = 'drag';   // drag | flip | line | combo
+let round     = 1;
+const ROUNDS  = 5;
+let matched   = 0;        // single counter for ALL classic modes
+
+// drag
+let dragSrc = null, dragLetter = null;
+let touchSrc = null, touchClone = null;
+
+// flip — locked prevents rapid re-tapping
+let flipFlipped = [], flipLocked = false;
+
+// line
+let lineFrom = null; // { el, letter, side }
+
+// combo: which sub-mode each round uses
+let comboOrder = [];
+
+// adventure
+let advType      = 'starts'; // 'starts' | 'ends'
+let advQuestions = [];       // [{letter, options:[{emoji,word,isCorrect}]}]
+let advIdx       = 0;
+let advLocked    = false;    // prevents double-tap registering twice
 
 const COLORS = [
-  ['#ef4444','#b91c1c'],
-  ['#f97316','#c2410c'],
-  ['#eab308','#a16207'],
-  ['#22c55e','#15803d'],
-  ['#3b82f6','#1d4ed8'],
-  ['#8b5cf6','#6d28d9'],
-  ['#ec4899','#be185d'],
-  ['#14b8a6','#0f766e'],
+  ['#ef4444','#b91c1c'],['#f97316','#c2410c'],
+  ['#eab308','#a16207'],['#22c55e','#15803d'],
+  ['#3b82f6','#1d4ed8'],['#8b5cf6','#6d28d9'],
+  ['#ec4899','#be185d'],['#14b8a6','#0f766e'],
 ];
 
-// ── TILE SIZING ──
-// Tiles fill the play-card width. The card has a max-width of 680px
-// and left/right padding. We measure the actual card width at runtime.
+/* ════════════════════════════════════════════
+   WORD DATABASE
+   Format: [emoji, word, firstLetter, lastLetter]
+   — Verified: every emoji is child-recognisable
+   — Verified: no duplicate emoji in this list
+   — Verified: first/last letters are correct
+════════════════════════════════════════════ */
+const WORDS = [
+  ['🍎','Apple',   'A','E'],
+  ['🐜','Ant',     'A','T'],
+  ['✈️','Airplane','A','E'],  // first=A last=E  ← Airplane ends in E
+  ['🐊','Alligator','A','R'],
+  ['🐻','Bear',    'B','R'],
+  ['🐝','Bee',     'B','E'],
+  ['🍌','Banana',  'B','A'],
+  ['🦋','Butterfly','B','Y'],
+  ['🐦','Bird',    'B','D'],
+  ['🎈','Balloon', 'B','N'],
+  ['🐱','Cat',     'C','T'],
+  ['🐄','Cow',     'C','W'],
+  ['🥕','Carrot',  'C','T'],
+  ['🐔','Chicken', 'C','N'],
+  ['🍰','Cake',    'C','E'],
+  ['🐶','Dog',     'D','G'],
+  ['🦆','Duck',    'D','K'],
+  ['🐬','Dolphin', 'D','N'],
+  ['🥚','Egg',     'E','G'],
+  ['🐘','Elephant','E','T'],
+  ['🐟','Fish',    'F','H'],
+  ['🌸','Flower',  'F','R'],
+  ['🐸','Frog',    'F','G'],
+  ['🦊','Fox',     'F','X'],
+  ['🦒','Giraffe', 'G','E'],
+  ['🍇','Grapes',  'G','S'],
+  ['🐐','Goat',    'G','T'],
+  ['🐎','Horse',   'H','E'],
+  ['🏠','House',   'H','E'],
+  ['🦛','Hippo',   'H','O'],
+  ['🍦','Ice Cream','I','M'],
+  ['🐛','Inchworm','I','M'],
+  ['🦁','Lion',    'L','N'],
+  ['🍋','Lemon',   'L','N'],
+  ['🦎','Lizard',  'L','D'],
+  ['🌙','Moon',    'M','N'],
+  ['🐭','Mouse',   'M','E'],
+  ['🐒','Monkey',  'M','Y'],
+  ['🍄','Mushroom','M','M'],
+  ['🐙','Octopus', 'O','S'],
+  ['🦉','Owl',     'O','L'],
+  ['🍊','Orange',  'O','E'],
+  ['🐧','Penguin', 'P','N'],
+  ['🐷','Pig',     'P','G'],
+  ['🍕','Pizza',   'P','A'],
+  ['🦜','Parrot',  'P','T'],
+  ['🌈','Rainbow', 'R','W'],
+  ['🐰','Rabbit',  'R','T'],
+  ['🦏','Rhino',   'R','O'],
+  ['🚀','Rocket',  'R','T'],
+  ['🦭','Seal',    'S','L'],
+  ['🐑','Sheep',   'S','P'],
+  ['☀️','Sun',     'S','N'],
+  ['⭐','Star',    'S','R'],
+  ['🐍','Snake',   'S','E'],
+  ['🦈','Shark',   'S','K'],
+  ['🐯','Tiger',   'T','R'],
+  ['🐢','Turtle',  'T','E'],
+  ['🚂','Train',   'T','N'],
+  ['🍅','Tomato',  'T','O'],
+  ['☂️','Umbrella','U','A'],
+  ['🦄','Unicorn', 'U','N'],
+  ['🎻','Violin',  'V','N'],
+  ['🐋','Whale',   'W','E'],
+  ['🐺','Wolf',    'W','F'],
+  ['🍉','Watermelon','W','N'],
+  ['🧶','Yarn',    'Y','N'],
+  ['🦓','Zebra',   'Z','A'],
+];
+
+// Fast lookup by first and last letter
+const BY_FIRST = {}, BY_LAST = {};
+WORDS.forEach(w => {
+  (BY_FIRST[w[2]] = BY_FIRST[w[2]] || []).push(w);
+  (BY_LAST[w[3]]  = BY_LAST[w[3]]  || []).push(w);
+});
+
+/* ════════════════════════════════════════════
+   TILE SIZING
+════════════════════════════════════════════ */
 function setTileSize() {
-  const N   = 5;
-  // Use the play-card element if it exists, else estimate from vw
-  const card = document.querySelector('.play-card');
-  const cardW = card
-    ? card.getBoundingClientRect().width - 40 * 2   // subtract card padding (clamped)
-    : Math.min(680, window.innerWidth - 32) - 40;
-  const GAP = Math.max(6, Math.min(14, Math.round(cardW * 0.022)));
-  let sz = Math.floor((cardW - GAP * (N - 1)) / N);
-  sz = Math.max(48, Math.min(120, sz));
-  const font = Math.round(sz * 0.50);
-  const r    = Math.round(sz * 0.235);
-  const root = document.documentElement;
-  root.style.setProperty('--ts', sz   + 'px');
-  root.style.setProperty('--tf', font + 'px');
-  root.style.setProperty('--tr', r    + 'px');
-  root.style.setProperty('--tg', GAP  + 'px');
+  const N    = 5;
+  const vw   = window.innerWidth;
+  const maxW = Math.min(680, vw - 26);
+  const pad  = Math.min(26, Math.max(9, vw * 0.024)) * 2;
+  const cw   = maxW - pad;
+  const gap  = Math.max(5, Math.min(13, Math.round(cw * 0.021)));
+  let sz     = Math.floor((cw - gap * (N - 1)) / N);
+  sz         = Math.max(46, Math.min(114, sz));
+  const r    = document.documentElement;
+  r.style.setProperty('--ts', sz + 'px');
+  r.style.setProperty('--tf', Math.round(sz * 0.49) + 'px');
+  r.style.setProperty('--tr', Math.round(sz * 0.23) + 'px');
+  r.style.setProperty('--tg', gap + 'px');
 }
 window.addEventListener('resize', setTileSize);
-window.addEventListener('orientationchange', () => setTimeout(setTileSize, 160));
+window.addEventListener('orientationchange', () => setTimeout(setTileSize, 150));
 setTileSize();
 
-// ── AUDIO ──
-let audioCtx = null;
+/* ════════════════════════════════════════════
+   AUDIO ENGINE — all synthesised
+════════════════════════════════════════════ */
+let _ctx = null, bgGain = null, bgTimer = null, bgStart = 0;
+
 function ac() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  return audioCtx;
+  if (!_ctx) _ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (_ctx.state === 'suspended') _ctx.resume();
+  return _ctx;
 }
-function tone(freq, start, dur, type = 'sine', vol = 0.28) {
+function osc(freq, t0, dur, type='sine', vol=0.28) {
   if (!soundOn) return;
   try {
-    const ctx = ac(), osc = ctx.createOscillator(), g = ctx.createGain();
-    osc.connect(g); g.connect(ctx.destination);
-    osc.type = type; osc.frequency.value = freq;
-    const t = ctx.currentTime + start;
+    const c = ac(), o = c.createOscillator(), g = c.createGain();
+    o.connect(g); g.connect(c.destination);
+    o.type = type; o.frequency.value = freq;
+    const t = c.currentTime + t0;
     g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(vol, t + 0.015);
+    g.gain.linearRampToValueAtTime(vol, t + 0.016);
     g.gain.exponentialRampToValueAtTime(0.001, t + dur);
-    osc.start(t); osc.stop(t + dur + 0.05);
+    o.start(t); o.stop(t + dur + 0.04);
   } catch(e) {}
 }
-function playDing()    { tone(880,.00,.12); tone(1100,.12,.16); tone(1320,.28,.32); }
-function playWrong()   { tone(220,.00,.28,'sawtooth',.18); }
-function playFanfare() { [523,659,784,1047,1319].forEach((f,i) => tone(f, i*.11, .45)); }
-function speak(letter) {
+const sfxClick   = () => osc(660, 0, .055, 'sine', .15);
+const sfxDing    = () => { osc(880,0,.1); osc(1100,.1,.14); osc(1320,.24,.29); };
+const sfxWrong   = () => { osc(200,0,.1,'sawtooth',.13); osc(160,.1,.15,'sawtooth',.1); };
+const sfxFanfare = () => [523,659,784,1047,1319].forEach((f,i) => osc(f, i*.1, .42));
+const sfxFlip    = () => osc(720, 0, .07, 'sine', .12);
+const sfxSelect  = () => osc(540, 0, .06, 'sine', .13);
+const sfxStar    = () => osc(1046, 0, .12, 'sine', .16);
+
+// Background music loop
+const BG_MELODY = [523,659,784,880,784,659,523,440,494,587,698,784,698,587,494,392,
+                   523,659,784,1047,880,784,659,523,440,523,659,784,698,587,523,494];
+const BG_CHORDS = [[261,329,392],[261,329,392],[220,277,330],[220,277,330],
+                   [261,329,392],[261,329,392],[174,220,261],[196,247,294]];
+const NL = 0.21, CL = 0.84;
+
+function bgLoop() {
+  if (!musicOn || !soundOn) return;
+  try {
+    const c = ac(), loopDur = BG_MELODY.length * NL;
+    BG_MELODY.forEach((f,i) => {
+      const o = c.createOscillator(), g = c.createGain();
+      o.connect(g); g.connect(bgGain);
+      o.type = 'triangle'; o.frequency.value = f;
+      const t = bgStart + i * NL;
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(.5, t + .018);
+      g.gain.exponentialRampToValueAtTime(.001, t + NL * .8);
+      o.start(t); o.stop(t + NL);
+    });
+    BG_CHORDS.forEach((ch,i) => ch.forEach(f => {
+      const o = c.createOscillator(), g = c.createGain();
+      o.connect(g); g.connect(bgGain);
+      o.type = 'sine'; o.frequency.value = f;
+      const t = bgStart + i * CL;
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(.2, t + .04);
+      g.gain.exponentialRampToValueAtTime(.001, t + CL * .86);
+      o.start(t); o.stop(t + CL);
+    }));
+    bgStart += loopDur;
+    bgTimer = setTimeout(bgLoop, (loopDur - .35) * 1000);
+  } catch(e) {}
+}
+function startMusic() {
+  if (musicOn || !soundOn) return;
+  try {
+    const c = ac();
+    musicOn = true;
+    bgGain = c.createGain(); bgGain.gain.value = .065;
+    bgGain.connect(c.destination);
+    bgStart = c.currentTime + .1;
+    bgLoop();
+  } catch(e) {}
+}
+function stopMusic() {
+  musicOn = false;
+  if (bgTimer) { clearTimeout(bgTimer); bgTimer = null; }
+  try {
+    if (bgGain) {
+      bgGain.gain.linearRampToValueAtTime(0, ac().currentTime + .3);
+      setTimeout(() => { try { bgGain.disconnect(); } catch(e){} bgGain = null; }, 400);
+    }
+  } catch(e) {}
+}
+
+function speak(text) {
   if (!soundOn || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(letter);
-  u.rate = 0.85; u.pitch = 1.3; u.volume = 1;
-  const vv   = window.speechSynthesis.getVoices();
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = .82; u.pitch = 1.3; u.volume = 1;
+  const vv = window.speechSynthesis.getVoices();
   const pref = vv.find(x => x.lang.startsWith('en') && /Google|Samantha|Karen/.test(x.name));
   if (pref) u.voice = pref;
   window.speechSynthesis.speak(u);
 }
 
-// ── NAVIGATION ──
-function show(id) {
+/* ════════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════════ */
+function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
-function showHome() {
+
+function goHome() {
+  // Kill audio
+  stopMusic();
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+
+  // Kill any lingering touch clone
+  if (touchClone) { try { touchClone.remove(); } catch(e){} touchClone = null; }
+
+  // Reset ALL state
+  round = 1; matched = 0; gMode = 'drag';
+  dragSrc = null; dragLetter = null; touchSrc = null;
+  flipFlipped = []; flipLocked = false;
+  lineFrom = null;
+  comboOrder = [];
+  advQuestions = []; advIdx = 0; advLocked = false;
+
+  // Hide overlay, go home
   document.getElementById('success-overlay').classList.remove('active');
-  show('home-screen'); round = 1;
+  showScreen('home-screen');
 }
-function showHow()   { show('how-screen'); }
-function startGame() { round = 1; show('game-screen'); initRound(); }
+
 function toggleSound() {
   soundOn = !soundOn;
-  document.getElementById('sound-btn').textContent = soundOn ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+  document.getElementById('sound-btn').textContent = soundOn ? '🔊' : '🔇';
+  if (!soundOn) stopMusic();
+  else {
+    const a = document.querySelector('.screen.active');
+    if (a && a.id !== 'home-screen') startMusic();
+  }
 }
 
-// ── GAME LOGIC ──
-function shuffle(a) { return [...a].sort(() => Math.random() - .5); }
-function pick5()    { return [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].sort(() => Math.random() - .5).slice(0,5); }
+/* ════════════════════════════════════════════
+   HELPERS
+════════════════════════════════════════════ */
+const shuffle = a => [...a].sort(() => Math.random() - .5);
+const pick5   = () => shuffle([...'ABCDEFGHIJKLMNOPQRSTUVWXYZ']).slice(0,5);
+
+function lightStar(starsId, idx) {
+  const stars = document.querySelectorAll(`#${starsId} .star`);
+  if (stars[idx]) { stars[idx].classList.add('lit'); sfxStar(); }
+}
+
+function showBingo() {
+  const t = document.createElement('div');
+  t.className = 'bingo-toast'; t.textContent = 'BINGO!';
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 1050);
+}
+
+function doWrongShake(el) {
+  el.classList.remove('wrong'); void el.offsetWidth;
+  el.classList.add('wrong');
+  el.addEventListener('animationend', () => el.classList.remove('wrong'), { once: true });
+}
+
+/* ════════════════════════════════════════════
+   CLASSIC GAME — entry
+════════════════════════════════════════════ */
+const TITLES = {
+  drag:  '✋ Drag & Match!',
+  flip:  '🃏 Flip Cards!',
+  line:  '✏️ Draw a Line!',
+  combo: '⚔️ Warrior Mix!',
+};
+
+function startClassic(mode) {
+  gMode = mode;
+  round = 1;
+  if (mode === 'combo') {
+    // 5 rounds cycling through drag, flip, line, drag, line
+    comboOrder = shuffle(['drag','flip','line','drag','line']);
+  }
+  showScreen('game-screen');
+  document.getElementById('g-title').textContent = TITLES[mode];
+  initRound();
+  setTimeout(startMusic, 240);
+}
 
 function initRound() {
-  // Give the DOM a frame to settle before measuring card width
   requestAnimationFrame(() => {
     setTileSize();
-    matched = 0;
-    letters = pick5();
+
+    // ── full state reset for this round ──
+    matched     = 0;
+    flipFlipped = [];
+    flipLocked  = false;
+    lineFrom    = null;
+    dragSrc     = null;
+    dragLetter  = null;
+
+    const letters = pick5();
     document.getElementById('round-pill').textContent = `Round ${round} / ${ROUNDS}`;
-    document.querySelectorAll('#stars-row .star').forEach(s => s.classList.remove('lit'));
-    buildDropRow();
-    buildDragRow();
+    document.querySelectorAll('#g-stars .star').forEach(s => s.classList.remove('lit'));
     document.getElementById('success-overlay').classList.remove('active');
+
+    // Decide sub-mode for combo
+    const sub = gMode === 'combo' ? comboOrder[(round - 1) % comboOrder.length] : gMode;
+
+    // Update title for combo
+    if (gMode === 'combo') {
+      const labels = { drag:'✋ Drag!', flip:'🃏 Flip!', line:'✏️ Draw!' };
+      document.getElementById('g-title').textContent = labels[sub] || '⚔️ Mix!';
+    }
+
+    // Show correct panel
+    document.getElementById('drag-panel').style.display  = sub === 'drag' ? ''     : 'none';
+    document.getElementById('flip-panel').style.display  = sub === 'flip' ? 'flex' : 'none';
+    document.getElementById('line-panel').style.display  = sub === 'line' ? ''     : 'none';
+    document.getElementById('refresh-btn').style.display = sub === 'flip' ? 'none' : '';
+
+    if      (sub === 'drag') buildDrag(letters);
+    else if (sub === 'flip') buildFlip(letters);
+    else if (sub === 'line') buildLine(letters);
   });
 }
 
-function buildDropRow() {
-  const row = document.getElementById('drop-row');
-  row.innerHTML = '';
+/* ════════════════════════════════════════════
+   DRAG & MATCH
+════════════════════════════════════════════ */
+function buildDrag(letters) {
+  // DROP row (uppercase targets)
+  const dropRow = document.getElementById('drop-row');
+  dropRow.innerHTML = '';
   letters.forEach((letter, i) => {
     const [bg, sh] = COLORS[i % COLORS.length];
     const el = document.createElement('div');
@@ -599,18 +916,20 @@ function buildDropRow() {
     el.dataset.letter = letter;
     el.textContent = letter;
     el.style.background = `linear-gradient(145deg,${bg},${sh})`;
+    // Drop events (mouse)
     el.addEventListener('dragover',  e => { e.preventDefault(); el.classList.add('over'); });
-    el.addEventListener('dragleave', ()  => el.classList.remove('over'));
-    el.addEventListener('drop',      e  => { e.preventDefault(); el.classList.remove('over'); handleDrop(el); });
-    row.appendChild(el);
+    el.addEventListener('dragleave', () => el.classList.remove('over'));
+    el.addEventListener('drop',      e => { e.preventDefault(); el.classList.remove('over'); onDrop(el); });
+    // Tap to hear (click only — no touchend to avoid double-fire)
+    el.addEventListener('click', () => { sfxClick(); speak(letter); });
+    dropRow.appendChild(el);
   });
-}
 
-function buildDragRow() {
-  const row = document.getElementById('drag-row');
-  row.innerHTML = '';
+  // DRAG row (lowercase sources)
+  const dragRow = document.getElementById('drag-row');
+  dragRow.innerHTML = '';
   shuffle(letters).forEach(letter => {
-    const i  = letters.indexOf(letter);
+    const i = letters.indexOf(letter);
     const [bg, sh] = COLORS[i % COLORS.length];
     const el = document.createElement('div');
     el.className = 'letter-card';
@@ -622,87 +941,75 @@ function buildDragRow() {
       dragSrc = el; dragLetter = letter;
       el.classList.add('dragging');
       e.dataTransfer.effectAllowed = 'move';
+      sfxSelect();
     });
     el.addEventListener('dragend', () => {
       el.classList.remove('dragging');
       dragSrc = null; dragLetter = null;
       document.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('over'));
     });
+    // Touch drag
     el.addEventListener('touchstart', onTouchStart, { passive: false });
     el.addEventListener('touchmove',  onTouchMove,  { passive: false });
     el.addEventListener('touchend',   onTouchEnd,   { passive: false });
-    row.appendChild(el);
+    dragRow.appendChild(el);
   });
 }
 
-function handleDrop(zone) {
+function onDrop(zone) {
   if (!dragLetter) return;
   if (zone.dataset.letter === dragLetter) doMatch(zone, dragSrc);
-  else doWrong(zone);
+  else { doWrongShake(zone); sfxWrong(); }
 }
 
 function doMatch(zone, card) {
   matched++;
-  document.querySelectorAll('#stars-row .star')[matched - 1].classList.add('lit');
+  lightStar('g-stars', matched - 1);
   zone.classList.add('matched');
   zone.addEventListener('animationend', () => zone.classList.remove('matched'), { once: true });
-  zone.style.boxShadow = '0 0 0 5px #fff,0 0 24px rgba(34,197,94,.7),0 8px 22px rgba(0,0,0,.15)';
-  const chk = document.createElement('div');
-  chk.className = 'check'; chk.textContent = '✓';
+  zone.style.boxShadow = '0 0 0 5px #fff,0 0 22px rgba(34,197,94,.7),0 8px 20px rgba(0,0,0,.15)';
+  zone.style.pointerEvents = 'none';
+  const chk = document.createElement('div'); chk.className = 'check-badge'; chk.textContent = '✓';
   zone.appendChild(chk);
-  card.classList.add('gone');
-  playDing();
-  setTimeout(() => speak(zone.dataset.letter), 280);
-  if (matched >= 5) setTimeout(showSuccess, 650);
+  if (card) card.classList.add('gone');
+  showBingo(); sfxDing();
+  setTimeout(() => speak(zone.dataset.letter), 300);
+  if (matched >= 5) setTimeout(showRoundSuccess, 700);
 }
 
-function doWrong(zone) {
-  zone.classList.remove('wrong');
-  void zone.offsetWidth;
-  zone.classList.add('wrong');
-  zone.addEventListener('animationend', () => zone.classList.remove('wrong'), { once: true });
-  playWrong();
-}
-
-// ── TOUCH DRAG ──
+// Touch drag implementation
 function onTouchStart(e) {
   e.preventDefault();
-  const t  = e.touches[0];
+  const t = e.touches[0];
   touchSrc = e.currentTarget;
   dragLetter = touchSrc.dataset.letter;
-  const r  = touchSrc.getBoundingClientRect();
+  sfxSelect(); speak(dragLetter);
+  const r = touchSrc.getBoundingClientRect();
   touchClone = touchSrc.cloneNode(true);
   Object.assign(touchClone.style, {
-    position: 'fixed',
-    left: (t.clientX - r.width  / 2) + 'px',
-    top:  (t.clientY - r.height / 2) + 'px',
-    width:  r.width  + 'px',
-    height: r.height + 'px',
-    borderRadius: getComputedStyle(touchSrc).borderRadius,
-    pointerEvents: 'none', zIndex: '9999',
-    opacity: '.93', transform: 'scale(1.15) rotate(5deg)',
-    boxShadow: '0 20px 48px rgba(0,0,0,.28)', transition: 'none'
+    position:'fixed', left:(t.clientX - r.width/2)+'px', top:(t.clientY - r.height/2)+'px',
+    width:r.width+'px', height:r.height+'px',
+    borderRadius:getComputedStyle(touchSrc).borderRadius,
+    pointerEvents:'none', zIndex:'9999', opacity:'.9',
+    transform:'scale(1.15) rotate(5deg)', boxShadow:'0 18px 44px rgba(0,0,0,.28)',
   });
   document.body.appendChild(touchClone);
   touchSrc.classList.add('dragging');
 }
-
 function onTouchMove(e) {
   e.preventDefault();
   if (!touchClone) return;
   const t = e.touches[0];
   const r = touchSrc.getBoundingClientRect();
-  touchClone.style.left = (t.clientX - r.width  / 2) + 'px';
-  touchClone.style.top  = (t.clientY - r.height / 2) + 'px';
+  touchClone.style.left = (t.clientX - r.width/2)+'px';
+  touchClone.style.top  = (t.clientY - r.height/2)+'px';
   document.querySelectorAll('.drop-zone').forEach(z => {
     const zr = z.getBoundingClientRect();
     z.classList.toggle('over',
       t.clientX >= zr.left && t.clientX <= zr.right &&
-      t.clientY >= zr.top  && t.clientY <= zr.bottom
-    );
+      t.clientY >= zr.top  && t.clientY <= zr.bottom);
   });
 }
-
 function onTouchEnd(e) {
   e.preventDefault();
   if (!touchClone) return;
@@ -716,42 +1023,366 @@ function onTouchEnd(e) {
   });
   if (hit) {
     if (hit.dataset.letter === dragLetter) doMatch(hit, touchSrc);
-    else { touchSrc.classList.remove('dragging'); doWrong(hit); }
+    else { touchSrc.classList.remove('dragging'); doWrongShake(hit); sfxWrong(); }
   } else {
     touchSrc.classList.remove('dragging');
   }
   touchClone.remove(); touchClone = null; touchSrc = null; dragLetter = null;
 }
 
-// ── SUCCESS ──
-const MSGS  = ['','Great Start! 🌟','You Rock! 🎸','Halfway There! 🚀','Almost Done! 🔥','YOU WIN! 🏆'];
-const EMOJI = ['','🌟','🎉','🚀','🔥','🏆'];
+/* ════════════════════════════════════════════
+   FLIP / MEMORY
+════════════════════════════════════════════ */
+function buildFlip(letters) {
+  // 10 cards: 5 uppercase + 5 lowercase, shuffled into a 5×2 grid
+  const pairs = [];
+  letters.forEach((l, i) => {
+    pairs.push({ letter:l, display:l,            ci:i });
+    pairs.push({ letter:l, display:l.toLowerCase(), ci:i });
+  });
 
-function showSuccess() {
-  playFanfare(); confetti();
-  document.getElementById('s-emoji').textContent = EMOJI[round];
-  document.getElementById('s-title').textContent = MSGS[round];
-  document.getElementById('s-info').textContent  = `Round ${round} of ${ROUNDS} complete!`;
-  const btn = document.getElementById('s-btn');
-  if (round >= ROUNDS) { btn.className = 'btn btn-pink';  btn.textContent = '🏠 Back to Menu!'; }
-  else                  { btn.className = 'btn btn-green'; btn.textContent = '🚀 Next Round!'; }
+  const grid = document.getElementById('mem-grid');
+  grid.innerHTML = '';
+  grid.style.gridTemplateColumns = `repeat(5, var(--ts))`;
+
+  shuffle(pairs).forEach(({ letter, display, ci }) => {
+    const [bg, sh] = COLORS[ci % COLORS.length];
+    const card = document.createElement('div');
+    card.className = 'mem-card';
+    card.dataset.letter = letter;
+    // back face shows '?', front shows the letter
+    card.innerHTML = `
+      <div class="mem-inner">
+        <div class="mem-face mem-back">?</div>
+        <div class="mem-face mem-front" style="background:linear-gradient(145deg,${bg},${sh})">${display}</div>
+      </div>`;
+    // Use click only — prevents double-fire from touchend+click
+    card.addEventListener('click', () => onFlipClick(card, letter, display));
+    grid.appendChild(card);
+  });
+
+  document.getElementById('flip-note').textContent = 'Find 5 matching pairs! 🃏';
+}
+
+function onFlipClick(card, letter, display) {
+  if (flipLocked) return;
+  if (card.classList.contains('flipped') || card.classList.contains('mem-ok')) return;
+  sfxFlip(); speak(display);
+  card.classList.add('flipped');
+  flipFlipped.push(card);
+
+  if (flipFlipped.length === 2) {
+    flipLocked = true;
+    const [a, b] = flipFlipped;
+
+    if (a.dataset.letter === b.dataset.letter) {
+      // ✅ Match!
+      setTimeout(() => {
+        a.classList.add('mem-ok'); b.classList.add('mem-ok');
+        a.style.pointerEvents = 'none'; b.style.pointerEvents = 'none';
+        matched++;
+        lightStar('g-stars', matched - 1);
+        showBingo(); sfxDing();
+        setTimeout(() => speak(letter), 300);
+        flipFlipped = []; flipLocked = false;
+        if (matched >= 5) setTimeout(showRoundSuccess, 700);
+      }, 380);
+    } else {
+      // ❌ No match
+      setTimeout(() => {
+        a.classList.remove('flipped'); b.classList.remove('flipped');
+        sfxWrong();
+        a.style.transition = 'opacity .3s'; b.style.transition = 'opacity .3s';
+        a.style.opacity = '.45'; b.style.opacity = '.45';
+        setTimeout(() => { a.style.opacity = '1'; b.style.opacity = '1'; }, 440);
+        flipFlipped = []; flipLocked = false;
+      }, 860);
+    }
+  }
+}
+
+/* ════════════════════════════════════════════
+   LINE DRAW
+════════════════════════════════════════════ */
+function buildLine(letters) {
+  document.getElementById('line-svg').innerHTML = '';
+  const leftCol  = document.getElementById('line-left');
+  const rightCol = document.getElementById('line-right');
+  leftCol.innerHTML  = '';
+  rightCol.innerHTML = '';
+
+  shuffle(letters).forEach(letter => {
+    const ci = letters.indexOf(letter);
+    const [bg, sh] = COLORS[ci % COLORS.length];
+    leftCol.appendChild(makeNode(letter, letter,             bg, sh, 'left'));
+  });
+  shuffle(letters).forEach(letter => {
+    const ci = letters.indexOf(letter);
+    const [bg, sh] = COLORS[ci % COLORS.length];
+    rightCol.appendChild(makeNode(letter, letter.toLowerCase(), bg, sh, 'right'));
+  });
+}
+
+function makeNode(letter, display, bg, sh, side) {
+  const el = document.createElement('div');
+  el.className = 'line-node';
+  el.dataset.letter = letter;
+  el.dataset.side   = side;
+  el.textContent    = display;
+  el.style.background = `linear-gradient(145deg,${bg},${sh})`;
+  // Use click only — no touchend to avoid double-fire
+  el.addEventListener('click', () => onLineClick(el, letter, side));
+  return el;
+}
+
+function onLineClick(el, letter, side) {
+  if (el.classList.contains('ln-ok')) return;
+  sfxClick(); speak(letter);
+
+  // Nothing selected yet
+  if (!lineFrom) {
+    el.classList.add('selected');
+    lineFrom = { el, letter, side };
+    return;
+  }
+  // Tapped same node → deselect
+  if (lineFrom.el === el) {
+    el.classList.remove('selected');
+    lineFrom = null;
+    return;
+  }
+  // Tapped same column → switch selection
+  if (lineFrom.side === side) {
+    lineFrom.el.classList.remove('selected');
+    el.classList.add('selected');
+    lineFrom = { el, letter, side };
+    return;
+  }
+  // Different column — evaluate
+  const from = lineFrom;
+  lineFrom = null;
+  from.el.classList.remove('selected');
+
+  if (from.letter === letter) {
+    // ✅ Correct!
+    const ci = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].indexOf(letter);
+    drawLine(from.el, el, COLORS[ci % COLORS.length][0]);
+    from.el.classList.add('ln-ok');
+    el.classList.add('ln-ok');
+    matched++;
+    lightStar('g-stars', matched - 1);
+    showBingo(); sfxDing();
+    setTimeout(() => speak(letter), 280);
+    if (matched >= 5) setTimeout(showRoundSuccess, 700);
+  } else {
+    // ❌ Wrong
+    doWrongShake(el); sfxWrong();
+  }
+}
+
+function drawLine(fromEl, toEl, color) {
+  const svg  = document.getElementById('line-svg');
+  const card = document.getElementById('line-panel');
+  const cr   = card.getBoundingClientRect();
+  const fr   = fromEl.getBoundingClientRect();
+  const tr   = toEl.getBoundingClientRect();
+  const x1 = fr.right  - cr.left,  y1 = fr.top - cr.top + fr.height / 2;
+  const x2 = tr.left   - cr.left,  y2 = tr.top - cr.top + tr.height / 2;
+  const ln = document.createElementNS('http://www.w3.org/2000/svg','line');
+  ln.setAttribute('x1',x1); ln.setAttribute('y1',y1);
+  ln.setAttribute('x2',x2); ln.setAttribute('y2',y2);
+  ln.setAttribute('stroke',color); ln.setAttribute('stroke-width','7');
+  ln.setAttribute('stroke-linecap','round'); ln.setAttribute('opacity','0.85');
+  svg.appendChild(ln);
+}
+
+/* ════════════════════════════════════════════
+   ROUND SUCCESS (classic modes)
+════════════════════════════════════════════ */
+const R_EMOJI = ['','🌟','🎉','🚀','🔥','🏆'];
+const R_MSG   = ['','Great Start!','You Rock!','Halfway There!','Almost Done!','YOU WIN!'];
+
+function showRoundSuccess() {
+  sfxFanfare(); confetti();
+  const r = Math.min(round, 5);
+  document.getElementById('s-emoji').textContent = R_EMOJI[r];
+  document.getElementById('s-title').textContent = R_MSG[r];
+
+  const nextBtn = document.getElementById('s-next');
+  if (round >= ROUNDS) {
+    nextBtn.style.display = 'none';
+    document.getElementById('s-info').textContent = "All done! You're a Warrior! 🏆";
+  } else {
+    nextBtn.style.display = '';    // ← always restore before showing
+    nextBtn.textContent = `🚀 Next Round! (${round + 1}/${ROUNDS})`;
+    document.getElementById('s-info').textContent = `Round ${round} of ${ROUNDS} done!`;
+  }
   document.getElementById('success-overlay').classList.add('active');
 }
 
 function handleNext() {
-  if (round >= ROUNDS) showHome();
-  else { round++; document.getElementById('success-overlay').classList.remove('active'); initRound(); }
+  sfxClick();
+  document.getElementById('success-overlay').classList.remove('active');
+  if (round >= ROUNDS) {
+    goHome();
+  } else {
+    round++;
+    initRound();
+  }
 }
 
-// ── CONFETTI ──
+/* ════════════════════════════════════════════
+   ADVENTURE MODE
+════════════════════════════════════════════ */
+function startAdventure(type) {
+  advType      = type;
+  advIdx       = 0;
+  advLocked    = false;
+  advQuestions = buildAdvQuestions(type, 5);
+  if (!advQuestions.length) return; // safety
+
+  document.getElementById('adv-title').textContent =
+    type === 'starts' ? '🔤 Starts With!' : '🔡 Ends With!';
+  document.querySelectorAll('#adv-stars .star').forEach(s => s.classList.remove('lit'));
+
+  showScreen('adv-screen');
+  showAdvQ();
+  setTimeout(startMusic, 240);
+}
+
+/* Build 5 questions. Each question: 1 correct + 3 wrong emoji.
+   Guaranteed: no emoji ever appears twice across all 5 questions.
+   Strategy: pick letter AFTER confirming it still has an unused correct emoji.  */
+function buildAdvQuestions(type, count) {
+  const src = type === 'starts' ? BY_FIRST : BY_LAST;
+  const usedEmoji = new Set();
+  const questions  = [];
+
+  // Start with a shuffled pool of all letters that have any words
+  let pool = shuffle(Object.keys(src));
+
+  while (questions.length < count && pool.length > 0) {
+    // Find the next letter that still has ≥1 unused correct emoji
+    const li = pool.findIndex(l => (src[l] || []).some(w => !usedEmoji.has(w[0])));
+    if (li === -1) break; // no more usable letters
+    const letter = pool.splice(li, 1)[0];
+
+    // Pick one correct emoji for this letter (random from available)
+    const cpArr = (src[letter] || []).filter(w => !usedEmoji.has(w[0]));
+    const correct = cpArr[Math.floor(Math.random() * cpArr.length)];
+    usedEmoji.add(correct[0]);
+
+    // Pick 3 wrong emoji: first/last letter ≠ target, not already used
+    const wrongPool = shuffle(
+      WORDS.filter(w => {
+        const ltr = type === 'starts' ? w[2] : w[3];
+        return ltr !== letter && !usedEmoji.has(w[0]);
+      })
+    ).slice(0, 3);
+    wrongPool.forEach(w => usedEmoji.add(w[0]));
+
+    // Safety pad (only fires if dataset is nearly exhausted — won't happen in practice)
+    if (wrongPool.length < 3) {
+      WORDS.filter(w => {
+        const ltr = type === 'starts' ? w[2] : w[3];
+        return ltr !== letter && w[0] !== correct[0] && !wrongPool.find(x => x[0] === w[0]);
+      }).forEach(w => { if (wrongPool.length < 3) wrongPool.push(w); });
+    }
+
+    if (wrongPool.length >= 3) {
+      questions.push({
+        letter,
+        options: shuffle([
+          { emoji: correct[0], word: correct[1], isCorrect: true  },
+          ...wrongPool.map(w => ({ emoji: w[0],  word: w[1],  isCorrect: false })),
+        ]),
+      });
+    }
+    // if still < 3 wrongs, skip letter silently and try next
+  }
+
+  return questions;
+}
+
+function showAdvQ() {
+  if (advIdx >= advQuestions.length) return;
+  advLocked = false;
+  const q = advQuestions[advIdx];
+
+  document.getElementById('adv-pill').textContent =
+    `Q ${advIdx + 1} / ${advQuestions.length}`;
+  document.getElementById('adv-lbl').textContent =
+    advType === 'starts' ? 'Find the picture that STARTS with...' : 'Find the picture that ENDS with...';
+  document.getElementById('adv-letter').textContent = q.letter;
+
+  // Speak instruction after slight delay so music has started
+  setTimeout(() => speak(q.letter), 300);
+
+  const grid = document.getElementById('adv-grid');
+  grid.innerHTML = '';
+  q.options.forEach(({ emoji, word, isCorrect }) => {
+    const el = document.createElement('div');
+    el.className   = 'adv-choice';
+    el.textContent = emoji;   // ← ONLY emoji, no word text
+    // Use click only — no touchend to prevent double-fire
+    el.addEventListener('click', () => onAdvChoice(el, isCorrect, word));
+    grid.appendChild(el);
+  });
+}
+
+function onAdvChoice(el, isCorrect, word) {
+  // Prevent any double-registration
+  if (advLocked) return;
+  if (el.classList.contains('correct') || el.classList.contains('wrong')) return;
+
+  // Lock immediately so no other tap can fire while we process
+  advLocked = true;
+
+  // Always speak the word so the child learns it
+  sfxClick(); speak(word);
+
+  if (isCorrect) {
+    el.classList.add('correct');
+    sfxDing(); showBingo();
+    lightStar('adv-stars', advIdx);
+    advIdx++;
+
+    if (advIdx >= advQuestions.length) {
+      // All done!
+      setTimeout(() => {
+        sfxFanfare(); confetti();
+        document.getElementById('s-emoji').textContent = '🏆';
+        document.getElementById('s-title').textContent = 'Adventure Done!';
+        document.getElementById('s-info').textContent  = "You're a true Alphabet Warrior! 🏆";
+        document.getElementById('s-next').style.display = 'none';
+        document.getElementById('success-overlay').classList.add('active');
+      }, 900);
+    } else {
+      // Next question after a moment
+      setTimeout(showAdvQ, 1100);
+    }
+  } else {
+    el.classList.add('wrong');
+    doWrongShake(el); sfxWrong();
+    // Unlock after animation so they can try again
+    setTimeout(() => {
+      el.classList.remove('wrong');
+      advLocked = false;
+    }, 700);
+  }
+}
+
+/* ════════════════════════════════════════════
+   CONFETTI
+════════════════════════════════════════════ */
 function confetti() {
   const shapes = ['●','■','▲','★','♦','❤'];
   const cols   = ['#ff6eb4','#ffd93d','#22c55e','#3b82f6','#a855f7','#f97316'];
-  for (let i = 0; i < 70; i++) {
+  for (let i = 0; i < 68; i++) {
     setTimeout(() => {
       const c = document.createElement('div');
       c.className = 'cp';
-      c.style.cssText = `left:${Math.random()*100}vw;top:-50px;color:${cols[Math.random()*cols.length|0]};font-size:${10+Math.random()*22}px;animation-duration:${2.4+Math.random()*2}s;`;
+      c.style.cssText = `left:${Math.random()*100}vw;top:-48px;color:${cols[Math.random()*cols.length|0]};font-size:${10+Math.random()*21}px;animation-duration:${2.3+Math.random()*2}s;`;
       c.textContent = shapes[Math.random()*shapes.length|0];
       document.body.appendChild(c);
       setTimeout(() => c.remove(), 5000);
@@ -759,7 +1390,7 @@ function confetti() {
   }
 }
 
-// preload voices
+/* Preload voices */
 if (window.speechSynthesis) {
   window.speechSynthesis.getVoices();
   window.speechSynthesis.addEventListener('voiceschanged', () => window.speechSynthesis.getVoices());
