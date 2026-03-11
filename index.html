@@ -52,21 +52,21 @@
     /* ═══════════════════════════════════
        HOME SCREEN
     ═══════════════════════════════════ */
-    #home-screen{gap:clamp(10px,2vh,18px)}
+    #home-screen{gap:clamp(8px,1.6vh,14px)}
     .home-top{text-align:center;flex-shrink:0}
     .logo{
       font-family:'Fredoka One',cursive;
-      font-size:clamp(42px,9.5vw,72px);line-height:1.0;
+      font-size:clamp(38px,8.5vw,68px);line-height:1.0;
       background:linear-gradient(135deg,#ff6eb4,#a855f7,#3b82f6);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
-    .logo-sub{font-size:clamp(14px,2.8vw,20px);color:#c084fc;font-weight:800;margin-top:2px}
-    .bounce-row{display:flex;gap:clamp(6px,1.6vw,11px);justify-content:center;margin-top:clamp(8px,1.5vh,14px)}
+    .logo-sub{font-size:clamp(13px,2.5vw,18px);color:#c084fc;font-weight:800;margin-top:2px}
+    .bounce-row{display:flex;gap:clamp(5px,1.4vw,10px);justify-content:center;margin-top:clamp(6px,1.2vh,12px)}
     .b-tile{
-      width:clamp(40px,8vw,58px);height:clamp(40px,8vw,58px);
-      border-radius:clamp(10px,2vw,15px);
+      width:clamp(36px,7.5vw,54px);height:clamp(36px,7.5vw,54px);
+      border-radius:clamp(9px,1.8vw,14px);
       display:flex;align-items:center;justify-content:center;
-      font-family:'Fredoka One',cursive;font-size:clamp(20px,4vw,32px);color:#fff;
+      font-family:'Fredoka One',cursive;font-size:clamp(18px,3.8vw,30px);color:#fff;
       animation:bob 2.8s ease-in-out infinite;
     }
     .b-tile:nth-child(1){background:#ef4444;animation-delay:0s}
@@ -76,34 +76,39 @@
     .b-tile:nth-child(5){background:#3b82f6;animation-delay:.6s}
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
-    /* 2×3 mode grid */
+    /* 3×3 mode grid */
     .modes-grid{
-      display:grid;grid-template-columns:repeat(2,1fr);
-      gap:clamp(8px,1.8vw,13px);
-      width:min(540px,calc(100vw - 26px));flex-shrink:0;
+      display:grid;grid-template-columns:repeat(3,1fr);
+      gap:clamp(6px,1.4vw,11px);
+      width:min(560px,calc(100vw - 22px));flex-shrink:0;
     }
     .mode-card{
-      background:#fff;border-radius:clamp(15px,2.8vw,22px);
-      padding:clamp(13px,2.2vh,19px) clamp(10px,2vw,16px);
+      background:#fff;border-radius:clamp(13px,2.4vw,20px);
+      padding:clamp(10px,1.8vh,16px) clamp(8px,1.6vw,13px);
       border:3px solid #f3e8ff;
-      cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;
+      cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
       box-shadow:0 5px 18px rgba(168,85,247,.09);
       transition:transform .13s,box-shadow .13s,border-color .13s;
       text-align:center;
     }
     .mode-card:hover{transform:scale(1.05) translateY(-2px);box-shadow:0 9px 26px rgba(168,85,247,.2);border-color:#a855f7}
     .mode-card:active{transform:scale(0.96)}
-    .mc-icon{font-size:clamp(28px,5.5vw,42px);line-height:1}
-    .mc-name{font-family:'Fredoka One',cursive;font-size:clamp(13px,2.5vw,18px);color:#7c3aed;line-height:1.2}
-    .mc-desc{font-size:clamp(9px,1.6vw,12px);color:#aaa;font-weight:700;line-height:1.3}
-    /* Warrior Mix highlight */
+    .mc-icon{font-size:clamp(24px,4.8vw,38px);line-height:1}
+    .mc-name{font-family:'Fredoka One',cursive;font-size:clamp(11px,2.1vw,16px);color:#7c3aed;line-height:1.2}
+    .mc-desc{font-size:clamp(8px,1.4vw,11px);color:#aaa;font-weight:700;line-height:1.2}
     .mode-card.combo-card{border-color:#fed7aa;background:linear-gradient(135deg,#fffbeb,#fef3c7)}
     .combo-card .mc-name{color:#d97706}
+    .mode-card.new-badge{border-color:#86efac;background:linear-gradient(135deg,#f0fdf4,#dcfce7)}
+    .new-badge .mc-name{color:#16a34a}
+    .new-tag{
+      font-size:clamp(7px,1.2vw,10px);background:#22c55e;color:#fff;
+      border-radius:20px;padding:1px 7px;font-weight:900;letter-spacing:1px;
+    }
 
     .sound-row{display:flex;justify-content:center;flex-shrink:0}
     .sound-btn{
       background:none;border:none;cursor:pointer;
-      font-size:clamp(22px,4.2vw,32px);padding:7px 16px;border-radius:50%;
+      font-size:clamp(20px,3.8vw,30px);padding:7px 16px;border-radius:50%;
       transition:transform .15s;
     }
     .sound-btn:hover{transform:scale(1.2)}
@@ -117,15 +122,15 @@
     }
     .home-btn{
       background:#fff;border-radius:50%;
-      width:clamp(42px,7vw,56px);height:clamp(42px,7vw,56px);
-      font-size:clamp(19px,3.3vw,27px);
+      width:clamp(40px,6.5vw,54px);height:clamp(40px,6.5vw,54px);
+      font-size:clamp(17px,3vw,25px);
       display:flex;align-items:center;justify-content:center;
       cursor:pointer;flex-shrink:0;border:none;
       box-shadow:0 4px 14px rgba(0,0,0,.1);transition:transform .13s;
     }
     .home-btn:hover{transform:scale(1.12)}
     .g-title{
-      font-family:'Fredoka One',cursive;font-size:clamp(16px,3.2vw,26px);
+      font-family:'Fredoka One',cursive;font-size:clamp(15px,2.9vw,24px);
       background:linear-gradient(135deg,#ff6eb4,#a855f7);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
       text-align:center;flex:1;
@@ -133,8 +138,8 @@
     .round-pill{
       background:linear-gradient(135deg,#a855f7,#3b82f6);
       color:#fff;font-family:'Fredoka One',cursive;
-      font-size:clamp(12px,2.2vw,18px);
-      padding:clamp(5px,1vh,9px) clamp(11px,2vw,20px);
+      font-size:clamp(11px,2vw,17px);
+      padding:clamp(5px,1vh,9px) clamp(10px,1.8vw,18px);
       border-radius:40px;box-shadow:0 4px 14px rgba(168,85,247,.4);
       white-space:nowrap;flex-shrink:0;
     }
@@ -142,9 +147,9 @@
     /* star progress */
     .stars-row{
       display:flex;justify-content:center;align-items:center;
-      gap:clamp(5px,1.4vw,13px);flex-shrink:0;
+      gap:clamp(4px,1.2vw,12px);flex-shrink:0;
     }
-    .star{font-size:clamp(22px,4.5vw,40px);filter:grayscale(1);opacity:.2;transition:filter .3s,opacity .3s}
+    .star{font-size:clamp(20px,4.2vw,38px);filter:grayscale(1);opacity:.2;transition:filter .3s,opacity .3s}
     .star.lit{filter:none;opacity:1;animation:star-pop .45s cubic-bezier(.36,.07,.19,.97)}
     @keyframes star-pop{0%{transform:scale(0) rotate(-20deg)}60%{transform:scale(1.5) rotate(10deg)}100%{transform:scale(1) rotate(0)}}
 
@@ -171,7 +176,6 @@
     }
     .row-div::before,.row-div::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,transparent,#e9d5ff,transparent)}
 
-    /* tiles */
     .drop-zone{
       width:var(--ts);height:var(--ts);border-radius:var(--tr);font-size:var(--tf);
       display:flex;align-items:center;justify-content:center;
@@ -207,7 +211,6 @@
     }
     @keyframes pop-in{0%{transform:scale(0)}70%{transform:scale(1.35)}100%{transform:scale(1)}}
 
-    /* refresh btn */
     .refresh-btn{
       background:#fff;border:none;border-radius:50%;
       width:clamp(42px,7vw,56px);height:clamp(42px,7vw,56px);
@@ -249,7 +252,6 @@
       box-shadow:0 5px 15px rgba(0,0,0,.14),inset 0 -4px 0 rgba(0,0,0,.11);
       user-select:none;
     }
-    /* back face — purple with ? */
     .mem-back{background:linear-gradient(145deg,#a855f7,#6d28d9)}
     .mem-front{transform:rotateY(180deg)}
     .mem-card.mem-ok .mem-face{box-shadow:0 0 0 4px #fff,0 0 18px rgba(34,197,94,.7),0 5px 15px rgba(0,0,0,.14)}
@@ -266,7 +268,6 @@
     }
     .line-cols{display:flex;justify-content:space-between;align-items:center;gap:6px}
     .line-col{display:flex;flex-direction:column;gap:var(--tg);align-items:center;flex-shrink:0}
-    .line-mid-lbl{font-family:'Fredoka One',cursive;font-size:clamp(18px,3.2vw,28px);color:#ddd;text-align:center;flex-shrink:0}
     .line-node{
       width:var(--ts);height:var(--ts);border-radius:var(--tr);
       display:flex;align-items:center;justify-content:center;
@@ -308,9 +309,8 @@
       font-size:clamp(70px,17vw,124px);line-height:1;
       background:linear-gradient(135deg,#ff6eb4,#a855f7);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-      cursor:pointer; /* tap to hear the letter */
+      cursor:pointer;
     }
-    /* 2×2 emoji grid — no text, emoji only */
     .adv-grid{
       display:grid;grid-template-columns:1fr 1fr;
       gap:clamp(10px,2.3vw,17px);
@@ -327,7 +327,6 @@
       box-shadow:0 5px 16px rgba(168,85,247,.09);
       transition:transform .13s,box-shadow .13s,border-color .13s;
       user-select:none;
-      /* deliberately no text content */
     }
     .adv-choice:hover{transform:scale(1.07) translateY(-2px);box-shadow:0 9px 24px rgba(168,85,247,.18);border-color:#a855f7}
     .adv-choice:active{transform:scale(0.95)}
@@ -335,6 +334,152 @@
     .adv-choice.wrong  {border-color:#ef4444;background:#fef2f2}
     .adv-choice.correct{animation:match-pop .5s cubic-bezier(.36,.07,.19,.97)}
     .adv-choice.wrong  {animation:shake .36s ease-in-out}
+
+    /* ═══════════════════════════════════
+       🫧 BUBBLE POP GAME
+    ═══════════════════════════════════ */
+    #bubble-screen{gap:clamp(8px,1.6vh,14px)}
+    .bubble-instruction{
+      background:#fff;border-radius:clamp(16px,3vw,26px);
+      padding:clamp(12px,2vh,20px) clamp(18px,4vw,36px);
+      box-shadow:0 8px 28px rgba(168,85,247,.12);
+      text-align:center;width:min(560px,calc(100vw - 26px));flex-shrink:0;
+    }
+    .bubble-prompt-lbl{
+      font-family:'Fredoka One',cursive;font-size:clamp(12px,2.2vw,16px);
+      color:#ccc;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;
+    }
+    .bubble-target{
+      font-family:'Fredoka One',cursive;
+      font-size:clamp(52px,13vw,96px);line-height:1;
+      background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      cursor:pointer;
+    }
+    .bubble-arena{
+      position:relative;
+      width:min(560px,calc(100vw - 26px));
+      height:clamp(240px,45vh,380px);
+      background:#fff;border-radius:clamp(18px,3.2vw,28px);
+      box-shadow:0 8px 28px rgba(168,85,247,.1);
+      overflow:hidden;flex-shrink:0;
+    }
+    .bubble{
+      position:absolute;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Fredoka One',cursive;color:#fff;
+      border-radius:50%;cursor:pointer;
+      user-select:none;touch-action:none;
+      border:4px solid rgba(255,255,255,.5);
+      box-shadow:0 8px 24px rgba(0,0,0,.15),inset 0 -3px 0 rgba(0,0,0,.1),inset 4px 4px 8px rgba(255,255,255,.3);
+      transition:transform .12s;
+      animation:float-bubble linear infinite;
+      will-change:transform;
+    }
+    .bubble:hover{transform:scale(1.12)}
+    .bubble:active{transform:scale(0.9)}
+    @keyframes float-bubble{
+      0%  {transform:translateY(0px) rotate(0deg)}
+      25% {transform:translateY(-18px) rotate(2deg)}
+      50% {transform:translateY(0px) rotate(-1deg)}
+      75% {transform:translateY(-10px) rotate(1deg)}
+      100%{transform:translateY(0px) rotate(0deg)}
+    }
+    .bubble.pop{animation:bubble-pop .4s ease-out forwards}
+    @keyframes bubble-pop{
+      0%  {transform:scale(1);opacity:1}
+      40% {transform:scale(1.5);opacity:.7}
+      100%{transform:scale(0);opacity:0}
+    }
+    .bubble.wrong-shake{animation:shake .35s ease-in-out}
+    .bubble-score{
+      font-family:'Fredoka One',cursive;font-size:clamp(14px,2.6vw,22px);
+      color:#a855f7;text-align:center;flex-shrink:0;
+    }
+
+    /* ═══════════════════════════════════
+       🧩 MISSING LETTER GAME
+    ═══════════════════════════════════ */
+    #missing-screen{gap:clamp(8px,1.5vh,14px)}
+    .missing-word-card{
+      background:#fff;border-radius:clamp(18px,3.2vw,28px);
+      padding:clamp(16px,2.8vh,30px) clamp(18px,4vw,40px);
+      box-shadow:0 10px 32px rgba(168,85,247,.12);
+      text-align:center;width:min(580px,calc(100vw - 26px));flex-shrink:0;
+    }
+    .missing-emoji{font-size:clamp(54px,12vw,90px);line-height:1;margin-bottom:8px;cursor:pointer}
+    .missing-word-display{
+      display:flex;align-items:center;justify-content:center;
+      gap:clamp(6px,1.4vw,12px);margin-top:10px;flex-wrap:wrap;
+    }
+    .letter-slot{
+      width:clamp(44px,9vw,68px);height:clamp(44px,9vw,68px);
+      border-radius:clamp(10px,2vw,15px);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Fredoka One',cursive;font-size:clamp(22px,4.5vw,36px);
+      color:#fff;
+      box-shadow:0 5px 15px rgba(0,0,0,.12),inset 0 -3px 0 rgba(0,0,0,.1);
+    }
+    .letter-slot.blank{
+      background:#f3e8ff;border:3px dashed #d8b4fe;
+      color:#a855f7;font-size:clamp(26px,5vw,42px);
+    }
+    .letter-slot.filled{animation:match-pop .4s cubic-bezier(.36,.07,.19,.97)}
+    .missing-choices{
+      display:flex;justify-content:center;flex-wrap:wrap;
+      gap:clamp(8px,2vw,14px);width:min(440px,calc(100vw - 26px));flex-shrink:0;
+    }
+    .missing-btn{
+      width:clamp(52px,11vw,78px);height:clamp(52px,11vw,78px);
+      border-radius:clamp(12px,2.3vw,18px);
+      border:none;cursor:pointer;
+      font-family:'Fredoka One',cursive;font-size:clamp(22px,4.8vw,38px);color:#fff;
+      box-shadow:0 6px 18px rgba(0,0,0,.14),inset 0 -4px 0 rgba(0,0,0,.1);
+      transition:transform .13s,box-shadow .13s;
+      flex-shrink:0;
+    }
+    .missing-btn:hover{transform:scale(1.14) translateY(-4px)}
+    .missing-btn:active{transform:scale(0.92)}
+    .missing-btn.used{opacity:.25;pointer-events:none;transform:scale(0.85)}
+    .missing-btn.wrong-ans{animation:shake .36s ease-in-out}
+
+    /* ═══════════════════════════════════
+       🎨 COLOUR & LETTER MATCH GAME
+    ═══════════════════════════════════ */
+    #color-screen{gap:clamp(8px,1.5vh,14px)}
+    .color-instruction{
+      background:#fff;border-radius:clamp(16px,3vw,26px);
+      padding:clamp(12px,2vh,22px) clamp(18px,3.5vw,34px);
+      box-shadow:0 8px 28px rgba(168,85,247,.12);
+      text-align:center;width:min(580px,calc(100vw - 26px));flex-shrink:0;
+    }
+    .color-instr-lbl{
+      font-family:'Fredoka One',cursive;font-size:clamp(13px,2.5vw,20px);
+      color:#6b7280;margin-bottom:6px;
+    }
+    .color-target-word{
+      font-family:'Fredoka One',cursive;
+      font-size:clamp(38px,9vw,72px);
+      line-height:1.1;
+      transition:color .3s;
+    }
+    .color-choices{
+      display:flex;flex-wrap:wrap;justify-content:center;
+      gap:clamp(10px,2.2vw,18px);
+      width:min(520px,calc(100vw - 26px));flex-shrink:0;
+    }
+    .color-swatch{
+      width:clamp(68px,14vw,100px);height:clamp(68px,14vw,100px);
+      border-radius:50%;border:5px solid rgba(255,255,255,.8);
+      cursor:pointer;
+      box-shadow:0 7px 22px rgba(0,0,0,.18);
+      transition:transform .13s,box-shadow .13s;
+      flex-shrink:0;
+    }
+    .color-swatch:hover{transform:scale(1.12);box-shadow:0 12px 32px rgba(0,0,0,.26)}
+    .color-swatch:active{transform:scale(0.93)}
+    .color-swatch.correct-swatch{animation:match-pop .5s cubic-bezier(.36,.07,.19,.97);box-shadow:0 0 0 6px #fff,0 0 24px rgba(34,197,94,.8),0 7px 22px rgba(0,0,0,.18)}
+    .color-swatch.wrong-swatch{animation:shake .36s ease-in-out}
 
     /* ═══════════════════════════════════
        SUCCESS OVERLAY
@@ -366,7 +511,6 @@
     .s-info{font-size:clamp(12px,2.3vw,17px);color:#bbb;font-weight:800;margin-bottom:18px}
     .s-btns{display:flex;flex-direction:column;gap:9px;width:100%}
 
-    /* BINGO */
     .bingo-toast{
       position:fixed;top:50%;left:50%;
       transform:translate(-50%,-50%) scale(0);
@@ -385,9 +529,17 @@
       100%{transform:translate(-50%,-50%) scale(.65) rotate(0);opacity:0}
     }
 
-    /* confetti */
     .cp{position:fixed;pointer-events:none;z-index:600;animation:fall linear forwards}
     @keyframes fall{0%{transform:translateY(-50px) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(700deg);opacity:0}}
+
+    /* Tap-ripple feedback */
+    .ripple{
+      position:fixed;pointer-events:none;z-index:9998;
+      width:60px;height:60px;margin-left:-30px;margin-top:-30px;
+      border-radius:50%;border:4px solid rgba(168,85,247,.7);
+      animation:ripple-out .5s ease-out forwards;
+    }
+    @keyframes ripple-out{0%{transform:scale(0);opacity:1}100%{transform:scale(3);opacity:0}}
   </style>
 </head>
 <body>
@@ -410,33 +562,52 @@
   <div class="modes-grid">
     <div class="mode-card" onclick="sfxClick();startClassic('drag')">
       <div class="mc-icon">✋</div>
-      <div class="mc-name">Drag & Match</div>
-      <div class="mc-desc">Drag small letters to big ones!</div>
+      <div class="mc-name">Drag &amp; Match</div>
+      <div class="mc-desc">Drag small to big!</div>
     </div>
     <div class="mode-card" onclick="sfxClick();startClassic('flip')">
       <div class="mc-icon">🃏</div>
       <div class="mc-name">Flip Cards</div>
-      <div class="mc-desc">Find the matching pairs!</div>
+      <div class="mc-desc">Find the pairs!</div>
     </div>
     <div class="mode-card" onclick="sfxClick();startClassic('line')">
       <div class="mc-icon">✏️</div>
       <div class="mc-name">Draw a Line</div>
-      <div class="mc-desc">Connect the letters!</div>
+      <div class="mc-desc">Connect letters!</div>
     </div>
     <div class="mode-card" onclick="sfxClick();startAdventure('starts')">
       <div class="mc-icon">🔤</div>
       <div class="mc-name">Starts With</div>
-      <div class="mc-desc">Pick the right picture!</div>
+      <div class="mc-desc">Pick the picture!</div>
     </div>
     <div class="mode-card" onclick="sfxClick();startAdventure('ends')">
       <div class="mc-icon">🔡</div>
       <div class="mc-name">Ends With</div>
-      <div class="mc-desc">What ends with this letter?</div>
+      <div class="mc-desc">What ends with it?</div>
     </div>
     <div class="mode-card combo-card" onclick="sfxClick();startClassic('combo')">
       <div class="mc-icon">⚔️</div>
       <div class="mc-name">Warrior Mix!</div>
       <div class="mc-desc">All games in one!</div>
+    </div>
+    <!-- NEW GAMES -->
+    <div class="mode-card new-badge" onclick="sfxClick();startBubble()">
+      <div class="mc-icon">🫧</div>
+      <div class="mc-name">Bubble Pop!</div>
+      <div class="mc-desc">Pop the right bubble!</div>
+      <div class="new-tag">NEW</div>
+    </div>
+    <div class="mode-card new-badge" onclick="sfxClick();startMissing()">
+      <div class="mc-icon">🧩</div>
+      <div class="mc-name">Fill the Gap!</div>
+      <div class="mc-desc">Which letter is missing?</div>
+      <div class="new-tag">NEW</div>
+    </div>
+    <div class="mode-card new-badge" onclick="sfxClick();startColorMatch()">
+      <div class="mc-icon">🎨</div>
+      <div class="mc-name">Colour Match!</div>
+      <div class="mc-desc">Find the right colour!</div>
+      <div class="new-tag">NEW</div>
     </div>
   </div>
 
@@ -462,7 +633,6 @@
     <span class="star">⭐</span><span class="star">⭐</span>
   </div>
 
-  <!-- drag panel -->
   <div class="play-card" id="drag-panel">
     <div class="zone-lbl">Big Letters — drop here!</div>
     <div class="tile-grid" id="drop-row"></div>
@@ -471,18 +641,15 @@
     <div class="tile-grid" id="drag-row"></div>
   </div>
 
-  <!-- flip panel -->
   <div class="flip-wrap" id="flip-panel" style="display:none">
     <div class="flip-note" id="flip-note">Find 5 matching pairs! 🃏</div>
     <div class="mem-grid" id="mem-grid"></div>
   </div>
 
-  <!-- line panel -->
   <div class="line-card" id="line-panel" style="display:none">
     <svg class="line-svg" id="line-svg"></svg>
     <div class="line-cols">
       <div class="line-col" id="line-left"></div>
-      <div class="line-mid-lbl">✏️</div>
       <div class="line-col" id="line-right"></div>
     </div>
   </div>
@@ -509,11 +676,86 @@
 
   <div class="adv-q-card">
     <div class="adv-lbl" id="adv-lbl">Find the picture that STARTS with...</div>
-    <!-- tap the big letter to hear it -->
     <div class="adv-big-letter" id="adv-letter" onclick="sfxClick();speak(this.textContent)">A</div>
   </div>
 
   <div class="adv-grid" id="adv-grid"></div>
+
+</div>
+
+<!-- ═══════════════════════════════
+     🫧 BUBBLE POP SCREEN
+═══════════════════════════════ -->
+<div id="bubble-screen" class="screen">
+
+  <div class="g-topbar">
+    <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
+    <div class="g-title">🫧 Bubble Pop!</div>
+    <div class="round-pill" id="bubble-pill">Round 1 / 5</div>
+  </div>
+
+  <div class="stars-row" id="bubble-stars">
+    <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+    <span class="star">⭐</span><span class="star">⭐</span>
+  </div>
+
+  <div class="bubble-instruction">
+    <div class="bubble-prompt-lbl">Pop the bubble with...</div>
+    <div class="bubble-target" id="bubble-target" onclick="sfxClick();speak(document.getElementById('bubble-target').textContent)">A</div>
+  </div>
+
+  <div class="bubble-arena" id="bubble-arena"></div>
+  <div class="bubble-score" id="bubble-score">Find the letter! 🎯</div>
+
+</div>
+
+<!-- ═══════════════════════════════
+     🧩 FILL THE GAP SCREEN
+═══════════════════════════════ -->
+<div id="missing-screen" class="screen">
+
+  <div class="g-topbar">
+    <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
+    <div class="g-title">🧩 Fill the Gap!</div>
+    <div class="round-pill" id="missing-pill">Q 1 / 5</div>
+  </div>
+
+  <div class="stars-row" id="missing-stars">
+    <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+    <span class="star">⭐</span><span class="star">⭐</span>
+  </div>
+
+  <div class="missing-word-card">
+    <div class="missing-emoji" id="missing-emoji" onclick="onMissingEmojiTap()">🐱</div>
+    <div class="missing-word-display" id="missing-word-display"></div>
+  </div>
+
+  <div class="missing-choices" id="missing-choices"></div>
+
+</div>
+
+<!-- ═══════════════════════════════
+     🎨 COLOUR MATCH SCREEN
+═══════════════════════════════ -->
+<div id="color-screen" class="screen">
+
+  <div class="g-topbar">
+    <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
+    <div class="g-title">🎨 Colour Match!</div>
+    <div class="round-pill" id="color-pill">Q 1 / 5</div>
+  </div>
+
+  <div class="stars-row" id="color-stars">
+    <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+    <span class="star">⭐</span><span class="star">⭐</span>
+  </div>
+
+  <div class="color-instruction">
+    <div class="color-instr-lbl">Tap the colour that matches this word!</div>
+    <div class="color-target-word" id="color-target-word">RED</div>
+  </div>
+
+  <div class="color-choices" id="color-choices"></div>
 
 </div>
 
@@ -541,29 +783,32 @@
 ════════════════════════════════════════════ */
 let soundOn   = true;
 let musicOn   = false;
-let gMode     = 'drag';   // drag | flip | line | combo
+let gMode     = 'drag';
 let round     = 1;
 const ROUNDS  = 5;
-let matched   = 0;        // single counter for ALL classic modes
+let matched   = 0;
 
-// drag
 let dragSrc = null, dragLetter = null;
 let touchSrc = null, touchClone = null;
-
-// flip — locked prevents rapid re-tapping
 let flipFlipped = [], flipLocked = false;
-
-// line
-let lineFrom = null; // { el, letter, side }
-
-// combo: which sub-mode each round uses
+let lineFrom = null;
 let comboOrder = [];
+let advType = 'starts', advQuestions = [], advIdx = 0, advLocked = false;
 
-// adventure
-let advType      = 'starts'; // 'starts' | 'ends'
-let advQuestions = [];       // [{letter, options:[{emoji,word,isCorrect}]}]
-let advIdx       = 0;
-let advLocked    = false;    // prevents double-tap registering twice
+// Bubble Pop state
+let bubbleRound = 1, bubbleMatched = 0, bubbleLocked = false;
+let bubbleTarget = '', bubbleAnimFrames = [];
+
+// Fill the Gap state
+let missingRound = 1, missingQIdx = 0, missingLocked = false;
+let missingQuestions = [];
+
+// Colour Match state
+let colorRound = 1, colorQIdx = 0, colorLocked = false;
+let colorQuestions = [];
+
+// Track which game "next" button advances
+let currentGameMode = 'classic'; // 'classic' | 'bubble' | 'missing' | 'color'
 
 const COLORS = [
   ['#ef4444','#b91c1c'],['#f97316','#c2410c'],
@@ -574,15 +819,11 @@ const COLORS = [
 
 /* ════════════════════════════════════════════
    WORD DATABASE
-   Format: [emoji, word, firstLetter, lastLetter]
-   — Verified: every emoji is child-recognisable
-   — Verified: no duplicate emoji in this list
-   — Verified: first/last letters are correct
 ════════════════════════════════════════════ */
 const WORDS = [
   ['🍎','Apple',   'A','E'],
   ['🐜','Ant',     'A','T'],
-  ['✈️','Airplane','A','E'],  // first=A last=E  ← Airplane ends in E
+  ['✈️','Airplane','A','E'],
   ['🐊','Alligator','A','R'],
   ['🐻','Bear',    'B','R'],
   ['🐝','Bee',     'B','E'],
@@ -650,7 +891,6 @@ const WORDS = [
   ['🦓','Zebra',   'Z','A'],
 ];
 
-// Fast lookup by first and last letter
 const BY_FIRST = {}, BY_LAST = {};
 WORDS.forEach(w => {
   (BY_FIRST[w[2]] = BY_FIRST[w[2]] || []).push(w);
@@ -680,7 +920,7 @@ window.addEventListener('orientationchange', () => setTimeout(setTileSize, 150))
 setTileSize();
 
 /* ════════════════════════════════════════════
-   AUDIO ENGINE — all synthesised
+   AUDIO ENGINE
 ════════════════════════════════════════════ */
 let _ctx = null, bgGain = null, bgTimer = null, bgStart = 0;
 
@@ -702,6 +942,7 @@ function osc(freq, t0, dur, type='sine', vol=0.28) {
     o.start(t); o.stop(t + dur + 0.04);
   } catch(e) {}
 }
+
 const sfxClick   = () => osc(660, 0, .055, 'sine', .15);
 const sfxDing    = () => { osc(880,0,.1); osc(1100,.1,.14); osc(1320,.24,.29); };
 const sfxWrong   = () => { osc(200,0,.1,'sawtooth',.13); osc(160,.1,.15,'sawtooth',.1); };
@@ -709,8 +950,25 @@ const sfxFanfare = () => [523,659,784,1047,1319].forEach((f,i) => osc(f, i*.1, .
 const sfxFlip    = () => osc(720, 0, .07, 'sine', .12);
 const sfxSelect  = () => osc(540, 0, .06, 'sine', .13);
 const sfxStar    = () => osc(1046, 0, .12, 'sine', .16);
+// Pop sound for bubble game
+const sfxPop     = () => {
+  if (!soundOn) return;
+  try {
+    const c = ac();
+    const buf = c.createBuffer(1, c.sampleRate * 0.08, c.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (d.length * 0.3));
+    const src = c.createBufferSource();
+    const g = c.createGain(); const f = c.createBiquadFilter();
+    src.buffer = buf; f.type = 'bandpass'; f.frequency.value = 900; f.Q.value = 0.5;
+    src.connect(f); f.connect(g); g.connect(c.destination);
+    g.gain.value = 0.6;
+    src.start(c.currentTime); src.stop(c.currentTime + 0.1);
+  } catch(e) {}
+};
+// Colour correct sound — bright ascending
+const sfxColorOk = () => { osc(523,0,.08); osc(659,.09,.1); osc(784,.18,.18); };
 
-// Background music loop
 const BG_MELODY = [523,659,784,880,784,659,523,440,494,587,698,784,698,587,494,392,
                    523,659,784,1047,880,784,659,523,440,523,659,784,698,587,523,494];
 const BG_CHORDS = [[261,329,392],[261,329,392],[220,277,330],[220,277,330],
@@ -778,6 +1036,16 @@ function speak(text) {
   window.speechSynthesis.speak(u);
 }
 
+/* Tap ripple visual feedback */
+function spawnRipple(x, y) {
+  const r = document.createElement('div');
+  r.className = 'ripple';
+  r.style.left = x + 'px';
+  r.style.top  = y + 'px';
+  document.body.appendChild(r);
+  setTimeout(() => r.remove(), 550);
+}
+
 /* ════════════════════════════════════════════
    NAVIGATION
 ════════════════════════════════════════════ */
@@ -787,22 +1055,24 @@ function showScreen(id) {
 }
 
 function goHome() {
-  // Kill audio
   stopMusic();
   if (window.speechSynthesis) window.speechSynthesis.cancel();
-
-  // Kill any lingering touch clone
   if (touchClone) { try { touchClone.remove(); } catch(e){} touchClone = null; }
+  // Kill bubble animations
+  bubbleAnimFrames.forEach(id => cancelAnimationFrame(id));
+  bubbleAnimFrames = [];
 
-  // Reset ALL state
   round = 1; matched = 0; gMode = 'drag';
   dragSrc = null; dragLetter = null; touchSrc = null;
   flipFlipped = []; flipLocked = false;
   lineFrom = null;
   comboOrder = [];
   advQuestions = []; advIdx = 0; advLocked = false;
+  bubbleRound = 1; bubbleMatched = 0; bubbleLocked = false;
+  missingRound = 1; missingQIdx = 0; missingLocked = false;
+  colorRound = 1; colorQIdx = 0; colorLocked = false;
+  currentGameMode = 'classic';
 
-  // Hide overlay, go home
   document.getElementById('success-overlay').classList.remove('active');
   showScreen('home-screen');
 }
@@ -842,7 +1112,7 @@ function doWrongShake(el) {
 }
 
 /* ════════════════════════════════════════════
-   CLASSIC GAME — entry
+   CLASSIC GAME
 ════════════════════════════════════════════ */
 const TITLES = {
   drag:  '✋ Drag & Match!',
@@ -854,8 +1124,8 @@ const TITLES = {
 function startClassic(mode) {
   gMode = mode;
   round = 1;
+  currentGameMode = 'classic';
   if (mode === 'combo') {
-    // 5 rounds cycling through drag, flip, line, drag, line
     comboOrder = shuffle(['drag','flip','line','drag','line']);
   }
   showScreen('game-screen');
@@ -867,30 +1137,24 @@ function startClassic(mode) {
 function initRound() {
   requestAnimationFrame(() => {
     setTileSize();
-
-    // ── full state reset for this round ──
-    matched     = 0;
+    matched = 0;
     flipFlipped = [];
-    flipLocked  = false;
-    lineFrom    = null;
-    dragSrc     = null;
-    dragLetter  = null;
+    flipLocked = false;
+    lineFrom = null;
+    dragSrc = null;
+    dragLetter = null;
 
     const letters = pick5();
     document.getElementById('round-pill').textContent = `Round ${round} / ${ROUNDS}`;
     document.querySelectorAll('#g-stars .star').forEach(s => s.classList.remove('lit'));
     document.getElementById('success-overlay').classList.remove('active');
 
-    // Decide sub-mode for combo
     const sub = gMode === 'combo' ? comboOrder[(round - 1) % comboOrder.length] : gMode;
-
-    // Update title for combo
     if (gMode === 'combo') {
       const labels = { drag:'✋ Drag!', flip:'🃏 Flip!', line:'✏️ Draw!' };
       document.getElementById('g-title').textContent = labels[sub] || '⚔️ Mix!';
     }
 
-    // Show correct panel
     document.getElementById('drag-panel').style.display  = sub === 'drag' ? ''     : 'none';
     document.getElementById('flip-panel').style.display  = sub === 'flip' ? 'flex' : 'none';
     document.getElementById('line-panel').style.display  = sub === 'line' ? ''     : 'none';
@@ -902,11 +1166,8 @@ function initRound() {
   });
 }
 
-/* ════════════════════════════════════════════
-   DRAG & MATCH
-════════════════════════════════════════════ */
+/* DRAG */
 function buildDrag(letters) {
-  // DROP row (uppercase targets)
   const dropRow = document.getElementById('drop-row');
   dropRow.innerHTML = '';
   letters.forEach((letter, i) => {
@@ -916,16 +1177,13 @@ function buildDrag(letters) {
     el.dataset.letter = letter;
     el.textContent = letter;
     el.style.background = `linear-gradient(145deg,${bg},${sh})`;
-    // Drop events (mouse)
     el.addEventListener('dragover',  e => { e.preventDefault(); el.classList.add('over'); });
     el.addEventListener('dragleave', () => el.classList.remove('over'));
     el.addEventListener('drop',      e => { e.preventDefault(); el.classList.remove('over'); onDrop(el); });
-    // Tap to hear (click only — no touchend to avoid double-fire)
     el.addEventListener('click', () => { sfxClick(); speak(letter); });
     dropRow.appendChild(el);
   });
 
-  // DRAG row (lowercase sources)
   const dragRow = document.getElementById('drag-row');
   dragRow.innerHTML = '';
   shuffle(letters).forEach(letter => {
@@ -948,7 +1206,6 @@ function buildDrag(letters) {
       dragSrc = null; dragLetter = null;
       document.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('over'));
     });
-    // Touch drag
     el.addEventListener('touchstart', onTouchStart, { passive: false });
     el.addEventListener('touchmove',  onTouchMove,  { passive: false });
     el.addEventListener('touchend',   onTouchEnd,   { passive: false });
@@ -977,7 +1234,6 @@ function doMatch(zone, card) {
   if (matched >= 5) setTimeout(showRoundSuccess, 700);
 }
 
-// Touch drag implementation
 function onTouchStart(e) {
   e.preventDefault();
   const t = e.touches[0];
@@ -1030,37 +1286,29 @@ function onTouchEnd(e) {
   touchClone.remove(); touchClone = null; touchSrc = null; dragLetter = null;
 }
 
-/* ════════════════════════════════════════════
-   FLIP / MEMORY
-════════════════════════════════════════════ */
+/* FLIP */
 function buildFlip(letters) {
-  // 10 cards: 5 uppercase + 5 lowercase, shuffled into a 5×2 grid
   const pairs = [];
   letters.forEach((l, i) => {
     pairs.push({ letter:l, display:l,            ci:i });
     pairs.push({ letter:l, display:l.toLowerCase(), ci:i });
   });
-
   const grid = document.getElementById('mem-grid');
   grid.innerHTML = '';
   grid.style.gridTemplateColumns = `repeat(5, var(--ts))`;
-
   shuffle(pairs).forEach(({ letter, display, ci }) => {
     const [bg, sh] = COLORS[ci % COLORS.length];
     const card = document.createElement('div');
     card.className = 'mem-card';
     card.dataset.letter = letter;
-    // back face shows '?', front shows the letter
     card.innerHTML = `
       <div class="mem-inner">
         <div class="mem-face mem-back">?</div>
         <div class="mem-face mem-front" style="background:linear-gradient(145deg,${bg},${sh})">${display}</div>
       </div>`;
-    // Use click only — prevents double-fire from touchend+click
     card.addEventListener('click', () => onFlipClick(card, letter, display));
     grid.appendChild(card);
   });
-
   document.getElementById('flip-note').textContent = 'Find 5 matching pairs! 🃏';
 }
 
@@ -1070,13 +1318,10 @@ function onFlipClick(card, letter, display) {
   sfxFlip(); speak(display);
   card.classList.add('flipped');
   flipFlipped.push(card);
-
   if (flipFlipped.length === 2) {
     flipLocked = true;
     const [a, b] = flipFlipped;
-
     if (a.dataset.letter === b.dataset.letter) {
-      // ✅ Match!
       setTimeout(() => {
         a.classList.add('mem-ok'); b.classList.add('mem-ok');
         a.style.pointerEvents = 'none'; b.style.pointerEvents = 'none';
@@ -1088,11 +1333,9 @@ function onFlipClick(card, letter, display) {
         if (matched >= 5) setTimeout(showRoundSuccess, 700);
       }, 380);
     } else {
-      // ❌ No match
       setTimeout(() => {
         a.classList.remove('flipped'); b.classList.remove('flipped');
         sfxWrong();
-        a.style.transition = 'opacity .3s'; b.style.transition = 'opacity .3s';
         a.style.opacity = '.45'; b.style.opacity = '.45';
         setTimeout(() => { a.style.opacity = '1'; b.style.opacity = '1'; }, 440);
         flipFlipped = []; flipLocked = false;
@@ -1101,16 +1344,13 @@ function onFlipClick(card, letter, display) {
   }
 }
 
-/* ════════════════════════════════════════════
-   LINE DRAW
-════════════════════════════════════════════ */
+/* LINE */
 function buildLine(letters) {
   document.getElementById('line-svg').innerHTML = '';
   const leftCol  = document.getElementById('line-left');
   const rightCol = document.getElementById('line-right');
   leftCol.innerHTML  = '';
   rightCol.innerHTML = '';
-
   shuffle(letters).forEach(letter => {
     const ci = letters.indexOf(letter);
     const [bg, sh] = COLORS[ci % COLORS.length];
@@ -1130,7 +1370,6 @@ function makeNode(letter, display, bg, sh, side) {
   el.dataset.side   = side;
   el.textContent    = display;
   el.style.background = `linear-gradient(145deg,${bg},${sh})`;
-  // Use click only — no touchend to avoid double-fire
   el.addEventListener('click', () => onLineClick(el, letter, side));
   return el;
 }
@@ -1138,33 +1377,26 @@ function makeNode(letter, display, bg, sh, side) {
 function onLineClick(el, letter, side) {
   if (el.classList.contains('ln-ok')) return;
   sfxClick(); speak(letter);
-
-  // Nothing selected yet
   if (!lineFrom) {
     el.classList.add('selected');
     lineFrom = { el, letter, side };
     return;
   }
-  // Tapped same node → deselect
   if (lineFrom.el === el) {
     el.classList.remove('selected');
     lineFrom = null;
     return;
   }
-  // Tapped same column → switch selection
   if (lineFrom.side === side) {
     lineFrom.el.classList.remove('selected');
     el.classList.add('selected');
     lineFrom = { el, letter, side };
     return;
   }
-  // Different column — evaluate
   const from = lineFrom;
   lineFrom = null;
   from.el.classList.remove('selected');
-
   if (from.letter === letter) {
-    // ✅ Correct!
     const ci = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].indexOf(letter);
     drawLine(from.el, el, COLORS[ci % COLORS.length][0]);
     from.el.classList.add('ln-ok');
@@ -1175,7 +1407,6 @@ function onLineClick(el, letter, side) {
     setTimeout(() => speak(letter), 280);
     if (matched >= 5) setTimeout(showRoundSuccess, 700);
   } else {
-    // ❌ Wrong
     doWrongShake(el); sfxWrong();
   }
 }
@@ -1196,9 +1427,7 @@ function drawLine(fromEl, toEl, color) {
   svg.appendChild(ln);
 }
 
-/* ════════════════════════════════════════════
-   ROUND SUCCESS (classic modes)
-════════════════════════════════════════════ */
+/* ROUND SUCCESS (classic) */
 const R_EMOJI = ['','🌟','🎉','🚀','🔥','🏆'];
 const R_MSG   = ['','Great Start!','You Rock!','Halfway There!','Almost Done!','YOU WIN!'];
 
@@ -1207,13 +1436,12 @@ function showRoundSuccess() {
   const r = Math.min(round, 5);
   document.getElementById('s-emoji').textContent = R_EMOJI[r];
   document.getElementById('s-title').textContent = R_MSG[r];
-
   const nextBtn = document.getElementById('s-next');
   if (round >= ROUNDS) {
     nextBtn.style.display = 'none';
     document.getElementById('s-info').textContent = "All done! You're a Warrior! 🏆";
   } else {
-    nextBtn.style.display = '';    // ← always restore before showing
+    nextBtn.style.display = '';
     nextBtn.textContent = `🚀 Next Round! (${round + 1}/${ROUNDS})`;
     document.getElementById('s-info').textContent = `Round ${round} of ${ROUNDS} done!`;
   }
@@ -1223,9 +1451,18 @@ function showRoundSuccess() {
 function handleNext() {
   sfxClick();
   document.getElementById('success-overlay').classList.remove('active');
-  if (round >= ROUNDS) {
-    goHome();
+  if (currentGameMode === 'bubble') {
+    if (bubbleRound >= ROUNDS) { goHome(); return; }
+    bubbleRound++;
+    initBubbleRound();
+  } else if (currentGameMode === 'missing') {
+    if (missingQIdx >= missingQuestions.length) { goHome(); return; }
+    showMissingQ();
+  } else if (currentGameMode === 'color') {
+    if (colorQIdx >= colorQuestions.length) { goHome(); return; }
+    showColorQ();
   } else {
+    if (round >= ROUNDS) { goHome(); return; }
     round++;
     initRound();
   }
@@ -1239,40 +1476,28 @@ function startAdventure(type) {
   advIdx       = 0;
   advLocked    = false;
   advQuestions = buildAdvQuestions(type, 5);
-  if (!advQuestions.length) return; // safety
-
+  currentGameMode = 'classic'; // uses classic handleNext
+  if (!advQuestions.length) return;
   document.getElementById('adv-title').textContent =
     type === 'starts' ? '🔤 Starts With!' : '🔡 Ends With!';
   document.querySelectorAll('#adv-stars .star').forEach(s => s.classList.remove('lit'));
-
   showScreen('adv-screen');
   showAdvQ();
   setTimeout(startMusic, 240);
 }
 
-/* Build 5 questions. Each question: 1 correct + 3 wrong emoji.
-   Guaranteed: no emoji ever appears twice across all 5 questions.
-   Strategy: pick letter AFTER confirming it still has an unused correct emoji.  */
 function buildAdvQuestions(type, count) {
   const src = type === 'starts' ? BY_FIRST : BY_LAST;
   const usedEmoji = new Set();
   const questions  = [];
-
-  // Start with a shuffled pool of all letters that have any words
   let pool = shuffle(Object.keys(src));
-
   while (questions.length < count && pool.length > 0) {
-    // Find the next letter that still has ≥1 unused correct emoji
     const li = pool.findIndex(l => (src[l] || []).some(w => !usedEmoji.has(w[0])));
-    if (li === -1) break; // no more usable letters
+    if (li === -1) break;
     const letter = pool.splice(li, 1)[0];
-
-    // Pick one correct emoji for this letter (random from available)
     const cpArr = (src[letter] || []).filter(w => !usedEmoji.has(w[0]));
     const correct = cpArr[Math.floor(Math.random() * cpArr.length)];
     usedEmoji.add(correct[0]);
-
-    // Pick 3 wrong emoji: first/last letter ≠ target, not already used
     const wrongPool = shuffle(
       WORDS.filter(w => {
         const ltr = type === 'starts' ? w[2] : w[3];
@@ -1280,15 +1505,12 @@ function buildAdvQuestions(type, count) {
       })
     ).slice(0, 3);
     wrongPool.forEach(w => usedEmoji.add(w[0]));
-
-    // Safety pad (only fires if dataset is nearly exhausted — won't happen in practice)
     if (wrongPool.length < 3) {
       WORDS.filter(w => {
         const ltr = type === 'starts' ? w[2] : w[3];
         return ltr !== letter && w[0] !== correct[0] && !wrongPool.find(x => x[0] === w[0]);
       }).forEach(w => { if (wrongPool.length < 3) wrongPool.push(w); });
     }
-
     if (wrongPool.length >= 3) {
       questions.push({
         letter,
@@ -1298,9 +1520,7 @@ function buildAdvQuestions(type, count) {
         ]),
       });
     }
-    // if still < 3 wrongs, skip letter silently and try next
   }
-
   return questions;
 }
 
@@ -1308,47 +1528,33 @@ function showAdvQ() {
   if (advIdx >= advQuestions.length) return;
   advLocked = false;
   const q = advQuestions[advIdx];
-
-  document.getElementById('adv-pill').textContent =
-    `Q ${advIdx + 1} / ${advQuestions.length}`;
+  document.getElementById('adv-pill').textContent = `Q ${advIdx + 1} / ${advQuestions.length}`;
   document.getElementById('adv-lbl').textContent =
     advType === 'starts' ? 'Find the picture that STARTS with...' : 'Find the picture that ENDS with...';
   document.getElementById('adv-letter').textContent = q.letter;
-
-  // Speak instruction after slight delay so music has started
   setTimeout(() => speak(q.letter), 300);
-
   const grid = document.getElementById('adv-grid');
   grid.innerHTML = '';
   q.options.forEach(({ emoji, word, isCorrect }) => {
     const el = document.createElement('div');
     el.className   = 'adv-choice';
-    el.textContent = emoji;   // ← ONLY emoji, no word text
-    // Use click only — no touchend to prevent double-fire
+    el.textContent = emoji;
     el.addEventListener('click', () => onAdvChoice(el, isCorrect, word));
     grid.appendChild(el);
   });
 }
 
 function onAdvChoice(el, isCorrect, word) {
-  // Prevent any double-registration
   if (advLocked) return;
   if (el.classList.contains('correct') || el.classList.contains('wrong')) return;
-
-  // Lock immediately so no other tap can fire while we process
   advLocked = true;
-
-  // Always speak the word so the child learns it
   sfxClick(); speak(word);
-
   if (isCorrect) {
     el.classList.add('correct');
     sfxDing(); showBingo();
     lightStar('adv-stars', advIdx);
     advIdx++;
-
     if (advIdx >= advQuestions.length) {
-      // All done!
       setTimeout(() => {
         sfxFanfare(); confetti();
         document.getElementById('s-emoji').textContent = '🏆';
@@ -1358,17 +1564,440 @@ function onAdvChoice(el, isCorrect, word) {
         document.getElementById('success-overlay').classList.add('active');
       }, 900);
     } else {
-      // Next question after a moment
       setTimeout(showAdvQ, 1100);
     }
   } else {
     el.classList.add('wrong');
     doWrongShake(el); sfxWrong();
-    // Unlock after animation so they can try again
     setTimeout(() => {
       el.classList.remove('wrong');
       advLocked = false;
     }, 700);
+  }
+}
+
+/* ════════════════════════════════════════════
+   🫧 BUBBLE POP GAME
+   Show a target letter, fill arena with
+   floating bubbles (correct letter + distractors)
+   Kid taps the correct bubble to pop it.
+   5 rounds, each round new letter + new bubbles.
+════════════════════════════════════════════ */
+const BUBBLE_COLORS = [
+  '#ef4444','#f97316','#eab308','#22c55e',
+  '#3b82f6','#8b5cf6','#ec4899','#14b8a6',
+  '#f43f5e','#a855f7',
+];
+const ALPHABET = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+
+function startBubble() {
+  bubbleRound = 1;
+  bubbleMatched = 0;
+  bubbleLocked = false;
+  currentGameMode = 'bubble';
+  document.querySelectorAll('#bubble-stars .star').forEach(s => s.classList.remove('lit'));
+  showScreen('bubble-screen');
+  initBubbleRound();
+  setTimeout(startMusic, 240);
+}
+
+function initBubbleRound() {
+  bubbleLocked = false;
+  // Kill old animations
+  bubbleAnimFrames.forEach(id => cancelAnimationFrame(id));
+  bubbleAnimFrames = [];
+
+  const arena = document.getElementById('bubble-arena');
+  arena.innerHTML = '';
+
+  // Pick random target letter
+  bubbleTarget = ALPHABET[Math.floor(Math.random() * 26)];
+  document.getElementById('bubble-target').textContent = bubbleTarget;
+  document.getElementById('bubble-pill').textContent = `Round ${bubbleRound} / ${ROUNDS}`;
+  document.getElementById('bubble-score').textContent = `Pop the "${bubbleTarget}" bubble! 🎯`;
+
+  setTimeout(() => speak(bubbleTarget), 320);
+
+  // Build distractor letters (ensure at least one correct)
+  const others = shuffle(ALPHABET.filter(l => l !== bubbleTarget)).slice(0, 6);
+  const allLetters = shuffle([bubbleTarget, bubbleTarget, ...others]); // 2 correct, 6 wrong = 8 bubbles
+
+  const arenaRect = arena.getBoundingClientRect();
+  const arW = arenaRect.width  || window.innerWidth - 26;
+  const arH = arenaRect.height || 280;
+  const bSize = Math.min(76, Math.max(52, arW / 7));
+
+  const positions = [];
+  allLetters.forEach((letter, idx) => {
+    // Non-overlapping placement
+    let x, y, tries = 0;
+    do {
+      x = bSize/2 + Math.random() * (arW - bSize * 1.5);
+      y = bSize/2 + Math.random() * (arH - bSize * 1.5);
+      tries++;
+    } while (tries < 50 && positions.some(p => Math.hypot(p.x - x, p.y - y) < bSize * 1.2));
+    positions.push({ x, y });
+
+    const isCorrect = letter === bubbleTarget;
+    const color = BUBBLE_COLORS[idx % BUBBLE_COLORS.length];
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.dataset.correct = isCorrect ? '1' : '0';
+    bubble.textContent = letter;
+    Object.assign(bubble.style, {
+      width: bSize + 'px',
+      height: bSize + 'px',
+      fontSize: Math.round(bSize * 0.47) + 'px',
+      left: x + 'px',
+      top: y + 'px',
+      background: `radial-gradient(circle at 35% 35%, ${color}cc, ${color})`,
+      animationDuration: (2.5 + Math.random() * 2) + 's',
+      animationDelay: (Math.random() * 1.5) + 's',
+    });
+    bubble.addEventListener('click', e => onBubbleTap(e, bubble, letter, isCorrect));
+    bubble.addEventListener('touchend', e => {
+      e.preventDefault();
+      const t = e.changedTouches[0];
+      spawnRipple(t.clientX, t.clientY);
+      onBubbleTap(e, bubble, letter, isCorrect);
+    }, { passive: false });
+    arena.appendChild(bubble);
+
+    // Animate floating (translate around slowly)
+    let t0 = null;
+    const dx = (Math.random() - 0.5) * 40;
+    const dy = (Math.random() - 0.5) * 25;
+    const period = 2000 + Math.random() * 2000;
+    function floatTick(ts) {
+      if (!t0) t0 = ts;
+      const elapsed = (ts - t0) % period;
+      const phase = (elapsed / period) * Math.PI * 2;
+      const ox = Math.sin(phase) * dx;
+      const oy = Math.cos(phase * 0.7) * dy;
+      bubble.style.transform = `translate(${ox}px, ${oy}px)`;
+      bubbleAnimFrames.push(requestAnimationFrame(floatTick));
+    }
+    bubbleAnimFrames.push(requestAnimationFrame(floatTick));
+  });
+}
+
+function onBubbleTap(e, bubble, letter, isCorrect) {
+  if (bubbleLocked) return;
+  if (bubble.classList.contains('pop')) return;
+  sfxClick(); speak(letter);
+
+  if (isCorrect) {
+    bubbleLocked = true;
+    bubble.classList.add('pop');
+    sfxPop(); sfxDing(); showBingo();
+    lightStar('bubble-stars', bubbleRound - 1);
+    document.getElementById('bubble-score').textContent = '🎉 You got it!';
+
+    if (bubbleRound >= ROUNDS) {
+      setTimeout(() => {
+        sfxFanfare(); confetti();
+        document.getElementById('s-emoji').textContent = '🏆';
+        document.getElementById('s-title').textContent = 'Bubble Master!';
+        document.getElementById('s-info').textContent  = 'You popped every bubble! 🫧🏆';
+        document.getElementById('s-next').style.display = 'none';
+        document.getElementById('success-overlay').classList.add('active');
+      }, 900);
+    } else {
+      setTimeout(() => {
+        document.getElementById('s-emoji').textContent = ['🌟','🎉','🚀','🔥'][bubbleRound - 1] || '🌟';
+        document.getElementById('s-title').textContent = ['Nice Pop!','Wow!','On Fire!','Amazing!'][bubbleRound - 1] || 'Nice!';
+        document.getElementById('s-next').style.display = '';
+        document.getElementById('s-next').textContent = `🚀 Next Round! (${bubbleRound + 1}/${ROUNDS})`;
+        document.getElementById('s-info').textContent = `Round ${bubbleRound} of ${ROUNDS} done!`;
+        document.getElementById('success-overlay').classList.add('active');
+      }, 800);
+    }
+  } else {
+    // Wrong bubble shakes + shrinks
+    bubble.classList.remove('wrong-shake'); void bubble.offsetWidth;
+    bubble.classList.add('wrong-shake');
+    bubble.addEventListener('animationend', () => bubble.classList.remove('wrong-shake'), { once: true });
+    sfxWrong();
+    document.getElementById('bubble-score').textContent = `Try again! Find "${bubbleTarget}" 🎯`;
+  }
+}
+
+/* ════════════════════════════════════════════
+   🧩 FILL THE GAP GAME
+   Show an emoji + word with ONE letter blanked out.
+   Four letter buttons to pick from.
+   5 questions, single flow (no "round" concept).
+════════════════════════════════════════════ */
+
+// Words specifically chosen so the missing letter is unambiguous and fun
+const MISSING_WORDS = [
+  { emoji:'🐱', word:'CAT',    blank:1, answer:'A', display:['C','_','T'] },
+  { emoji:'🐶', word:'DOG',    blank:1, answer:'O', display:['D','_','G'] },
+  { emoji:'🐸', word:'FROG',   blank:1, answer:'R', display:['F','_','O','G'] },
+  { emoji:'🐘', word:'ELEPHANT',blank:2,answer:'E', display:['E','L','_','P','H','A','N','T'] },
+  { emoji:'🍎', word:'APPLE',  blank:0, answer:'A', display:['_','P','P','L','E'] },
+  { emoji:'🦁', word:'LION',   blank:1, answer:'I', display:['L','_','O','N'] },
+  { emoji:'🐦', word:'BIRD',   blank:1, answer:'I', display:['B','_','R','D'] },
+  { emoji:'🦋', word:'BUTTERFLY',blank:2,answer:'T',display:['B','U','_','T','E','R','F','L','Y'] },
+  { emoji:'🐰', word:'RABBIT', blank:1, answer:'A', display:['R','_','B','B','I','T'] },
+  { emoji:'🐝', word:'BEE',    blank:0, answer:'B', display:['_','E','E'] },
+  { emoji:'🦊', word:'FOX',    blank:1, answer:'O', display:['F','_','X'] },
+  { emoji:'🌙', word:'MOON',   blank:1, answer:'O', display:['M','_','O','N'] },
+  { emoji:'🚀', word:'ROCKET', blank:1, answer:'O', display:['R','_','C','K','E','T'] },
+  { emoji:'🍌', word:'BANANA', blank:2, answer:'N', display:['B','A','_','A','N','A'] },
+  { emoji:'🦓', word:'ZEBRA',  blank:2, answer:'B', display:['Z','E','_','R','A'] },
+  { emoji:'⭐', word:'STAR',   blank:1, answer:'T', display:['S','_','A','R'] },
+  { emoji:'🐢', word:'TURTLE', blank:1, answer:'U', display:['T','_','R','T','L','E'] },
+  { emoji:'🍕', word:'PIZZA',  blank:0, answer:'P', display:['_','I','Z','Z','A'] },
+  { emoji:'🦒', word:'GIRAFFE',blank:2, answer:'R', display:['G','I','_','A','F','F','E'] },
+  { emoji:'🐙', word:'OCTOPUS',blank:3, answer:'T', display:['O','C','T','_','P','U','S'] },
+];
+
+function startMissing() {
+  missingQIdx = 0;
+  missingLocked = false;
+  currentGameMode = 'missing';
+  missingQuestions = shuffle(MISSING_WORDS).slice(0, 5);
+  document.querySelectorAll('#missing-stars .star').forEach(s => s.classList.remove('lit'));
+  showScreen('missing-screen');
+  showMissingQ();
+  setTimeout(startMusic, 240);
+}
+
+function showMissingQ() {
+  if (missingQIdx >= missingQuestions.length) return;
+  missingLocked = false;
+  const q = missingQuestions[missingQIdx];
+  document.getElementById('missing-pill').textContent = `Q ${missingQIdx + 1} / ${missingQuestions.length}`;
+  document.getElementById('missing-emoji').textContent = q.emoji;
+
+  // Word display with blank slot
+  const display = document.getElementById('missing-word-display');
+  display.innerHTML = '';
+  const letters = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+  const ci = letters.indexOf(q.answer);
+  const [bg, sh] = COLORS[ci % COLORS.length];
+
+  q.display.forEach((ch, i) => {
+    const slot = document.createElement('div');
+    slot.className = 'letter-slot';
+    if (ch === '_') {
+      slot.classList.add('blank');
+      slot.id = 'missing-blank-slot';
+      slot.textContent = '?';
+    } else {
+      slot.textContent = ch;
+      slot.style.background = `linear-gradient(145deg,${bg},${sh})`;
+    }
+    display.appendChild(slot);
+  });
+
+  // Speak the emoji word
+  setTimeout(() => speak(q.word), 350);
+
+  // Build choices: correct + 3 wrong letters
+  const wrongLetters = shuffle(ALPHABET.filter(l => l !== q.answer)).slice(0, 3);
+  const choices = shuffle([q.answer, ...wrongLetters]);
+
+  const choicesEl = document.getElementById('missing-choices');
+  choicesEl.innerHTML = '';
+  choices.forEach(letter => {
+    const ci2 = letters.indexOf(letter);
+    const [bg2, sh2] = COLORS[ci2 % COLORS.length];
+    const btn = document.createElement('button');
+    btn.className = 'missing-btn';
+    btn.textContent = letter;
+    btn.style.background = `linear-gradient(145deg,${bg2},${sh2})`;
+    btn.addEventListener('click', () => onMissingPick(btn, letter, q));
+    choicesEl.appendChild(btn);
+  });
+}
+
+function onMissingEmojiTap() {
+  if (missingQIdx < missingQuestions.length) {
+    speak(missingQuestions[missingQIdx].word);
+    sfxClick();
+  }
+}
+
+function onMissingPick(btn, letter, q) {
+  if (missingLocked) return;
+  sfxClick(); speak(letter);
+  if (letter === q.answer) {
+    missingLocked = true;
+    btn.classList.add('used');
+    // Fill in the blank slot
+    const slot = document.getElementById('missing-blank-slot');
+    if (slot) {
+      slot.textContent = letter;
+      slot.classList.remove('blank');
+      slot.classList.add('filled');
+      const ci = ALPHABET.indexOf(letter);
+      const [bg, sh] = COLORS[ci % COLORS.length];
+      slot.style.background = `linear-gradient(145deg,${bg},${sh})`;
+    }
+    sfxDing(); showBingo();
+    lightStar('missing-stars', missingQIdx);
+    speak(q.word);
+    missingQIdx++;
+
+    if (missingQIdx >= missingQuestions.length) {
+      setTimeout(() => {
+        sfxFanfare(); confetti();
+        document.getElementById('s-emoji').textContent = '🏆';
+        document.getElementById('s-title').textContent = 'Word Wizard!';
+        document.getElementById('s-info').textContent  = 'You filled every gap! 🧩🏆';
+        document.getElementById('s-next').style.display = 'none';
+        document.getElementById('success-overlay').classList.add('active');
+      }, 950);
+    } else {
+      setTimeout(() => {
+        document.getElementById('s-emoji').textContent = ['🌟','🎉','🚀','🔥'][missingQIdx - 1] || '🌟';
+        document.getElementById('s-title').textContent = ['Smart!','Brilliant!','On Fire!','Wow!!'][missingQIdx - 1] || 'Nice!';
+        document.getElementById('s-next').style.display = '';
+        document.getElementById('s-next').textContent = `🚀 Next Word! (${missingQIdx + 1}/${missingQuestions.length})`;
+        document.getElementById('s-info').textContent = `Word ${missingQIdx} of ${missingQuestions.length} done!`;
+        document.getElementById('success-overlay').classList.add('active');
+      }, 900);
+    }
+  } else {
+    btn.classList.add('wrong-ans');
+    btn.classList.add('used');
+    sfxWrong();
+    btn.addEventListener('animationend', () => {
+      btn.classList.remove('wrong-ans');
+      btn.classList.remove('used'); // Re-enable — kids should be able to try others
+      // But mark this one as truly used after wrong
+      btn.style.opacity = '0.35';
+      btn.style.pointerEvents = 'none';
+    }, { once: true });
+  }
+}
+
+/* ════════════════════════════════════════════
+   🎨 COLOUR MATCH GAME
+   Show a colour name as TEXT, but the word is
+   printed in a DIFFERENT colour.
+   Kid taps the colour SWATCH that matches the TEXT WORD.
+   Classic Stroop-like — but super simplified for kids.
+   5 rounds. Teaches colour words!
+════════════════════════════════════════════ */
+const COLOR_PALETTE = [
+  { name:'RED',    hex:'#ef4444' },
+  { name:'BLUE',   hex:'#3b82f6' },
+  { name:'GREEN',  hex:'#22c55e' },
+  { name:'YELLOW', hex:'#eab308' },
+  { name:'PINK',   hex:'#ec4899' },
+  { name:'PURPLE', hex:'#a855f7' },
+  { name:'ORANGE', hex:'#f97316' },
+  { name:'BROWN',  hex:'#a16207' },
+];
+
+function startColorMatch() {
+  colorQIdx = 0;
+  colorLocked = false;
+  currentGameMode = 'color';
+  colorQuestions = buildColorQuestions(5);
+  document.querySelectorAll('#color-stars .star').forEach(s => s.classList.remove('lit'));
+  showScreen('color-screen');
+  showColorQ();
+  setTimeout(startMusic, 240);
+}
+
+function buildColorQuestions(count) {
+  const qs = [];
+  const pool = shuffle([...COLOR_PALETTE]);
+  for (let i = 0; i < count && i < pool.length; i++) {
+    const correct = pool[i];
+    // Display word in a DIFFERENT colour (distractor colour)
+    const distractorColor = shuffle(COLOR_PALETTE.filter(c => c.name !== correct.name))[0];
+    // 3 wrong swatches
+    const wrongs = shuffle(COLOR_PALETTE.filter(c => c.name !== correct.name)).slice(0, 3);
+    qs.push({
+      word: correct.name,
+      correctHex: correct.hex,
+      displayHex: distractorColor.hex, // word shown in this colour
+      options: shuffle([correct, ...wrongs]),
+    });
+  }
+  return qs;
+}
+
+function showColorQ() {
+  if (colorQIdx >= colorQuestions.length) return;
+  colorLocked = false;
+  const q = colorQuestions[colorQIdx];
+  document.getElementById('color-pill').textContent = `Q ${colorQIdx + 1} / ${colorQuestions.length}`;
+
+  // Show word in distractor colour
+  const wordEl = document.getElementById('color-target-word');
+  wordEl.textContent = q.word;
+  wordEl.style.color = q.displayHex;
+  wordEl.style.webkitTextFillColor = q.displayHex;
+
+  // Speak the word name
+  setTimeout(() => speak(q.word), 350);
+
+  // Build colour swatches
+  const choices = document.getElementById('color-choices');
+  choices.innerHTML = '';
+  q.options.forEach(opt => {
+    const swatch = document.createElement('div');
+    swatch.className = 'color-swatch';
+    swatch.style.background = opt.hex;
+    const isCorrect = opt.name === q.word;
+    swatch.addEventListener('click', e => {
+      spawnRipple(e.clientX, e.clientY);
+      onColorPick(swatch, isCorrect, opt.name, q.word);
+    });
+    swatch.addEventListener('touchend', e => {
+      e.preventDefault();
+      const t = e.changedTouches[0];
+      spawnRipple(t.clientX, t.clientY);
+      onColorPick(swatch, isCorrect, opt.name, q.word);
+    }, { passive: false });
+    choices.appendChild(swatch);
+  });
+}
+
+function onColorPick(swatch, isCorrect, colorName, targetWord) {
+  if (colorLocked) return;
+  sfxClick(); speak(colorName);
+  if (isCorrect) {
+    colorLocked = true;
+    swatch.classList.add('correct-swatch');
+    sfxColorOk(); showBingo();
+    lightStar('color-stars', colorQIdx);
+    speak(targetWord + '! That is correct!');
+    colorQIdx++;
+
+    if (colorQIdx >= colorQuestions.length) {
+      setTimeout(() => {
+        sfxFanfare(); confetti();
+        document.getElementById('s-emoji').textContent = '🎨';
+        document.getElementById('s-title').textContent = 'Colour Champ!';
+        document.getElementById('s-info').textContent  = 'You know all the colours! 🎨🏆';
+        document.getElementById('s-next').style.display = 'none';
+        document.getElementById('success-overlay').classList.add('active');
+      }, 950);
+    } else {
+      setTimeout(() => {
+        document.getElementById('s-emoji').textContent = ['🌟','🎉','🎨','🌈'][colorQIdx - 1] || '🌟';
+        document.getElementById('s-title').textContent = ['Spot On!','Colourful!','Great Eye!','Brilliant!'][colorQIdx - 1] || 'Nice!';
+        document.getElementById('s-next').style.display = '';
+        document.getElementById('s-next').textContent = `🚀 Next Colour! (${colorQIdx + 1}/${colorQuestions.length})`;
+        document.getElementById('s-info').textContent = `Round ${colorQIdx} of ${colorQuestions.length} done!`;
+        document.getElementById('success-overlay').classList.add('active');
+      }, 950);
+    }
+  } else {
+    swatch.classList.add('wrong-swatch');
+    sfxWrong();
+    swatch.addEventListener('animationend', () => {
+      swatch.classList.remove('wrong-swatch');
+      swatch.style.opacity = '0.3';
+      swatch.style.pointerEvents = 'none';
+    }, { once: true });
   }
 }
 
