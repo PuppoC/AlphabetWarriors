@@ -144,10 +144,6 @@
       box-shadow:0 4px 14px rgba(0,0,0,.1);transition:transform .13s;
     }
     .home-btn:hover{transform:scale(1.12)}
-    .g-mode-icon{
-      font-size:clamp(22px,4.5vw,34px);
-      text-align:center;flex:1;line-height:1;
-    }
     .round-pill{
       background:linear-gradient(135deg,#a855f7,#3b82f6);
       color:#fff;font-family:'Fredoka One',cursive;
@@ -189,11 +185,14 @@
       font-family:'Fredoka One',cursive;color:#fff;
       position:relative;user-select:none;flex-shrink:0;
       box-shadow:0 5px 15px rgba(0,0,0,.14),inset 0 -4px 0 rgba(0,0,0,.11);
-      transition:transform .18s,box-shadow .18s;cursor:pointer;
+      transition:transform .18s,box-shadow .18s;
+      cursor:grab;touch-action:none;
     }
-    .drop-zone.over{transform:scale(1.14);box-shadow:0 0 0 5px #fff,0 0 26px rgba(255,255,255,.9),0 9px 22px rgba(0,0,0,.2)}
-    .drop-zone.matched{animation:match-pop .52s cubic-bezier(.36,.07,.19,.97)}
-    .drop-zone.wrong  {animation:shake .38s ease-in-out}
+    .drop-zone.over    {transform:scale(1.14);box-shadow:0 0 0 5px #fff,0 0 26px rgba(255,255,255,.9),0 9px 22px rgba(0,0,0,.2)}
+    .drop-zone.dragging{opacity:.22;transform:scale(.84);cursor:grabbing}
+    .drop-zone.matched {animation:match-pop .52s cubic-bezier(.36,.07,.19,.97)}
+    .drop-zone.wrong   {animation:shake .38s ease-in-out}
+    .letter-card.over  {transform:scale(1.14) translateY(-5px);box-shadow:0 0 0 5px #fff,0 0 26px rgba(255,255,255,.9),0 9px 22px rgba(0,0,0,.2)}
 
     .letter-card{
       width:var(--ts);height:var(--ts);border-radius:var(--tr);font-size:var(--tf);
@@ -207,6 +206,7 @@
     .letter-card:hover{transform:scale(1.1) translateY(-5px) rotate(-2deg);box-shadow:0 12px 26px rgba(0,0,0,.2)}
     .letter-card.dragging{opacity:.22;transform:scale(.84)}
     .letter-card.gone{opacity:0;transform:scale(0) rotate(15deg);pointer-events:none;transition:transform .2s,opacity .16s}
+    .drop-zone.gone  {opacity:0;transform:scale(0) rotate(15deg);pointer-events:none;transition:transform .22s,opacity .18s}
 
     .check-badge{
       position:absolute;top:-9px;right:-9px;background:#22c55e;color:#fff;
@@ -217,15 +217,6 @@
       animation:pop-in .24s cubic-bezier(.36,.07,.19,.97);
     }
     @keyframes pop-in{0%{transform:scale(0)}70%{transform:scale(1.35)}100%{transform:scale(1)}}
-
-    .refresh-btn{
-      background:#fff;border:none;border-radius:50%;
-      width:clamp(42px,7vw,56px);height:clamp(42px,7vw,56px);
-      font-size:clamp(19px,3.3vw,27px);
-      display:flex;align-items:center;justify-content:center;
-      cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.1);transition:transform .15s;
-    }
-    .refresh-btn:hover{transform:rotate(30deg) scale(1.1)}
 
     /* ═══════════════════════════════════
        FLIP / MEMORY
@@ -325,19 +316,32 @@
       border-radius:clamp(15px,2.8vw,22px);
       padding:clamp(12px,2.2vh,20px) 0;
       cursor:pointer;
-      display:flex;align-items:center;justify-content:center;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
       font-size:clamp(42px,9.5vw,68px);
       line-height:1;
       box-shadow:0 5px 16px rgba(168,85,247,.08);
       transition:transform .13s,box-shadow .13s,border-color .13s;
       user-select:none;
+      gap:4px;
     }
     .adv-choice:hover{transform:scale(1.07) translateY(-2px);box-shadow:0 9px 24px rgba(168,85,247,.18);border-color:#a855f7}
     .adv-choice:active{transform:scale(0.95)}
-    .adv-choice.correct{border-color:#22c55e;background:#f0fdf4;pointer-events:none}
-    .adv-choice.wrong  {border-color:#ef4444;background:#fef2f2}
-    .adv-choice.correct{animation:match-pop .5s cubic-bezier(.36,.07,.19,.97)}
-    .adv-choice.wrong  {animation:shake .36s ease-in-out}
+    .adv-choice.correct{
+      border-color:#22c55e;background:#f0fdf4;pointer-events:none;
+      animation:match-pop .5s cubic-bezier(.36,.07,.19,.97);
+    }
+    .adv-choice.correct:hover{transform:none;box-shadow:0 5px 16px rgba(168,85,247,.08)}
+    .adv-choice.wrong{
+      border-color:#ef4444;background:#fef2f2;
+      animation:shake .36s ease-in-out;
+    }
+    .adv-word-label{
+      font-family:'Fredoka One',cursive;
+      font-size:clamp(13px,2.4vw,18px);
+      color:#22c55e;margin-top:5px;
+      display:block;line-height:1;
+      animation:pop-in .3s cubic-bezier(.36,.07,.19,.97);
+    }
 
     /* ═══════════════════════════════════
        🫧 BUBBLE POP
@@ -588,7 +592,6 @@
 
   <div class="g-topbar">
     <button class="home-btn" onclick="sfxClick();goHome()">🏠</button>
-    <div class="g-mode-icon" id="g-mode-icon">✋</div>
     <div class="round-pill" id="round-pill">1 / 5</div>
   </div>
 
@@ -599,7 +602,7 @@
 
   <div class="play-card" id="drag-panel">
     <div class="tile-grid" id="drop-row"></div>
-    <div class="zone-arrow">👇</div>
+    <div class="zone-arrow">↕️</div>
     <div class="tile-grid" id="drag-row"></div>
   </div>
 
@@ -615,8 +618,6 @@
     </div>
   </div>
 
-  <button class="refresh-btn" id="refresh-btn" onclick="sfxClick();initRound()">🔄</button>
-
 </div>
 
 <!-- ══════════ ADVENTURE ══════════ -->
@@ -624,7 +625,6 @@
 
   <div class="g-topbar">
     <button class="home-btn" onclick="sfxClick();goHome()">🏠</button>
-    <div class="g-mode-icon" id="adv-mode-icon">🔤</div>
     <div class="round-pill" id="adv-pill">1 / 5</div>
   </div>
 
@@ -647,7 +647,6 @@
 
   <div class="g-topbar">
     <button class="home-btn" onclick="sfxClick();goHome()">🏠</button>
-    <div class="g-mode-icon">🫧</div>
     <div class="round-pill" id="bubble-pill">1 / 5</div>
   </div>
 
@@ -669,7 +668,6 @@
 
   <div class="g-topbar">
     <button class="home-btn" onclick="sfxClick();goHome()">🏠</button>
-    <div class="g-mode-icon">🧩</div>
     <div class="round-pill" id="missing-pill">1 / 5</div>
   </div>
 
@@ -692,7 +690,6 @@
 
   <div class="g-topbar">
     <button class="home-btn" onclick="sfxClick();goHome()">🏠</button>
-    <div class="g-mode-icon">🎨</div>
     <div class="round-pill" id="color-pill">1 / 5</div>
   </div>
 
@@ -1140,9 +1137,6 @@ function doWrongShake(el) {
 /* ════════════════════════════
    CLASSIC GAME
 ════════════════════════════ */
-const MODE_ICONS = {
-  drag:'✋', flip:'🃏', line:'✏️', combo:'⚔️',
-};
 
 function startClassic(mode) {
   gMode = mode;
@@ -1153,7 +1147,6 @@ function startClassic(mode) {
     initComboRound();
   } else {
     showScreen('game-screen');
-    document.getElementById('g-mode-icon').textContent = MODE_ICONS[mode] || '🎮';
     initRound();
   }
   setTimeout(() => startMusic('game'), 240);
@@ -1174,7 +1167,6 @@ function initRound() {
     document.getElementById('drag-panel').style.display  = sub === 'drag' ? ''     : 'none';
     document.getElementById('flip-panel').style.display  = sub === 'flip' ? 'flex' : 'none';
     document.getElementById('line-panel').style.display  = sub === 'line' ? ''     : 'none';
-    document.getElementById('refresh-btn').style.display = sub === 'flip' ? 'none' : '';
 
     if      (sub === 'drag') buildDrag(letters);
     else if (sub === 'flip') buildFlip(letters);
@@ -1193,13 +1185,11 @@ function initComboRound() {
     setTileSize();
     matched = 0; flipFlipped = []; flipLocked = false; lineFrom = null;
     dragSrc = null; dragLetter = null;
-    document.getElementById('g-mode-icon').textContent = MODE_ICONS[sub] || '🎮';
     document.getElementById('round-pill').textContent = `${round} / ${ROUNDS}`;
     document.querySelectorAll('#g-stars .star').forEach(s => s.classList.remove('lit'));
     document.getElementById('drag-panel').style.display  = sub === 'drag' ? ''     : 'none';
     document.getElementById('flip-panel').style.display  = sub === 'flip' ? 'flex' : 'none';
     document.getElementById('line-panel').style.display  = sub === 'line' ? ''     : 'none';
-    document.getElementById('refresh-btn').style.display = sub === 'flip' ? 'none' : '';
     showScreen('game-screen');
     const letters = pick5();
     if      (sub === 'drag') buildDrag(letters);
@@ -1228,10 +1218,14 @@ function initComboRound() {
   }
 }
 
-/* DRAG */
+/* DRAG — bidirectional: drag big→small or small→big */
 function buildDrag(letters) {
   const dropRow = document.getElementById('drop-row');
+  const dragRow = document.getElementById('drag-row');
   dropRow.innerHTML = '';
+  dragRow.innerHTML = '';
+
+  // Build top row (big letters)
   letters.forEach((letter, i) => {
     const [bg, sh] = COLORS[i % COLORS.length];
     const el = document.createElement('div');
@@ -1239,15 +1233,13 @@ function buildDrag(letters) {
     el.dataset.letter = letter;
     el.textContent = letter;
     el.style.background = `linear-gradient(145deg,${bg},${sh})`;
-    el.addEventListener('dragover',  e => { e.preventDefault(); el.classList.add('over'); });
-    el.addEventListener('dragleave', () => el.classList.remove('over'));
-    el.addEventListener('drop',      e => { e.preventDefault(); el.classList.remove('over'); onDrop(el); });
+    el.draggable = true;
+    attachDragEvents(el, letter);
     el.addEventListener('click', () => { sfxClick(); speak(letter); });
     dropRow.appendChild(el);
   });
 
-  const dragRow = document.getElementById('drag-row');
-  dragRow.innerHTML = '';
+  // Build bottom row (small letters, shuffled)
   shuffle(letters).forEach(letter => {
     const i = letters.indexOf(letter);
     const [bg, sh] = COLORS[i % COLORS.length];
@@ -1257,42 +1249,63 @@ function buildDrag(letters) {
     el.textContent = letter.toLowerCase();
     el.style.background = `linear-gradient(145deg,${bg},${sh})`;
     el.draggable = true;
-    el.addEventListener('dragstart', e => {
-      dragSrc = el; dragLetter = letter;
-      el.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-      sfxSelect();
-    });
-    el.addEventListener('dragend', () => {
-      el.classList.remove('dragging');
-      dragSrc = null; dragLetter = null;
-      document.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('over'));
-    });
-    el.addEventListener('touchstart', onTouchStart, { passive: false });
-    el.addEventListener('touchmove',  onTouchMove,  { passive: false });
-    el.addEventListener('touchend',   onTouchEnd,   { passive: false });
+    attachDragEvents(el, letter);
     dragRow.appendChild(el);
   });
 }
 
-function onDrop(zone) {
-  if (!dragLetter) return;
-  if (zone.dataset.letter === dragLetter) doMatch(zone, dragSrc);
-  else { doWrongShake(zone); sfxWrong(); }
+function attachDragEvents(el, letter) {
+  el.addEventListener('dragstart', e => {
+    dragSrc = el; dragLetter = letter;
+    el.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    sfxSelect();
+  });
+  el.addEventListener('dragend', () => {
+    el.classList.remove('dragging');
+    dragSrc = null; dragLetter = null;
+    document.querySelectorAll('.drop-zone,.letter-card').forEach(z => z.classList.remove('over'));
+  });
+  el.addEventListener('dragover',  e => {
+    e.preventDefault();
+    if (el !== dragSrc && !el.classList.contains('matched-done')) el.classList.add('over');
+  });
+  el.addEventListener('dragleave', () => el.classList.remove('over'));
+  el.addEventListener('drop', e => {
+    e.preventDefault();
+    el.classList.remove('over');
+    onDrop(el);
+  });
+  el.addEventListener('touchstart', onTouchStart, { passive: false });
+  el.addEventListener('touchmove',  onTouchMove,  { passive: false });
+  el.addEventListener('touchend',   onTouchEnd,   { passive: false });
 }
 
-function doMatch(zone, card) {
+function onDrop(target) {
+  if (!dragSrc || !dragLetter) return;
+  if (target === dragSrc) return;
+  if (target.classList.contains('matched-done')) return;
+  if (target.dataset.letter === dragLetter) {
+    doBothMatch(dragSrc, target);
+  } else {
+    doWrongShake(target); sfxWrong();
+  }
+}
+
+function doBothMatch(tileA, tileB) {
   matched++;
   lightStar('g-stars', matched - 1);
-  zone.classList.add('matched');
-  zone.addEventListener('animationend', () => zone.classList.remove('matched'), { once: true });
-  zone.style.boxShadow = '0 0 0 5px #fff,0 0 22px rgba(34,197,94,.7),0 8px 20px rgba(0,0,0,.15)';
-  zone.style.pointerEvents = 'none';
-  const chk = document.createElement('div'); chk.className = 'check-badge'; chk.textContent = '✓';
-  zone.appendChild(chk);
-  if (card) card.classList.add('gone');
+  [tileA, tileB].forEach(t => {
+    t.classList.add('matched', 'matched-done');
+    t.draggable = false;
+    t.style.pointerEvents = 'none';
+    t.addEventListener('animationend', () => t.classList.remove('matched'), { once: true });
+    t.style.boxShadow = '0 0 0 5px #fff,0 0 22px rgba(34,197,94,.7),0 8px 20px rgba(0,0,0,.15)';
+    const chk = document.createElement('div'); chk.className = 'check-badge'; chk.textContent = '✓';
+    t.appendChild(chk);
+  });
   showBingo(); sfxDing();
-  setTimeout(() => speak(zone.dataset.letter), 300);
+  setTimeout(() => speak(tileA.dataset.letter), 300);
   if (matched >= 5) setTimeout(showRoundSuccess, 700);
 }
 
@@ -1300,6 +1313,7 @@ function onTouchStart(e) {
   e.preventDefault();
   const t = e.touches[0];
   touchSrc = e.currentTarget;
+  if (touchSrc.classList.contains('matched-done')) { touchSrc = null; return; }
   dragLetter = touchSrc.dataset.letter;
   sfxSelect(); speak(dragLetter);
   const r = touchSrc.getBoundingClientRect();
@@ -1321,7 +1335,8 @@ function onTouchMove(e) {
   const r = touchSrc.getBoundingClientRect();
   touchClone.style.left = (t.clientX - r.width/2)+'px';
   touchClone.style.top  = (t.clientY - r.height/2)+'px';
-  document.querySelectorAll('.drop-zone').forEach(z => {
+  document.querySelectorAll('.drop-zone,.letter-card').forEach(z => {
+    if (z === touchSrc || z.classList.contains('matched-done')) return;
     const zr = z.getBoundingClientRect();
     z.classList.toggle('over',
       t.clientX >= zr.left && t.clientX <= zr.right &&
@@ -1333,14 +1348,15 @@ function onTouchEnd(e) {
   if (!touchClone) return;
   const t = e.changedTouches[0];
   let hit = null;
-  document.querySelectorAll('.drop-zone').forEach(z => {
+  document.querySelectorAll('.drop-zone,.letter-card').forEach(z => {
     z.classList.remove('over');
+    if (z === touchSrc || z.classList.contains('matched-done')) return;
     const zr = z.getBoundingClientRect();
     if (t.clientX >= zr.left && t.clientX <= zr.right &&
         t.clientY >= zr.top  && t.clientY <= zr.bottom) hit = z;
   });
   if (hit) {
-    if (hit.dataset.letter === dragLetter) doMatch(hit, touchSrc);
+    if (hit.dataset.letter === dragLetter) doBothMatch(touchSrc, hit);
     else { touchSrc.classList.remove('dragging'); doWrongShake(hit); sfxWrong(); }
   } else {
     touchSrc.classList.remove('dragging');
@@ -1531,7 +1547,6 @@ function startAdventure(type) {
   advQuestions = buildAdvQuestions(type, 5);
   currentGameMode = 'classic';
   if (!advQuestions.length) return;
-  document.getElementById('adv-mode-icon').textContent = type === 'starts' ? '🔤' : '🔡';
   document.getElementById('adv-lbl').textContent = type === 'starts' ? 'STARTS WITH' : 'ENDS WITH';
   document.querySelectorAll('#adv-stars .star').forEach(s => s.classList.remove('lit'));
   showScreen('adv-screen');
@@ -1602,6 +1617,11 @@ function onAdvChoice(el, isCorrect, word) {
   sfxClick(); speak(word);
   if (isCorrect) {
     el.classList.add('correct');
+    // Reveal the word name below the emoji
+    const lbl = document.createElement('span');
+    lbl.className = 'adv-word-label';
+    lbl.textContent = word;
+    el.appendChild(lbl);
     sfxDing(); showBingo();
     lightStar('adv-stars', advIdx);
     advIdx++;
@@ -1614,7 +1634,7 @@ function onAdvChoice(el, isCorrect, word) {
         document.getElementById('success-overlay').classList.add('active');
       }, 900);
     } else {
-      setTimeout(showAdvQ, 1100);
+      setTimeout(showAdvQ, 1300);
     }
   } else {
     el.classList.add('wrong');
