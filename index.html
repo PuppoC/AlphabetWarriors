@@ -76,15 +76,15 @@
     .b-tile:nth-child(5){background:#3b82f6;animation-delay:.6s}
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
-    /* 3×3 mode grid */
+    /* 4×2 mode grid + full-width combo */
     .modes-grid{
-      display:grid;grid-template-columns:repeat(3,1fr);
+      display:grid;grid-template-columns:repeat(4,1fr);
       gap:clamp(6px,1.4vw,11px);
       width:min(560px,calc(100vw - 22px));flex-shrink:0;
     }
     .mode-card{
       background:#fff;border-radius:clamp(13px,2.4vw,20px);
-      padding:clamp(10px,1.8vh,16px) clamp(8px,1.6vw,13px);
+      padding:clamp(10px,1.8vh,16px) clamp(6px,1.2vw,11px);
       border:3px solid #f3e8ff;
       cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
       box-shadow:0 5px 18px rgba(168,85,247,.09);
@@ -93,17 +93,36 @@
     }
     .mode-card:hover{transform:scale(1.05) translateY(-2px);box-shadow:0 9px 26px rgba(168,85,247,.2);border-color:#a855f7}
     .mode-card:active{transform:scale(0.96)}
-    .mc-icon{font-size:clamp(24px,4.8vw,38px);line-height:1}
-    .mc-name{font-family:'Fredoka One',cursive;font-size:clamp(11px,2.1vw,16px);color:#7c3aed;line-height:1.2}
-    .mc-desc{font-size:clamp(8px,1.4vw,11px);color:#aaa;font-weight:700;line-height:1.2}
-    .mode-card.combo-card{border-color:#fed7aa;background:linear-gradient(135deg,#fffbeb,#fef3c7)}
-    .combo-card .mc-name{color:#d97706}
-    .mode-card.new-badge{border-color:#86efac;background:linear-gradient(135deg,#f0fdf4,#dcfce7)}
-    .new-badge .mc-name{color:#16a34a}
-    .new-tag{
-      font-size:clamp(7px,1.2vw,10px);background:#22c55e;color:#fff;
-      border-radius:20px;padding:1px 7px;font-weight:900;letter-spacing:1px;
+    .mc-icon{font-size:clamp(22px,4.2vw,34px);line-height:1}
+    .mc-name{font-family:'Fredoka One',cursive;font-size:clamp(10px,1.9vw,14px);color:#7c3aed;line-height:1.2}
+    .mc-desc{font-size:clamp(7px,1.3vw,10px);color:#aaa;font-weight:700;line-height:1.2}
+
+    /* ── Warrior Mix hero card ── */
+    .combo-wrap{width:min(560px,calc(100vw - 22px));flex-shrink:0}
+    .combo-card{
+      width:100%;border:none;border-radius:clamp(16px,3vw,26px);
+      padding:clamp(14px,2.6vh,22px) clamp(18px,4vw,36px);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;gap:clamp(10px,2.4vw,18px);
+      background:linear-gradient(135deg,#ff6eb4 0%,#a855f7 50%,#3b82f6 100%);
+      box-shadow:0 10px 32px rgba(168,85,247,.38),0 0 0 3px rgba(255,255,255,.18);
+      transition:transform .14s,box-shadow .14s;
+      text-align:center;position:relative;overflow:hidden;
     }
+    .combo-card::before{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,rgba(255,255,255,.14) 0%,transparent 60%);
+      pointer-events:none;
+    }
+    .combo-card:hover{transform:scale(1.03) translateY(-3px);box-shadow:0 16px 44px rgba(168,85,247,.52)}
+    .combo-card:active{transform:scale(0.97)}
+    .combo-icon{font-size:clamp(30px,6.5vw,48px);line-height:1;flex-shrink:0}
+    .combo-text{display:flex;flex-direction:column;align-items:flex-start;gap:1px}
+    .combo-name{
+      font-family:'Fredoka One',cursive;font-size:clamp(18px,4vw,30px);
+      color:#fff;line-height:1.1;
+      text-shadow:0 2px 8px rgba(0,0,0,.18);
+    }
+    .combo-desc{font-size:clamp(10px,2vw,14px);color:rgba(255,255,255,.82);font-weight:800;line-height:1.2}
 
     .sound-row{display:flex;justify-content:center;flex-shrink:0}
     .sound-btn{
@@ -585,29 +604,30 @@
       <div class="mc-name">Ends With</div>
       <div class="mc-desc">What ends with it?</div>
     </div>
-    <div class="mode-card combo-card" onclick="sfxClick();startClassic('combo')">
-      <div class="mc-icon">⚔️</div>
-      <div class="mc-name">Warrior Mix!</div>
-      <div class="mc-desc">All games in one!</div>
-    </div>
-    <!-- NEW GAMES -->
-    <div class="mode-card new-badge" onclick="sfxClick();startBubble()">
+    <div class="mode-card" onclick="sfxClick();startBubble()">
       <div class="mc-icon">🫧</div>
       <div class="mc-name">Bubble Pop!</div>
       <div class="mc-desc">Pop the right bubble!</div>
-      <div class="new-tag">NEW</div>
     </div>
-    <div class="mode-card new-badge" onclick="sfxClick();startMissing()">
+    <div class="mode-card" onclick="sfxClick();startMissing()">
       <div class="mc-icon">🧩</div>
       <div class="mc-name">Fill the Gap!</div>
-      <div class="mc-desc">Which letter is missing?</div>
-      <div class="new-tag">NEW</div>
+      <div class="mc-desc">Missing letter?</div>
     </div>
-    <div class="mode-card new-badge" onclick="sfxClick();startColorMatch()">
+    <div class="mode-card" onclick="sfxClick();startColorMatch()">
       <div class="mc-icon">🎨</div>
       <div class="mc-name">Colour Match!</div>
-      <div class="mc-desc">Find the right colour!</div>
-      <div class="new-tag">NEW</div>
+      <div class="mc-desc">Find the colour!</div>
+    </div>
+  </div>
+
+  <div class="combo-wrap">
+    <div class="combo-card" onclick="sfxClick();startClassic('combo')">
+      <div class="combo-icon">⚔️</div>
+      <div class="combo-text">
+        <div class="combo-name">Warrior Mix!</div>
+        <div class="combo-desc">All 8 games in one epic challenge!</div>
+      </div>
     </div>
   </div>
 
@@ -666,7 +686,7 @@
   <div class="g-topbar">
     <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
     <div class="g-title" id="adv-title">Starts With!</div>
-    <div class="round-pill" id="adv-pill">Q 1 / 5</div>
+    <div class="round-pill" id="adv-pill">Round 1 / 5</div>
   </div>
 
   <div class="stars-row" id="adv-stars">
@@ -717,7 +737,7 @@
   <div class="g-topbar">
     <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
     <div class="g-title">🧩 Fill the Gap!</div>
-    <div class="round-pill" id="missing-pill">Q 1 / 5</div>
+    <div class="round-pill" id="missing-pill">Round 1 / 5</div>
   </div>
 
   <div class="stars-row" id="missing-stars">
@@ -742,7 +762,7 @@
   <div class="g-topbar">
     <button class="home-btn" onclick="sfxClick();goHome()" title="Back to menu">🏠</button>
     <div class="g-title">🎨 Colour Match!</div>
-    <div class="round-pill" id="color-pill">Q 1 / 5</div>
+    <div class="round-pill" id="color-pill">Round 1 / 5</div>
   </div>
 
   <div class="stars-row" id="color-stars">
@@ -1124,17 +1144,21 @@ const TITLES = {
 function startClassic(mode) {
   gMode = mode;
   round = 1;
-  currentGameMode = 'classic';
+  currentGameMode = (mode === 'combo') ? 'combo' : 'classic';
   if (mode === 'combo') {
-    comboOrder = shuffle(['drag','flip','line','drag','line']);
+    comboOrder = shuffle(['drag','flip','line','bubble','missing','color']).slice(0, 5);
+    initComboRound();
+  } else {
+    showScreen('game-screen');
+    document.getElementById('g-title').textContent = TITLES[mode];
+    initRound();
   }
-  showScreen('game-screen');
-  document.getElementById('g-title').textContent = TITLES[mode];
-  initRound();
   setTimeout(startMusic, 240);
 }
 
 function initRound() {
+  // Combo routes through its own handler
+  if (gMode === 'combo') { initComboRound(); return; }
   requestAnimationFrame(() => {
     setTileSize();
     matched = 0;
@@ -1149,12 +1173,7 @@ function initRound() {
     document.querySelectorAll('#g-stars .star').forEach(s => s.classList.remove('lit'));
     document.getElementById('success-overlay').classList.remove('active');
 
-    const sub = gMode === 'combo' ? comboOrder[(round - 1) % comboOrder.length] : gMode;
-    if (gMode === 'combo') {
-      const labels = { drag:'✋ Drag!', flip:'🃏 Flip!', line:'✏️ Draw!' };
-      document.getElementById('g-title').textContent = labels[sub] || '⚔️ Mix!';
-    }
-
+    const sub = gMode;
     document.getElementById('drag-panel').style.display  = sub === 'drag' ? ''     : 'none';
     document.getElementById('flip-panel').style.display  = sub === 'flip' ? 'flex' : 'none';
     document.getElementById('line-panel').style.display  = sub === 'line' ? ''     : 'none';
@@ -1164,6 +1183,53 @@ function initRound() {
     else if (sub === 'flip') buildFlip(letters);
     else if (sub === 'line') buildLine(letters);
   });
+}
+
+/* Combo mode — routes each round to the correct sub-game screen */
+function initComboRound() {
+  bubbleAnimFrames.forEach(id => cancelAnimationFrame(id));
+  bubbleAnimFrames = [];
+  document.getElementById('success-overlay').classList.remove('active');
+
+  const sub = comboOrder[(round - 1) % comboOrder.length];
+
+  if (sub === 'drag' || sub === 'flip' || sub === 'line') {
+    setTileSize();
+    matched = 0; flipFlipped = []; flipLocked = false; lineFrom = null; dragSrc = null; dragLetter = null;
+    const subLabels = { drag:'✋ Drag & Match!', flip:'🃏 Flip Cards!', line:'✏️ Draw a Line!' };
+    document.getElementById('g-title').textContent = subLabels[sub];
+    document.getElementById('round-pill').textContent = `Round ${round} / ${ROUNDS}`;
+    document.querySelectorAll('#g-stars .star').forEach(s => s.classList.remove('lit'));
+    document.getElementById('drag-panel').style.display  = sub === 'drag' ? ''     : 'none';
+    document.getElementById('flip-panel').style.display  = sub === 'flip' ? 'flex' : 'none';
+    document.getElementById('line-panel').style.display  = sub === 'line' ? ''     : 'none';
+    document.getElementById('refresh-btn').style.display = sub === 'flip' ? 'none' : '';
+    showScreen('game-screen');
+    const letters = pick5();
+    if (sub === 'drag') buildDrag(letters);
+    else if (sub === 'flip') buildFlip(letters);
+    else if (sub === 'line') buildLine(letters);
+  } else if (sub === 'bubble') {
+    bubbleLocked = false;
+    document.getElementById('bubble-pill').textContent = `Round ${round} / ${ROUNDS}`;
+    document.querySelectorAll('#bubble-stars .star').forEach(s => s.classList.remove('lit'));
+    showScreen('bubble-screen');
+    initBubbleRound();
+  } else if (sub === 'missing') {
+    missingQIdx = 0; missingLocked = false;
+    missingQuestions = shuffle(MISSING_WORDS).slice(0, 1);
+    document.getElementById('missing-pill').textContent = `Round ${round} / ${ROUNDS}`;
+    document.querySelectorAll('#missing-stars .star').forEach(s => s.classList.remove('lit'));
+    showScreen('missing-screen');
+    showMissingQ();
+  } else if (sub === 'color') {
+    colorQIdx = 0; colorLocked = false;
+    colorQuestions = buildColorQuestions(1);
+    document.getElementById('color-pill').textContent = `Round ${round} / ${ROUNDS}`;
+    document.querySelectorAll('#color-stars .star').forEach(s => s.classList.remove('lit'));
+    showScreen('color-screen');
+    showColorQ();
+  }
 }
 
 /* DRAG */
@@ -1451,7 +1517,11 @@ function showRoundSuccess() {
 function handleNext() {
   sfxClick();
   document.getElementById('success-overlay').classList.remove('active');
-  if (currentGameMode === 'bubble') {
+  if (gMode === 'combo') {
+    if (round >= ROUNDS) { goHome(); return; }
+    round++;
+    initComboRound();
+  } else if (currentGameMode === 'bubble') {
     if (bubbleRound >= ROUNDS) { goHome(); return; }
     bubbleRound++;
     initBubbleRound();
@@ -1528,7 +1598,7 @@ function showAdvQ() {
   if (advIdx >= advQuestions.length) return;
   advLocked = false;
   const q = advQuestions[advIdx];
-  document.getElementById('adv-pill').textContent = `Q ${advIdx + 1} / ${advQuestions.length}`;
+  document.getElementById('adv-pill').textContent = `Round ${advIdx + 1} / ${advQuestions.length}`;
   document.getElementById('adv-lbl').textContent =
     advType === 'starts' ? 'Find the picture that STARTS with...' : 'Find the picture that ENDS with...';
   document.getElementById('adv-letter').textContent = q.letter;
@@ -1690,10 +1760,13 @@ function onBubbleTap(e, bubble, letter, isCorrect) {
     bubbleLocked = true;
     bubble.classList.add('pop');
     sfxPop(); sfxDing(); showBingo();
-    lightStar('bubble-stars', bubbleRound - 1);
     document.getElementById('bubble-score').textContent = '🎉 You got it!';
 
-    if (bubbleRound >= ROUNDS) {
+    if (gMode === 'combo') {
+      lightStar('bubble-stars', 0);
+      setTimeout(showComboSuccess, 800);
+    } else if (bubbleRound >= ROUNDS) {
+      lightStar('bubble-stars', bubbleRound - 1);
       setTimeout(() => {
         sfxFanfare(); confetti();
         document.getElementById('s-emoji').textContent = '🏆';
@@ -1703,6 +1776,7 @@ function onBubbleTap(e, bubble, letter, isCorrect) {
         document.getElementById('success-overlay').classList.add('active');
       }, 900);
     } else {
+      lightStar('bubble-stars', bubbleRound - 1);
       setTimeout(() => {
         document.getElementById('s-emoji').textContent = ['🌟','🎉','🚀','🔥'][bubbleRound - 1] || '🌟';
         document.getElementById('s-title').textContent = ['Nice Pop!','Wow!','On Fire!','Amazing!'][bubbleRound - 1] || 'Nice!';
@@ -1768,7 +1842,7 @@ function showMissingQ() {
   if (missingQIdx >= missingQuestions.length) return;
   missingLocked = false;
   const q = missingQuestions[missingQIdx];
-  document.getElementById('missing-pill').textContent = `Q ${missingQIdx + 1} / ${missingQuestions.length}`;
+  document.getElementById('missing-pill').textContent = `Round ${missingQIdx + 1} / ${missingQuestions.length}`;
   document.getElementById('missing-emoji').textContent = q.emoji;
 
   // Word display with blank slot
@@ -1826,7 +1900,6 @@ function onMissingPick(btn, letter, q) {
   if (letter === q.answer) {
     missingLocked = true;
     btn.classList.add('used');
-    // Fill in the blank slot
     const slot = document.getElementById('missing-blank-slot');
     if (slot) {
       slot.textContent = letter;
@@ -1841,7 +1914,9 @@ function onMissingPick(btn, letter, q) {
     speak(q.word);
     missingQIdx++;
 
-    if (missingQIdx >= missingQuestions.length) {
+    if (gMode === 'combo') {
+      setTimeout(showComboSuccess, 950);
+    } else if (missingQIdx >= missingQuestions.length) {
       setTimeout(() => {
         sfxFanfare(); confetti();
         document.getElementById('s-emoji').textContent = '🏆';
@@ -1855,8 +1930,8 @@ function onMissingPick(btn, letter, q) {
         document.getElementById('s-emoji').textContent = ['🌟','🎉','🚀','🔥'][missingQIdx - 1] || '🌟';
         document.getElementById('s-title').textContent = ['Smart!','Brilliant!','On Fire!','Wow!!'][missingQIdx - 1] || 'Nice!';
         document.getElementById('s-next').style.display = '';
-        document.getElementById('s-next').textContent = `🚀 Next Word! (${missingQIdx + 1}/${missingQuestions.length})`;
-        document.getElementById('s-info').textContent = `Word ${missingQIdx} of ${missingQuestions.length} done!`;
+        document.getElementById('s-next').textContent = `🚀 Next Round! (${missingQIdx + 1}/${missingQuestions.length})`;
+        document.getElementById('s-info').textContent = `Round ${missingQIdx} of ${missingQuestions.length} done!`;
         document.getElementById('success-overlay').classList.add('active');
       }, 900);
     }
@@ -1866,8 +1941,7 @@ function onMissingPick(btn, letter, q) {
     sfxWrong();
     btn.addEventListener('animationend', () => {
       btn.classList.remove('wrong-ans');
-      btn.classList.remove('used'); // Re-enable — kids should be able to try others
-      // But mark this one as truly used after wrong
+      btn.classList.remove('used');
       btn.style.opacity = '0.35';
       btn.style.pointerEvents = 'none';
     }, { once: true });
@@ -1927,7 +2001,7 @@ function showColorQ() {
   if (colorQIdx >= colorQuestions.length) return;
   colorLocked = false;
   const q = colorQuestions[colorQIdx];
-  document.getElementById('color-pill').textContent = `Q ${colorQIdx + 1} / ${colorQuestions.length}`;
+  document.getElementById('color-pill').textContent = `Round ${colorQIdx + 1} / ${colorQuestions.length}`;
 
   // Show word in distractor colour
   const wordEl = document.getElementById('color-target-word');
@@ -1968,10 +2042,11 @@ function onColorPick(swatch, isCorrect, colorName, targetWord) {
     swatch.classList.add('correct-swatch');
     sfxColorOk(); showBingo();
     lightStar('color-stars', colorQIdx);
-    speak(targetWord + '! That is correct!');
     colorQIdx++;
 
-    if (colorQIdx >= colorQuestions.length) {
+    if (gMode === 'combo') {
+      setTimeout(showComboSuccess, 950);
+    } else if (colorQIdx >= colorQuestions.length) {
       setTimeout(() => {
         sfxFanfare(); confetti();
         document.getElementById('s-emoji').textContent = '🎨';
@@ -1985,7 +2060,7 @@ function onColorPick(swatch, isCorrect, colorName, targetWord) {
         document.getElementById('s-emoji').textContent = ['🌟','🎉','🎨','🌈'][colorQIdx - 1] || '🌟';
         document.getElementById('s-title').textContent = ['Spot On!','Colourful!','Great Eye!','Brilliant!'][colorQIdx - 1] || 'Nice!';
         document.getElementById('s-next').style.display = '';
-        document.getElementById('s-next').textContent = `🚀 Next Colour! (${colorQIdx + 1}/${colorQuestions.length})`;
+        document.getElementById('s-next').textContent = `🚀 Next Round! (${colorQIdx + 1}/${colorQuestions.length})`;
         document.getElementById('s-info').textContent = `Round ${colorQIdx} of ${colorQuestions.length} done!`;
         document.getElementById('success-overlay').classList.add('active');
       }, 950);
@@ -1999,6 +2074,24 @@ function onColorPick(swatch, isCorrect, colorName, targetWord) {
       swatch.style.pointerEvents = 'none';
     }, { once: true });
   }
+}
+
+/* Shared success display for combo mode — uses global `round` */
+function showComboSuccess() {
+  sfxFanfare(); confetti();
+  const r = Math.min(round, 5);
+  document.getElementById('s-emoji').textContent = R_EMOJI[r];
+  document.getElementById('s-title').textContent = R_MSG[r];
+  const nextBtn = document.getElementById('s-next');
+  if (round >= ROUNDS) {
+    nextBtn.style.display = 'none';
+    document.getElementById('s-info').textContent = "All done! You're a Warrior! 🏆";
+  } else {
+    nextBtn.style.display = '';
+    nextBtn.textContent = `🚀 Next Round! (${round + 1}/${ROUNDS})`;
+    document.getElementById('s-info').textContent = `Round ${round} of ${ROUNDS} done!`;
+  }
+  document.getElementById('success-overlay').classList.add('active');
 }
 
 /* ════════════════════════════════════════════
